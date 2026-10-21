@@ -1,0 +1,475 @@
+/* ==========================================================================
+ * Sistema de movimiento
+ *
+ * Reglas (DESIGN.md · skills animate / emil-design-eng / animation-performance):
+ * - Solo transform, translate, opacity y clip-path (filter poco y breve).
+ *   Nunca width, height, top o margin.
+ * - Entradas con --ease-out; desplazamientos en pantalla con --ease-in-out.
+ * - Interfaz bajo 300 ms; los momentos de presentación (portada, cambio de
+ *   página) pueden durar más.
+ * - El contenido es visible por defecto: las entradas al hacer scroll solo lo
+ *   ocultan cuando el navegador las anima con CSS nativo o cuando el script de
+ *   respaldo ya está activo (html.js-reveal).
+ * - prefers-reduced-motion: se conservan los fundidos y se elimina el
+ *   desplazamiento.
+ * ========================================================================== */
+
+:root {
+  --dur-ui: 220ms;
+  --dur-reveal: 700ms;
+  --dur-page: 420ms;
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--muted) var(--surface);
+}
+
+/* --- Entradas al hacer scroll ------------------------------------------- */
+/*
+ * `Movimiento.tsx` marca con `.rv` los elementos que aún están bajo el borde
+ * de la pantalla y les agrega `.is-in` cuando llegan: suben y aparecen, con un
+ * pequeño escalonamiento entre hermanos (--rv-delay). Lo que ya se ve al
+ * cargar no se oculta nunca, y sin JavaScript todo queda visible.
+ */
+.rv {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 900ms var(--ease-out);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.rv.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Fotografías: el marco se descubre de abajo hacia arriba. */
+.rv-img {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1100ms var(--ease-in-out);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.rv-img.is-in {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Franja de colores del pie: cada tramo crece desde la izquierda. */
+.franja-pie {
+  transform-origin: left center;
+}
+.rv-franja .franja-pie {
+  transform: scaleX(0);
+  transition: transform 800ms var(--ease-out);
+}
+.rv-franja .franja-pie:nth-child(2) { transition-delay: 70ms; }
+.rv-franja .franja-pie:nth-child(3) { transition-delay: 140ms; }
+.rv-franja .franja-pie:nth-child(4) { transition-delay: 210ms; }
+.rv-franja .franja-pie:nth-child(5) { transition-delay: 280ms; }
+.rv-franja.is-in .franja-pie {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    transform: none;
+    transition: opacity 400ms ease;
+  }
+  .rv-img {
+    clip-path: none;
+  }
+  .rv-franja .franja-pie {
+    transform: none;
+  }
+}
+
+/* Parallax sutil de la imagen dentro de su marco (CSS nativo). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .parallax {
+      animation: parallax linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes parallax {
+  from {
+    transform: translateY(-4%) scale(1.1);
+  }
+  to {
+    transform: translateY(4%) scale(1.1);
+  }
+}
+
+/* --- Entrada de la portada (una vez, al cargar) -------------------------- */
+
+.intro-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro-line {
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .intro-line > span {
+    display: block;
+    animation: line-up 1000ms var(--ease-out) backwards;
+    animation-delay: calc(100ms + var(--i, 0) * 110ms);
+  }
+  .intro-fade {
+    animation: intro-fade 800ms var(--ease-out) backwards;
+    animation-delay: calc(380ms + var(--i, 0) * 90ms);
+  }
+  .intro-insignia {
+    animation: insignia-in 1100ms var(--ease-out) backwards;
+    animation-delay: 300ms;
+  }
+  /* Las carpetas suben una a una. Se usa `translate` para no pisar el
+     `transform` con que se apilan. */
+  .intro-carpeta {
+    animation: carpeta-in 1000ms var(--ease-out) backwards;
+    animation-delay: calc(520ms + var(--i, 0) * 85ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-fade,
+  .intro-insignia,
+  .intro-carpeta {
+    animation: fade-only 400ms ease both;
+  }
+}
+
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes insignia-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.95) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes carpeta-in {
+  from {
+    opacity: 0;
+    translate: 0 5rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes fade-only {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Contenido de la carpeta al cambiar de especialidad. */
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.panel-in {
+  animation: panel-in 320ms var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-in {
+    animation: fade-only 200ms ease both;
+  }
+}
+
+/* --- Encabezado: se despega al hacer scroll + barra de progreso ---------- */
+
+.progreso-lectura {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: scroll()) {
+  .header-flotante {
+    animation: header-flota linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 140px;
+  }
+  .progreso-lectura {
+    animation: progreso linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* Sin scroll-timeline la barra de progreso no tiene sentido: se oculta. */
+@supports not (animation-timeline: scroll()) {
+  .progreso-lectura {
+    display: none;
+  }
+}
+
+@keyframes header-flota {
+  from {
+    box-shadow: 0 0 0 0 rgb(29 26 28 / 0);
+  }
+  to {
+    box-shadow: 0 12px 32px -20px rgb(29 26 28 / 0.5);
+  }
+}
+
+@keyframes progreso {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* --- Microinteracciones --------------------------------------------------- */
+
+/* Subrayado que crece desde la izquierda en la navegación principal. */
+.link-linea {
+  position: relative;
+}
+.link-linea::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.35rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 260ms var(--ease-out);
+}
+.link-linea[aria-current="page"]::after,
+.link-linea[aria-expanded="true"]::after {
+  transform: scaleX(1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link-linea:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+/* Flecha que avanza al pasar el puntero por su enlace o botón. */
+.flecha {
+  transition: transform 220ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(a, button):hover .flecha,
+  .group:hover .flecha {
+    transform: translateX(0.25rem);
+  }
+  :is(a, button):hover .flecha-diagonal,
+  .group:hover .flecha-diagonal {
+    transform: translate(0.15rem, -0.15rem);
+  }
+}
+
+/* Zoom suave de una foto dentro de su marco al pasar por su enlace. */
+.zoom-img {
+  transition: transform 700ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .zoom-img {
+    transform: scale(1.06);
+  }
+}
+
+/* Filas de lista: el fondo cambia de tono y el contenido se desplaza un poco. */
+.fila-mueve {
+  transition:
+    background-color 200ms ease,
+    transform 220ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fila-mueve:hover {
+    transform: translateX(0.35rem);
+  }
+}
+
+/* Panel desplegable: sale de su botón (origen arriba a la izquierda). */
+.menu-panel {
+  transform-origin: top left;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    display 200ms allow-discrete;
+}
+@starting-style {
+  .menu-panel {
+    opacity: 0;
+    transform: scale(0.97) translateY(-0.25rem);
+  }
+}
+.menu-panel li {
+  animation: intro-fade 260ms var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 30ms);
+}
+
+/* Menú móvil: el panel se funde y sus elementos entran escalonados. */
+.menu-movil {
+  transition:
+    opacity 260ms var(--ease-out),
+    display 260ms allow-discrete;
+}
+@starting-style {
+  .menu-movil {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .menu-movil > ul > li {
+    animation: intro-fade 420ms var(--ease-out) backwards;
+    animation-delay: calc(40ms + var(--i, 0) * 45ms);
+  }
+}
+
+/* Franja de especialidades en movimiento continuo. */
+.marquesina {
+  display: flex;
+  width: max-content;
+  animation: marquesina 50s linear infinite;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquesina-zona:hover .marquesina {
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquesina {
+    animation: none;
+  }
+}
+@keyframes marquesina {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Transiciones entre páginas (View Transitions de React y Next) ------- */
+
+::view-transition {
+  pointer-events: none;
+}
+
+/* El encabezado no se mueve: es el punto fijo de referencia. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(.pagina) {
+  animation:
+    150ms var(--ease-out) both vt-fade reverse,
+    260ms var(--ease-in-out) both vt-rise-out;
+}
+::view-transition-new(.pagina) {
+  animation:
+    280ms var(--ease-out) 110ms both vt-fade,
+    var(--dur-page) var(--ease-out) both vt-rise;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vt-rise {
+  from {
+    transform: translateY(1.25rem);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes vt-rise-out {
+  to {
+    transform: translateY(-0.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* --- Movimiento reducido -------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .zoom-img,
+  .flecha,
+  .fila-mueve,
+  .btn {
+    transform: none !important;
+  }
+}
+
+.marquesina-zona[data-pausada] .marquesina,
+.marquesina:focus-within {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquesina-zona .btn {
+    display: none;
+  }
+}
