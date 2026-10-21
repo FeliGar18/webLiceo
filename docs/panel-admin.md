@@ -9,7 +9,11 @@ agregar, editar y eliminar contenido sin tocar código. Está hecho con
 | Sección del panel | Qué cambia en el sitio |
 | --- | --- |
 | **Noticias** | Crear, editar y borrar noticias. Las seis más recientes salen en la portada y todas en `/noticias`. Cada una tiene su página. |
-| **Datos del sitio → Cifras de la portada** | Los números bajo el video (30 años, 850+ alumnos…). |
+| **Portada → Cifras de la portada** | Los números bajo el video (30 años, 850+ alumnos…). |
+| **Portada → ¿Por qué estudiar aquí?** | Las razones para elegir el liceo. |
+| **Portada → Calendario de admisión** | Las fechas del SAE en la franja granate. **Actualícelas cada año** con las fechas oficiales del Mineduc. |
+| **Portada → Residencia escolar** | El bloque del internado. |
+| **Portada → Preguntas frecuentes** | Preguntas y respuestas desplegables. |
 | **Datos del sitio → Datos de contacto** | Dirección, teléfonos, correos, redes sociales y horario (franja superior, pie de página, contacto). |
 | **Datos del sitio → Comunidad educativa** | Grupos y personas: agregar, quitar u ordenar funcionarios, cambiar cargos y fotos. |
 

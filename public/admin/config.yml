@@ -96,11 +96,11 @@ collections:
         default: false
         hint: Márquelo solo en noticias de prueba; el sitio las muestra con la etiqueta «Texto de ejemplo».
 
-  # ------------------------------------------------------------------ Páginas
-  - name: sitio
-    label: Datos del sitio
-    label_singular: Datos
-    description: Cifras de la portada, datos de contacto y comunidad educativa.
+  # ------------------------------------------------------------------ Portada
+  - name: portada
+    label: Portada
+    label_singular: Sección
+    description: Secciones de la página principal. No invente datos; un texto vacío se muestra «por confirmar».
     files:
       # Cifras de la portada
       - name: cifras
@@ -130,6 +130,94 @@ collections:
                 required: false
                 hint: Opcional. Por ejemplo «Egresadas desde 1996».
 
+      # ¿Por qué estudiar aquí?
+      - name: razones
+        label: ¿Por qué estudiar aquí?
+        file: src/content/datos/razones.json
+        format: json
+        fields:
+          - { name: titulo, label: Título de la sección, widget: string }
+          - name: razones
+            label: Razones
+            label_singular: Razón
+            widget: list
+            summary: "{{fields.titulo}}"
+            max: 6
+            fields:
+              - name: icono
+                label: Ícono
+                widget: select
+                default: especialidades
+                options:
+                  - { label: Llave (especialidades), value: especialidades }
+                  - { label: Birrete (título), value: titulo }
+                  - { label: Medalla (reconocimiento), value: bicentenario }
+                  - { label: Cama (internado), value: internado }
+                  - { label: Calendario (trayectoria), value: trayectoria }
+                  - { label: Edificio (empresas), value: empresas }
+              - { name: titulo, label: Título, widget: string }
+              - { name: texto, label: Texto, widget: text, required: false }
+
+      # Calendario de admisión
+      - name: admision
+        label: Calendario de admisión
+        file: src/content/datos/admision.json
+        format: json
+        fields:
+          - { name: titulo, label: Título, widget: string, hint: "Por ejemplo «Admisión 2028». Cámbielo cada año." }
+          - { name: bajada, label: Bajada, widget: text, required: false }
+          - name: etapas
+            label: Etapas
+            label_singular: Etapa
+            widget: list
+            summary: "{{fields.etapa}}: {{fields.fechas}}"
+            hint: Use las fechas oficiales que publica el Mineduc en sistemadeadmisionescolar.cl.
+            fields:
+              - { name: etapa, label: Etapa, widget: string }
+              - { name: fechas, label: Fechas, widget: string, required: false, hint: "Por ejemplo «4 al 27 de agosto de 2026». Vacío = «Fecha por confirmar»." }
+              - { name: detalle, label: Detalle, widget: string, required: false }
+          - { name: nota, label: Nota al pie, widget: text, required: false }
+
+      # Internado
+      - name: internado
+        label: Residencia escolar (internado)
+        file: src/content/datos/internado.json
+        format: json
+        fields:
+          - { name: titulo, label: Título, widget: string }
+          - { name: texto, label: Texto principal, widget: text, required: false }
+          - name: puntos
+            label: Puntos
+            label_singular: Punto
+            widget: list
+            summary: "{{fields.titulo}}"
+            fields:
+              - { name: titulo, label: Título, widget: string }
+              - { name: texto, label: Texto, widget: text, required: false, hint: "Vacío = «Información por confirmar»." }
+          - { name: contacto, label: Texto de contacto, widget: string, required: false }
+
+      # Preguntas frecuentes
+      - name: preguntas
+        label: Preguntas frecuentes
+        file: src/content/datos/preguntas.json
+        format: json
+        fields:
+          - { name: titulo, label: Título de la sección, widget: string }
+          - name: preguntas
+            label: Preguntas
+            label_singular: Pregunta
+            widget: list
+            summary: "{{fields.pregunta}}"
+            fields:
+              - { name: pregunta, label: Pregunta, widget: string }
+              - { name: respuesta, label: Respuesta, widget: text, required: false, hint: "Vacía = «Respuesta por confirmar»." }
+
+  # ------------------------------------------------------------------ Datos del sitio
+  - name: sitio
+    label: Datos del sitio
+    label_singular: Datos
+    description: Datos de contacto y comunidad educativa.
+    files:
       # Contacto
       - name: contacto
         label: Datos de contacto

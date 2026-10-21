@@ -4,8 +4,10 @@
 
 Los cinco emblemas de la insignia (casa, rayo, engranaje, grúa, llave) son las cinco
 especialidades. Cada especialidad lleva el color de su emblema; el granate del marco de la
-insignia es el color institucional. La portada abre con cinco carpetas con pestaña, una por
-especialidad.
+insignia es el color institucional. La portada abre con una carpeta de
+especialidades: cinco pestañas (oscuras, con el emblema en su color) y una sola carpeta abierta.
+La pestaña elegida y el canto superior de la carpeta toman el color de la especialidad: el color
+marca la elección, no llena la pantalla.
 
 **El motivo** es el chaflán: el canto cortado de la pestaña de carpeta (y de una plancha de
 taller). Se repite en el recorte de fotografías (`.chamfer`, `.chamfer-lg`), los botones
@@ -59,7 +61,7 @@ se conservan los fundidos y se eliminan los desplazamientos.
 | --- | --- | --- |
 | `.intro-line` (con `<span>` dentro) | La línea sube desde una máscara al cargar | `h1` de la portada y de cada página |
 | `.intro-fade`, `.intro-insignia` | Entrada escalonada al cargar (`--i` fija el orden) | Bajadas, botones, figuras del encabezado |
-| `.intro-carpeta` | Las carpetas del hero suben una a una | `HeroCarpetas` |
+| `.intro-carpeta` | Las pestañas y la carpeta del hero suben una a una | `HeroCarpetas` |
 | `.panel-in` | Contenido de la carpeta al cambiar de especialidad | `HeroCarpetas` |
 | `Movimiento.tsx` (automático) | Al hacer scroll, cada título, párrafo, ítem, botón o foto sube y aparece; los que llegan juntos se escalonan 75 ms | Todo `main` y el pie, salvo zonas con `data-sin-rv` |
 | `.reveal-img` + `Movimiento.tsx`, `.parallax` | La foto se descubre de abajo hacia arriba y se desplaza levemente | `Foto` (marcada con `.reveal-img`) |

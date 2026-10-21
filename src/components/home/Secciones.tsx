@@ -8,7 +8,7 @@ import { Pendiente } from "@/components/ui/Pendiente";
 import { documentos } from "@/content/documentos";
 import { especialidades } from "@/content/especialidades";
 import { imagenes } from "@/content/imagenes";
-import { institucion, URL_PEI, URL_SAE } from "@/content/institucion";
+import { institucion, URL_PEI } from "@/content/institucion";
 import { proyectos } from "@/content/proyectos";
 
 export function ListaEspecialidades() {
@@ -47,35 +47,6 @@ export function ListaEspecialidades() {
         <p className="mt-10 text-small text-muted">
           Las descripciones son provisionales hasta su validación por cada especialidad.
         </p>
-      </Container>
-    </section>
-  );
-}
-
-export function BandaAdmision() {
-  return (
-    <section aria-labelledby="admision" className="mt-[var(--section-gap)] bg-accent text-accent-ink on-dark">
-      <Container className="grid gap-12 py-20 sm:py-28 lg:grid-cols-12">
-        <div className="lg:col-span-7">
-          <h2 id="admision" className="reveal text-[clamp(2.25rem,1.3rem+4vw,5rem)]">
-            Admisión por el Sistema de Admisión Escolar
-          </h2>
-          <p className="reveal reveal-2 mt-6 max-w-[48ch] text-lead leading-snug">
-            La postulación al liceo se realiza en línea en la plataforma del Ministerio de Educación, que fija cada año
-            las fechas del proceso.
-          </p>
-        </div>
-        <div className="flex flex-col justify-end gap-4 lg:col-span-5">
-          <Link href="/admision" className="reveal btn btn-light">
-            Cómo postular al liceo
-            <ArrowRight aria-hidden className="flecha size-4" />
-          </Link>
-          <a href={URL_SAE} target="_blank" rel="noopener noreferrer" className="reveal reveal-2 btn btn-ink">
-            Ir a sistemadeadmisionescolar.cl
-            <ArrowUpRight aria-hidden className="flecha flecha-diagonal size-4" />
-            <span className="sr-only">(abre en una pestaña nueva)</span>
-          </a>
-        </div>
       </Container>
     </section>
   );

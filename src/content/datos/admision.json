@@ -1,0 +1,13 @@
+{
+  "titulo": "Admisión 2027",
+  "bajada": "La postulación al liceo se hace en línea en el Sistema de Admisión Escolar (SAE) del Ministerio de Educación, que fija cada año las fechas del proceso.",
+  "etapas": [
+    { "etapa": "Registro de apoderados", "fechas": "Desde el 15 de julio de 2026", "detalle": "" },
+    { "etapa": "Postulación (periodo principal)", "fechas": "4 al 27 de agosto de 2026", "detalle": "" },
+    { "etapa": "Resultados y respuesta", "fechas": "15 al 21 de octubre de 2026", "detalle": "Aceptar o rechazar el cupo asignado." },
+    { "etapa": "Resultados de listas de espera", "fechas": "28 y 29 de octubre de 2026", "detalle": "" },
+    { "etapa": "Periodo complementario", "fechas": "10 al 17 de noviembre de 2026", "detalle": "Resultados el 1 de diciembre." },
+    { "etapa": "Matrícula en el liceo", "fechas": "9 al 22 de diciembre de 2026", "detalle": "" }
+  ],
+  "nota": "Fechas del calendario de Admisión Escolar 2027 difundido por el Mineduc. Confírmelas en sistemadeadmisionescolar.cl."
+}

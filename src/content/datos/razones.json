@@ -1,0 +1,25 @@
+{
+  "titulo": "¿Por qué estudiar en el Fenner?",
+  "razones": [
+    {
+      "icono": "especialidades",
+      "titulo": "Cinco especialidades técnicas",
+      "texto": "Edificación, Electricidad, Mecánica Automotriz, Construcciones Metálicas e Instalaciones Sanitarias, con formación en taller."
+    },
+    {
+      "icono": "titulo",
+      "titulo": "Título técnico al egresar",
+      "texto": "Al aprobar 4° medio y la práctica profesional se obtiene el título de Técnico de Nivel Medio de la especialidad."
+    },
+    {
+      "icono": "bicentenario",
+      "titulo": "Liceo Bicentenario",
+      "texto": "Seleccionado en 2019 en el programa Liceos Bicentenario del Ministerio de Educación."
+    },
+    {
+      "icono": "internado",
+      "titulo": "Internado",
+      "texto": "Régimen interno y externo, según el Reglamento Interno 2026, con residencia escolar en el propio liceo."
+    }
+  ]
+}

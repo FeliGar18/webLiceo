@@ -4,12 +4,12 @@ import { ArrowRight } from "lucide-react";
 import { Cifras } from "@/components/home/Cifras";
 import { FranjaContacto } from "@/components/home/FranjaContacto";
 import { HeroCarpetas } from "@/components/home/HeroCarpetas";
+import { CalendarioAdmision, Internado, PorQueEstudiar, PreguntasFrecuentes } from "@/components/home/Informacion";
 import { Marquesina } from "@/components/home/Marquesina";
 import { NoticiasPortada } from "@/components/home/NoticiasPortada";
 import { VideoFondo } from "@/components/home/VideoFondo";
 import {
   Accesos,
-  BandaAdmision,
   ListaEspecialidades,
   Proyectos,
   Recursos,
@@ -92,12 +92,15 @@ export default function Inicio() {
 
       <Cifras />
       <NoticiasPortada />
+      <PorQueEstudiar />
       <ListaEspecialidades />
       <Marquesina />
-      <BandaAdmision />
+      <CalendarioAdmision />
+      <Internado />
       <Proyectos />
       <Accesos />
       <Recursos />
+      <PreguntasFrecuentes />
       <Ubicacion />
     </>
   );

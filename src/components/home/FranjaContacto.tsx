@@ -4,10 +4,26 @@ import { Container } from "@/components/ui/Container";
 import { EtiquetaProvisional } from "@/components/ui/Pendiente";
 import { institucion } from "@/content/institucion";
 
-/** Un dato en una sola línea: icono, rótulo y valor. */
-function Dato({ icono: Icono, titulo, children }: { icono: LucideIcon; titulo: string; children: ReactNode }) {
+/**
+ * Un dato en una sola línea: icono, rótulo y valor. En escritorio, el que
+ * `crece` toma el espacio sobrante y se recorta con "…"; los demás usan su
+ * ancho natural (repartir en tercios iguales desbordaba cerca de 1024 px).
+ */
+function Dato({
+  icono: Icono,
+  titulo,
+  crece = false,
+  children,
+}: {
+  icono: LucideIcon;
+  titulo: string;
+  crece?: boolean;
+  children: ReactNode;
+}) {
   return (
-    <div className="flex flex-none snap-start items-center gap-2.5 whitespace-nowrap text-small lg:min-w-0 lg:flex-1">
+    <div
+      className={`flex flex-none snap-start items-center gap-2.5 whitespace-nowrap text-small ${crece ? "lg:min-w-0 lg:flex-1" : ""}`}
+    >
       <span
         aria-hidden
         className="flex size-7 flex-none items-center justify-center bg-bg text-accent chamfer [--chamfer:0.35rem]"
@@ -41,7 +57,7 @@ export function FranjaContacto() {
               {correo.valor}
             </a>
           </Dato>
-          <Dato icono={MapPin} titulo="Dirección">
+          <Dato icono={MapPin} titulo="Dirección" crece>
             <a
               href={institucion.mapaUrl}
               target="_blank"
