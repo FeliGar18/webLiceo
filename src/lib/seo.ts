@@ -47,6 +47,12 @@ export function jsonLdInstitucion() {
       addressRegion: institucion.region,
       addressCountry: "CL",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: institucion.coordenadas.latitud,
+      longitude: institucion.coordenadas.longitud,
+    },
+    hasMap: institucion.mapaUrl,
     parentOrganization: {
       "@type": "Organization",
       name: institucion.sostenedor.nombre,

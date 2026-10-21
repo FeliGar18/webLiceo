@@ -48,6 +48,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
+    // Fotos de las publicaciones de Facebook (src/lib/facebook.ts). Pasan por
+    // el optimizador del sitio: el navegador del visitante no contacta a Facebook.
+    remotePatterns: [{ protocol: "https", hostname: "**.fbcdn.net" }],
   },
   async headers() {
     return [{ source: "/:path*", headers: cabecerasSeguridad }];

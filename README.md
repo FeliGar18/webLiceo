@@ -137,6 +137,8 @@ Copie `.env.example` a `.env.local` para desarrollo. En Vercel se configuran en
 | `RESEND_API_KEY` | **Secreta** | Clave de la API de Resend para enviar el formulario de contacto. |
 | `CONTACT_TO_EMAIL` | Secreta | Casilla del liceo que recibe los mensajes. |
 | `CONTACT_FROM_EMAIL` | Secreta | Remitente verificado en Resend (p. ej. `Sitio web <contacto@dominio-del-liceo.cl>`). |
+| `FACEBOOK_PAGE_ID` | Secreta | Id de la página de Facebook del liceo, para las noticias de la portada. |
+| `FACEBOOK_PAGE_TOKEN` | **Secreta** | Token de acceso de la página. Sin él, la portada muestra las noticias del sitio. Cómo obtenerlo: [`docs/facebook.md`](docs/facebook.md). |
 
 - Solo las variables con prefijo `NEXT_PUBLIC_` llegan al navegador. Las demás quedan en el servidor.
 - `.env.local` y cualquier `.env*` están en `.gitignore`. **Nunca suba claves al repositorio.**
@@ -150,6 +152,7 @@ Copie `.env.example` a `.env.local` para desarrollo. En Vercel se configuran en
 | **Vercel** | Sí | Hospedaje, HTTPS, despliegues de prueba y producción. |
 | **GitHub** | Sí | Repositorio y despliegue continuo. |
 | **Resend** (resend.com) | Para el formulario | Envío de los mensajes de contacto por correo. Requiere verificar el dominio del remitente (registros DNS SPF/DKIM). |
+| **Meta (Graph API)** | Opcional | Muestra las publicaciones de Facebook en la grilla de noticias de la portada, visibles sin sesión. Ver [`docs/facebook.md`](docs/facebook.md). |
 | Vercel Blob | Opcional | Documentos o fotografías que deban persistir y no quepan en el repositorio. |
 | Base de datos (Postgres desde el Marketplace de Vercel, p. ej. Neon) | No por ahora | Solo si en el futuro se agrega un panel de administración o limitación de frecuencia persistente. |
 
@@ -242,6 +245,7 @@ Desde entonces:
 - [ ] Completar equipo directivo y estamentos (con autorización de cada persona).
 - [ ] Reemplazar imágenes provisionales por fotografías propias autorizadas.
 - [ ] Configurar Resend y las variables del formulario, y enviar un mensaje de prueba.
+- [ ] Obtener el token de la página de Facebook y configurar `FACEBOOK_PAGE_ID` y `FACEBOOK_PAGE_TOKEN` ([guía](docs/facebook.md)).
 - [ ] Revisión legal de la política de privacidad.
 - [ ] Configurar el dominio y `NEXT_PUBLIC_SITE_URL`.
 

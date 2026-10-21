@@ -133,6 +133,10 @@ export default function PrivacidadPage() {
               Escolar del Mineduc. Esos servicios no reciben datos suyos hasta que usted hace clic en el enlace. Desde ese
               momento se rigen por sus propias políticas de privacidad.
             </p>
+            <p>
+              Cuando la página de inicio muestra publicaciones del liceo en Facebook, el sitio las obtiene desde su propio
+              servidor: su navegador no se conecta con Facebook para verlas.
+            </p>
 
             <h2 id="menores">Menores de edad e imágenes</h2>
             <p>

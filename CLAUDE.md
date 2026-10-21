@@ -87,8 +87,9 @@ En Windows, si `node` no está en el PATH de la terminal de Git Bash:
   alrededor de `<main>` en `layout.tsx`. **No usar `<ViewTransition name>` compartidos entre
   páginas**: con Cache Components la página anterior queda montada y oculta, el nombre se duplica
   y el navegador cancela la transición. Se intentó (foto de especialidad que viaja) y se quitó.
-- **Entradas al hacer scroll**: las maneja `Movimiento.tsx` con IntersectionObserver (clase
-  `.rv` → `.is-in`). Lo visible al cargar nunca se oculta. Para excluir una zona: `data-sin-rv`.
+- **Entradas al hacer scroll**: las maneja `Movimiento.tsx` con IntersectionObserver y la Web
+  Animations API (`element.animate`). **No agregarle clases ni atributos al DOM**: el efecto corre
+  antes de que React hidrate la página y eso causa un error de hidratación. Lo visible al cargar nunca se oculta. Para excluir una zona: `data-sin-rv`.
 - Las animaciones de entrada usan `animation-fill-mode: backwards` para no bloquear el
   `:active` de los botones.
 - La franja animada y el video de la portada tienen botón de pausa (WCAG 2.2.2) y respetan
@@ -108,18 +109,20 @@ JSON-LD), cabeceras de seguridad, sistema de movimiento completo, 50 pruebas en 
 
 1. Desplegar en Vercel (pasos en `README.md`, sección "Despliegue en Vercel") y configurar
    `NEXT_PUBLIC_SITE_URL`. **No está desplegado todavía.**
-2. Configurar Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) y probar un
+2. (Opcional) Obtener el token de la página de Facebook (`docs/facebook.md`) para que la grilla
+   de noticias de la portada muestre las publicaciones de Facebook; sin él muestra las del sitio.
+3. Configurar Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) y probar un
    envío real del formulario.
-3. Reemplazar las 3 noticias de ejemplo por noticias reales.
-4. Completar con información del liceo: campo laboral, perfil de egreso, competencias y
+4. Reemplazar las 3 noticias de ejemplo por noticias reales.
+5. Completar con información del liceo: campo laboral, perfil de egreso, competencias y
    actividades prácticas de cada especialidad; visión, misión y sellos (transcribir del PEI);
    nombres y fotos autorizadas en comunidad educativa; horario de atención.
-5. Confirmar el teléfono (las fuentes oficiales lo escriben distinto) y la cuenta de Instagram.
-6. Confirmar con el liceo qué laboratorio corresponde a cada especialidad (la asignación actual
+6. Confirmar el teléfono (las fuentes oficiales lo escriben distinto) y la cuenta de Instagram.
+7. Confirmar con el liceo qué laboratorio corresponde a cada especialidad (la asignación actual
    es por afinidad).
-7. Reemplazar fotos y video provisionales por material propio del liceo con autorizaciones.
-8. Revisión legal de `/privacidad` por el asesor del sostenedor.
-9. Auditoría Lighthouse y prueba con lector de pantalla en el primer despliegue de prueba.
+8. Reemplazar fotos y video provisionales por material propio del liceo con autorizaciones.
+9. Revisión legal de `/privacidad` por el asesor del sostenedor.
+10. Auditoría Lighthouse y prueba con lector de pantalla en el primer despliegue de prueba.
 
 ## Skills que se usaron (instalarlas en el computador nuevo)
 

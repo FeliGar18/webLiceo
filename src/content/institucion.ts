@@ -19,6 +19,9 @@ export const URL_PEI = "https://cdnsae.mineduc.cl/documentos/22140/ProyectoEduca
 export const URL_RIE = "https://cdnsae.mineduc.cl/documentos/22140/ReglamentodeConvivencia22140.pdf";
 export const URL_SAE = "https://www.sistemadeadmisionescolar.cl";
 
+/** 40°18'47.0"S 73°00'01.3"W, entregadas por el liceo. */
+const COORDENADAS = { latitud: -40.313056, longitud: -73.000361 } as const;
+
 export const institucion = {
   nombreOficial: "Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi",
   nombreCorto: "Liceo Industrial Fenner",
@@ -59,9 +62,13 @@ export const institucion = {
     estado: "verificado",
     fuente: FUENTE_PEI,
   } satisfies DatoFuente,
-  /** Búsqueda en Google Maps: no comparte datos del visitante hasta que hace clic. */
-  mapaUrl:
-    "https://www.google.com/maps/search/?api=1&query=Liceo+Industrial+Ricardo+Fenner+Ruedi+La+Uni%C3%B3n",
+  /** Ubicación exacta del liceo (entregada por el liceo). */
+  coordenadas: COORDENADAS,
+  /**
+   * Ficha del liceo en Google Maps (pin con su nombre), centrada en las
+   * coordenadas. No comparte datos del visitante hasta que hace clic.
+   */
+  mapaUrl: `https://www.google.com/maps/place/Liceo+Bicentenario+Industrial+Ingeniero+Ricardo+Fenner+Ruedi/@${COORDENADAS.latitud},${COORDENADAS.longitud},17z/data=!4m6!3m5!1s0x96166a223fc5b313:0xadca52d070d89c84!8m2!3d-40.3129249!4d-73.0004272!16s%2Fg%2F11b6gbrtlg`,
 
   telefonos: [
     {

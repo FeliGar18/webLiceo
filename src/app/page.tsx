@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Cifras } from "@/components/home/Cifras";
+import { FranjaContacto } from "@/components/home/FranjaContacto";
 import { HeroCarpetas } from "@/components/home/HeroCarpetas";
 import { Marquesina } from "@/components/home/Marquesina";
+import { NoticiasPortada } from "@/components/home/NoticiasPortada";
 import { VideoFondo } from "@/components/home/VideoFondo";
 import {
   Accesos,
   BandaAdmision,
   ListaEspecialidades,
-  Presentacion,
   Proyectos,
   Recursos,
-  UltimasNoticias,
   Ubicacion,
 } from "@/components/home/Secciones";
 import { Container } from "@/components/ui/Container";
@@ -34,6 +35,7 @@ export const metadata = {
 export default function Inicio() {
   return (
     <>
+      <FranjaContacto />
       <section aria-labelledby="titulo-inicio" data-sin-rv className="overflow-hidden bg-ink text-bg on-dark">
         <div className="relative isolate">
           {videoPortada ? (
@@ -82,11 +84,11 @@ export default function Inicio() {
         <HeroCarpetas especialidades={especialidades} />
       </section>
 
-      <Presentacion />
+      <Cifras />
+      <NoticiasPortada />
       <ListaEspecialidades />
       <Marquesina />
       <BandaAdmision />
-      <UltimasNoticias />
       <Proyectos />
       <Accesos />
       <Recursos />

@@ -61,8 +61,8 @@ se conservan los fundidos y se eliminan los desplazamientos.
 | `.intro-fade`, `.intro-insignia` | Entrada escalonada al cargar (`--i` fija el orden) | Bajadas, botones, figuras del encabezado |
 | `.intro-carpeta` | Las carpetas del hero suben una a una | `HeroCarpetas` |
 | `.panel-in` | Contenido de la carpeta al cambiar de especialidad | `HeroCarpetas` |
-| `.rv` → `.is-in` (automático) | Al hacer scroll, cada título, párrafo, ítem, botón o foto sube y aparece; los que llegan juntos se escalonan 75 ms | Todo `main` y el pie, salvo zonas con `data-sin-rv` |
-| `.rv-img`, `.parallax` | La foto se descubre de abajo hacia arriba y se desplaza levemente | `Foto` (marcada con `.reveal-img`) |
+| `Movimiento.tsx` (automático) | Al hacer scroll, cada título, párrafo, ítem, botón o foto sube y aparece; los que llegan juntos se escalonan 75 ms | Todo `main` y el pie, salvo zonas con `data-sin-rv` |
+| `.reveal-img` + `Movimiento.tsx`, `.parallax` | La foto se descubre de abajo hacia arriba y se desplaza levemente | `Foto` (marcada con `.reveal-img`) |
 | `.zoom-img` | Zoom suave al pasar el puntero por el enlace (`.group`) | Miniaturas y fotos |
 | `.flecha`, `.flecha-diagonal` | La flecha avanza al pasar el puntero | Iconos `ArrowRight` / `ArrowUpRight` |
 | `.fila-mueve` | La fila se desplaza levemente al pasar el puntero | Listas de enlaces |
@@ -70,11 +70,12 @@ se conservan los fundidos y se eliminan los desplazamientos.
 | `.menu-panel`, `.menu-movil` | Submenú que sale de su botón; menú móvil escalonado | `SiteHeader` |
 | `.header-flotante`, `.progreso-lectura` | El encabezado se despega y una barra marca el avance de lectura | `SiteHeader` |
 | `.marquesina` | Franja continua de especialidades, con botón de pausa | Portada |
-| `.rv-franja` | Los cinco tramos de color del pie crecen uno tras otro | `SiteFooter` |
+| `data-rv-franja` + `Movimiento.tsx` | Los cinco tramos de color del pie crecen uno tras otro | `SiteFooter` |
 | View Transitions (`.pagina`) | Fundido y leve subida del contenido al cambiar de página; el encabezado queda fijo | `layout.tsx` |
 
 Las entradas al hacer scroll las activa `Movimiento.tsx` con `IntersectionObserver` en todos los
-navegadores. Lo que ya se ve al cargar nunca se oculta, y sin JavaScript el contenido siempre se ve.
+navegadores, animando con la Web Animations API (sin tocar clases ni atributos, para no romper la
+hidratación). Lo que ya se ve al cargar nunca se oculta, y sin JavaScript el contenido siempre se ve.
 Para excluir una zona con coreografía propia, agréguele `data-sin-rv`; para incluir un elemento
 que no sea texto, `data-rv`.
 

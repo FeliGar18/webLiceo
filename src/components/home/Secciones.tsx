@@ -4,60 +4,12 @@ import { ArrowRight, ArrowUpRight, FileText, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Emblema } from "@/components/ui/Emblema";
 import { Foto } from "@/components/ui/Foto";
-import { EtiquetaProvisional, Pendiente } from "@/components/ui/Pendiente";
+import { Pendiente } from "@/components/ui/Pendiente";
 import { documentos } from "@/content/documentos";
 import { especialidades } from "@/content/especialidades";
 import { imagenes } from "@/content/imagenes";
 import { institucion, URL_PEI, URL_SAE } from "@/content/institucion";
-import { noticiasOrdenadas } from "@/content/noticias";
 import { proyectos } from "@/content/proyectos";
-import { formatearFecha } from "@/lib/fechas";
-
-/** Miniatura en línea dentro de una frase, con el recorte del motivo. */
-function Mini({ src, alt }: { src: string; alt: string }) {
-  return (
-    <span className="relative mx-[0.12em] inline-block h-[0.85em] w-[1.25em] overflow-hidden align-[-0.08em] [--chamfer:0.18em] chamfer">
-      <Image src={src} alt={alt} fill sizes="80px" className="object-cover" />
-    </span>
-  );
-}
-
-export function Presentacion() {
-  const [edif, elec, mec] = especialidades;
-  return (
-    <section aria-labelledby="presentacion" className="pt-[var(--section-gap)]">
-      <Container className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-8">
-          <h2 id="presentacion" className="sr-only">
-            Presentación del liceo
-          </h2>
-          <p className="reveal max-w-[28ch] text-[clamp(1.5rem,1.05rem+1.6vw,2.25rem)] font-semibold leading-[1.18] tracking-[-0.02em]">
-            Un liceo técnico-profesional donde se aprende un oficio en la obra <Mini src={edif.imagen.src} alt="" />, el
-            tablero <Mini src={elec.imagen.src} alt="" /> y el taller <Mini src={mec.imagen.src} alt="" />, de 1° a 4°
-            medio, en San Javier, La Unión.
-          </p>
-          <Link href="/quienes-somos" className="reveal reveal-2 btn btn-ink mt-10">
-            Conocer el liceo
-            <ArrowRight aria-hidden className="flecha size-4" />
-          </Link>
-        </div>
-        <dl className="reveal reveal-2 grid content-end gap-x-8 gap-y-6 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
-          {[
-            ["Desde", "1996, año en que comenzaron las clases"],
-            ["Niveles", institucion.niveles.valor],
-            ["Régimen", institucion.regimen.valor],
-            ["Programa", "Liceo Bicentenario, generación 2019"],
-          ].map(([dt, dd]) => (
-            <div key={dt} className="bg-surface px-5 py-4">
-              <dt className="text-small font-semibold text-muted">{dt}</dt>
-              <dd className="mt-1 font-semibold leading-snug">{dd}</dd>
-            </div>
-          ))}
-        </dl>
-      </Container>
-    </section>
-  );
-}
 
 export function ListaEspecialidades() {
   return (
@@ -124,53 +76,6 @@ export function BandaAdmision() {
             <span className="sr-only">(abre en una pestaña nueva)</span>
           </a>
         </div>
-      </Container>
-    </section>
-  );
-}
-
-export function UltimasNoticias() {
-  const lista = noticiasOrdenadas().slice(0, 3);
-  return (
-    <section aria-labelledby="noticias" className="pt-[var(--section-gap)]">
-      <Container className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <h2 id="noticias" className="reveal text-head">
-            Noticias
-          </h2>
-          <p className="reveal reveal-2 mt-5 max-w-[34ch] text-muted">
-            Actividades, avisos y la vida de la comunidad del liceo.
-          </p>
-          <Link href="/noticias" className="reveal reveal-2 btn btn-ink mt-8">
-            Todas las noticias
-          </Link>
-        </div>
-        <ol className="lg:col-span-8">
-          {lista.map((n, i) => (
-            <li key={n.slug} className={`reveal ${i ? "reveal-2" : ""} ${i ? "mt-3" : ""}`}>
-              <Link
-                href={`/noticias/${n.slug}`}
-                className="fila-mueve group grid gap-2 bg-surface px-5 py-6 text-ink no-underline sm:grid-cols-[10rem_1fr] sm:gap-8 sm:px-8 hover:bg-surface-strong"
-              >
-                <span className="text-small font-semibold text-muted">
-                  <time dateTime={n.fecha}>{formatearFecha(n.fecha)}</time>
-                  <span className="block">{n.categoria}</span>
-                </span>
-                <span>
-                  <span className="block text-[clamp(1.25rem,1rem+0.9vw,1.75rem)] font-extrabold leading-tight tracking-[-0.025em] group-hover:underline">
-                    {n.titulo}
-                  </span>
-                  <span className="mt-2 block max-w-[60ch]">{n.bajada}</span>
-                  {n.ejemplo ? (
-                    <span className="mt-3 block">
-                      <EtiquetaProvisional>Texto de ejemplo</EtiquetaProvisional>
-                    </span>
-                  ) : null}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
       </Container>
     </section>
   );

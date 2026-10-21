@@ -28,61 +28,17 @@ html {
 
 /* --- Entradas al hacer scroll ------------------------------------------- */
 /*
- * `Movimiento.tsx` marca con `.rv` los elementos que aún están bajo el borde
- * de la pantalla y les agrega `.is-in` cuando llegan: suben y aparecen, con un
- * pequeño escalonamiento entre hermanos (--rv-delay). Lo que ya se ve al
- * cargar no se oculta nunca, y sin JavaScript todo queda visible.
+ * Las animaciones las hace `Movimiento.tsx` con la Web Animations API (sin
+ * clases ni atributos, para no romper la hidratación de React): lo que aún
+ * está bajo el borde de la pantalla sube y aparece al llegar, con un pequeño
+ * escalonamiento; las fotos (`.reveal-img`) se descubren de abajo hacia arriba
+ * y la franja del pie (`data-rv-franja`) crece tramo a tramo. Lo que ya se ve
+ * al cargar no se oculta nunca, y sin JavaScript todo queda visible.
  */
-.rv {
-  opacity: 0;
-  transform: translateY(2rem);
-  transition:
-    opacity 700ms var(--ease-out),
-    transform 900ms var(--ease-out);
-  transition-delay: var(--rv-delay, 0ms);
-}
-.rv.is-in {
-  opacity: 1;
-  transform: none;
-}
-
-/* Fotografías: el marco se descubre de abajo hacia arriba. */
-.rv-img {
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path 1100ms var(--ease-in-out);
-  transition-delay: var(--rv-delay, 0ms);
-}
-.rv-img.is-in {
-  clip-path: inset(0 0 0 0);
-}
 
 /* Franja de colores del pie: cada tramo crece desde la izquierda. */
 .franja-pie {
   transform-origin: left center;
-}
-.rv-franja .franja-pie {
-  transform: scaleX(0);
-  transition: transform 800ms var(--ease-out);
-}
-.rv-franja .franja-pie:nth-child(2) { transition-delay: 70ms; }
-.rv-franja .franja-pie:nth-child(3) { transition-delay: 140ms; }
-.rv-franja .franja-pie:nth-child(4) { transition-delay: 210ms; }
-.rv-franja .franja-pie:nth-child(5) { transition-delay: 280ms; }
-.rv-franja.is-in .franja-pie {
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rv {
-    transform: none;
-    transition: opacity 400ms ease;
-  }
-  .rv-img {
-    clip-path: none;
-  }
-  .rv-franja .franja-pie {
-    transform: none;
-  }
 }
 
 /* Parallax sutil de la imagen dentro de su marco (CSS nativo). */

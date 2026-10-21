@@ -3,13 +3,13 @@ import Link from "next/link";
 import {
   ArrowRight,
   BriefcaseBusiness,
+  Calculator,
   GraduationCap,
   HeartHandshake,
   Landmark,
   Mail,
   ShieldCheck,
   UserRound,
-  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -21,15 +21,15 @@ import { crearMetadata } from "@/lib/seo";
 export const metadata = crearMetadata({
   titulo: "Equipo directivo y comunidad educativa",
   descripcion:
-    "Equipo directivo, docentes, Programa de Integración Escolar, convivencia y asistentes de la educación del Liceo Industrial Ricardo Fenner Ruedi de La Unión.",
+    "Equipo directivo, área administrativa y finanzas, docentes, Programa de Integración Escolar y asistentes de la educación del Liceo Industrial Ricardo Fenner Ruedi de La Unión.",
   ruta: "/quienes-somos/comunidad",
 });
 
 const ICONOS: Record<IconoGrupo, LucideIcon> = {
   directivo: Landmark,
+  administracion: Calculator,
   docentes: GraduationCap,
   pie: HeartHandshake,
-  convivencia: UsersRound,
   asistentes: BriefcaseBusiness,
 };
 
@@ -61,7 +61,7 @@ function Tarjeta({ persona }: { persona: Integrante }) {
       </div>
       <div className="flex flex-1 flex-col pt-5">
         <h3 className="text-[1.0625rem] leading-tight tracking-[-0.02em] sm:text-[1.25rem]">{persona.cargo}</h3>
-        <p className="mt-1 text-small font-semibold text-muted">{persona.area}</p>
+        {persona.area ? <p className="mt-1 text-small font-semibold text-muted">{persona.area}</p> : null}
         <p className={`mt-3 text-[0.9375rem] sm:text-body ${persona.nombre ? "font-semibold" : "text-muted"}`}>
           {persona.nombre ?? (persona.cantidad ? "Nombres por publicar" : "Nombre por publicar")}
         </p>
@@ -139,13 +139,38 @@ export default function ComunidadPage() {
               <p className="text-small font-semibold text-muted tabular">{grupo.dotacion}</p>
             </div>
             <p className="mt-4 max-w-[60ch] text-muted">{grupo.descripcion}</p>
-            <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
-              {grupo.integrantes.map((persona) => (
-                <li key={persona.cargo}>
-                  <Tarjeta persona={persona} />
-                </li>
-              ))}
-            </ul>
+            {grupo.destacarPrimero ? (
+              <>
+                {/* Tarjetas del mismo ancho que en la grilla de 4 columnas de los otros grupos, centradas. */}
+                <div className="mx-auto mt-10 w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc((100%-4.5rem)/4)]">
+                  <Tarjeta persona={grupo.integrantes[0]} />
+                </div>
+                <ul
+                  className={`mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:mt-12 sm:gap-x-6 sm:gap-y-12 ${
+                    grupo.integrantes.length - 1 === 3
+                      ? "lg:mx-auto lg:max-w-[calc((100%-4.5rem)*3/4+3rem)] lg:grid-cols-3"
+                      : "lg:grid-cols-4"
+                  }`}
+                >
+                  {grupo.integrantes.slice(1).map((persona, i) => (
+                    <li
+                      key={`${persona.cargo}-${i}`}
+                      className="last:odd:col-span-2 last:odd:mx-auto last:odd:w-[calc(50%-0.5rem)] sm:last:odd:w-[calc(50%-0.75rem)] lg:last:odd:col-span-1 lg:last:odd:mx-0 lg:last:odd:w-auto"
+                    >
+                      <Tarjeta persona={persona} />
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
+                {grupo.integrantes.map((persona, i) => (
+                  <li key={`${persona.cargo}-${i}`}>
+                    <Tarjeta persona={persona} />
+                  </li>
+                ))}
+              </ul>
+            )}
           </Container>
         );
       })}
