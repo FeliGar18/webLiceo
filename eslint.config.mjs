@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Panel de administración: copia de Sveltia CMS (scripts/copiar-cms.mjs).
+    "public/admin/cms/**",
   ]),
 ]);
 

@@ -111,15 +111,14 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col gap-6 bg-[#2a2629] p-5 sm:flex-row sm:items-center">
           {logoSostenedor ? (
-            <div className="w-fit bg-white p-2">
-              <Image
-                src={logoSostenedor.src}
-                alt={logoSostenedor.alt}
-                width={logoSostenedor.ancho}
-                height={logoSostenedor.alto}
-                className="h-16 w-auto"
-              />
-            </div>
+            // PNG transparente: va directo sobre el fondo oscuro, sin recuadro.
+            <Image
+              src={logoSostenedor.src}
+              alt={logoSostenedor.alt}
+              width={logoSostenedor.ancho}
+              height={logoSostenedor.alto}
+              className="h-20 w-auto flex-none"
+            />
           ) : null}
           <p className="max-w-[62ch] text-[0.9375rem] text-[#e4dfe2]">
             Establecimiento {institucion.dependencia.valor.toLowerCase()}. Sostenedor:{" "}

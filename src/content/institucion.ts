@@ -1,4 +1,6 @@
+import { z } from "zod";
 import type { DatoFuente, Enlace } from "@/lib/types";
+import datosContacto from "./datos/contacto.json";
 
 /**
  * Datos institucionales centralizados.
@@ -18,6 +20,24 @@ export const FUENTE_RIE = "Reglamento Interno 2026 (Sistema de Admisión Escolar
 export const URL_PEI = "https://cdnsae.mineduc.cl/documentos/22140/ProyectoEducativo22140.pdf";
 export const URL_RIE = "https://cdnsae.mineduc.cl/documentos/22140/ReglamentodeConvivencia22140.pdf";
 export const URL_SAE = "https://www.sistemadeadmisionescolar.cl";
+
+const datoSchema = z.object({
+  valor: z.string().trim().min(1),
+  estado: z.enum(["verificado", "por-confirmar"]),
+  fuente: z.string().nullish().transform((v) => v ?? ""),
+});
+
+/** Datos de contacto editables desde el panel (src/content/datos/contacto.json). */
+const contacto = z
+  .object({
+    direccion: datoSchema,
+    direccionCorta: z.string().trim().min(1),
+    telefonos: z.array(datoSchema).min(1, "Debe haber al menos un teléfono"),
+    correos: z.array(datoSchema.extend({ etiqueta: z.string().trim().min(1) })).min(1, "Debe haber al menos un correo"),
+    redes: z.array(z.object({ etiqueta: z.string().trim().min(1), href: z.string().url() })),
+    horarioAtencion: z.string().nullish().transform((v) => v ?? ""),
+  })
+  .parse(datosContacto);
 
 /** 40°18'47.0"S 73°00'01.3"W, entregadas por el liceo. */
 const COORDENADAS = { latitud: -40.313056, longitud: -73.000361 } as const;
@@ -57,11 +77,10 @@ export const institucion = {
     fuente: FUENTE_PEI,
   },
 
-  direccion: {
-    valor: "Sector San Javier km 7, Ruta T-74, camino a Puerto Nuevo, La Unión",
-    estado: "verificado",
-    fuente: FUENTE_PEI,
-  } satisfies DatoFuente,
+  /** Dirección, teléfonos, correos, redes y horario: se editan en el panel (/admin). */
+  direccion: contacto.direccion satisfies DatoFuente,
+  /** Versión breve de la dirección para espacios angostos (franja de contacto). */
+  direccionCorta: contacto.direccionCorta,
   /** Ubicación exacta del liceo (entregada por el liceo). */
   coordenadas: COORDENADAS,
   /**
@@ -70,36 +89,11 @@ export const institucion = {
    */
   mapaUrl: `https://www.google.com/maps/place/Liceo+Bicentenario+Industrial+Ingeniero+Ricardo+Fenner+Ruedi/@${COORDENADAS.latitud},${COORDENADAS.longitud},17z/data=!4m6!3m5!1s0x96166a223fc5b313:0xadca52d070d89c84!8m2!3d-40.3129249!4d-73.0004272!16s%2Fg%2F11b6gbrtlg`,
 
-  telefonos: [
-    {
-      valor: "+56 64 257 0409",
-      estado: "por-confirmar",
-      fuente: "PEI y RIE (las fuentes lo escriben de formas distintas)",
-    },
-  ] satisfies DatoFuente[],
-
-  correos: [
-    {
-      etiqueta: "Secretaría",
-      valor: "i.launion.secretaria@snaeduca.cl",
-      estado: "verificado",
-      fuente: "Página del liceo en snaeduca.cl",
-    },
-    {
-      etiqueta: "Dirección",
-      valor: "i.launion.direccion@snaeduca.cl",
-      estado: "verificado",
-      fuente: FUENTE_PEI,
-    },
-  ] satisfies (DatoFuente & { etiqueta: string })[],
-
-  redes: [
-    { etiqueta: "Facebook", href: "https://www.facebook.com/indufenner", externo: true },
-    { etiqueta: "Instagram", href: "https://www.instagram.com/indufenner/", externo: true },
-  ] satisfies Enlace[],
-
-  /** Horario de atención: no publicado en las fuentes revisadas. */
-  horarioAtencion: null as string | null,
+  telefonos: contacto.telefonos satisfies DatoFuente[],
+  correos: contacto.correos satisfies (DatoFuente & { etiqueta: string })[],
+  redes: contacto.redes.map((r) => ({ ...r, externo: true })) satisfies Enlace[],
+  /** Horario de atención (vacío mientras el liceo no lo publique). */
+  horarioAtencion: contacto.horarioAtencion.trim() || null,
 } as const;
 
 /** Hitos tomados textualmente de la reseña histórica del PEI 2025-2026. */

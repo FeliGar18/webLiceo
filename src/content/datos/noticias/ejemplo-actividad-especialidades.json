@@ -1,0 +1,10 @@
+{
+  "titulo": "Ejemplo de noticia de especialidades",
+  "fecha": "2026-02-16",
+  "categoria": "Especialidades",
+  "bajada": "Texto de ejemplo para una actividad de taller o una visita a una empresa colaboradora.",
+  "cuerpo": "Este es un texto de ejemplo. Las noticias de especialidades pueden contar una práctica en terreno, una visita técnica o un trabajo destacado de taller.\n\nRecuerde no identificar a estudiantes por nombre ni por fotografía sin autorización de sus apoderados.",
+  "imagen": "",
+  "imagenAlt": "",
+  "ejemplo": true
+}

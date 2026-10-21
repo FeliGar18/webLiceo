@@ -1,0 +1,249 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.230.0/schema/sveltia-cms.json
+#
+# Panel de administración del sitio (Sveltia CMS). Guía: docs/panel-admin.md
+#
+# Cada cambio guardado en el panel es un commit en la rama main del repositorio.
+# Vercel vuelve a publicar el sitio solo, en uno o dos minutos.
+# Los archivos que edita el panel están en src/content/datos/ y las fotos en
+# public/images/. El sitio valida cada archivo al compilar: si un dato queda
+# inválido, Vercel no publica ese cambio y el sitio anterior sigue en línea.
+
+backend:
+  name: github
+  repo: FeliGar18/webLiceo
+  branch: main
+  commit_messages:
+    create: "Panel: crea {{collection}} «{{slug}}»"
+    update: "Panel: actualiza {{collection}} «{{slug}}»"
+    delete: "Panel: elimina {{collection}} «{{slug}}»"
+    uploadMedia: "Panel: sube {{path}}"
+    deleteMedia: "Panel: elimina {{path}}"
+
+logo:
+  src: /brand/logo-liceo.png
+
+# Fotos subidas fuera de una sección específica.
+media_folder: public/images/subidas
+public_folder: /images/subidas
+
+# Direcciones de las noticias: minúsculas, sin tildes y con guiones.
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  # ------------------------------------------------------------------ Noticias
+  - name: noticias
+    label: Noticias
+    label_singular: Noticia
+    description: >-
+      Noticias del liceo. Las seis más recientes aparecen en la portada y todas en /noticias.
+      No publique fotos donde se identifique a estudiantes sin autorización escrita del apoderado.
+    folder: src/content/datos/noticias
+    format: json
+    extension: json
+    create: true
+    delete: true
+    identifier_field: titulo
+    slug: "{{titulo}}"
+    summary: "{{titulo}} · {{fecha}}"
+    sortable_fields:
+      fields: [fecha, titulo]
+      default:
+        field: fecha
+        direction: descending
+    media_folder: /public/images/noticias
+    public_folder: /images/noticias
+    fields:
+      - name: titulo
+        label: Título
+        widget: string
+        hint: Breve, de no más de dos líneas.
+      - name: fecha
+        label: Fecha
+        widget: datetime
+        time_format: false
+        format: YYYY-MM-DD
+        default: "{{now}}"
+      - name: categoria
+        label: Categoría
+        widget: select
+        options: [Institucional, Especialidades, Comunidad, Admisión]
+        default: Institucional
+      - name: bajada
+        label: Resumen
+        widget: text
+        hint: Una o dos líneas. Es lo que se lee en la tarjeta de la portada.
+      - name: cuerpo
+        label: Texto de la noticia
+        widget: text
+        required: false
+        hint: Separe los párrafos con una línea en blanco.
+      - name: imagen
+        label: Foto
+        widget: image
+        required: false
+        hint: Horizontal, idealmente de 1600 px de ancho. Sin estudiantes identificables sin autorización.
+      - name: imagenAlt
+        label: Descripción de la foto
+        widget: string
+        required: false
+        hint: Qué se ve en la foto, para personas que usan lectores de pantalla.
+      - name: ejemplo
+        label: Es un texto de ejemplo
+        widget: boolean
+        default: false
+        hint: Márquelo solo en noticias de prueba; el sitio las muestra con la etiqueta «Texto de ejemplo».
+
+  # ------------------------------------------------------------------ Páginas
+  - name: sitio
+    label: Datos del sitio
+    label_singular: Datos
+    description: Cifras de la portada, datos de contacto y comunidad educativa.
+    files:
+      # Cifras de la portada
+      - name: cifras
+        label: Cifras de la portada
+        file: src/content/datos/cifras.json
+        format: json
+        fields:
+          - name: cifras
+            label: Cifras
+            label_singular: Cifra
+            widget: list
+            summary: "{{fields.cifra}} {{fields.titulo}}"
+            max: 8
+            fields:
+              - name: cifra
+                label: Número
+                widget: string
+                required: false
+                hint: Por ejemplo 30 o 850+. Si lo deja vacío, se muestra «Cifra por confirmar».
+              - name: titulo
+                label: Rótulo
+                widget: string
+                hint: Por ejemplo «años» o «alumnos».
+              - name: texto
+                label: Frase
+                widget: string
+                required: false
+                hint: Opcional. Por ejemplo «Egresadas desde 1996».
+
+      # Contacto
+      - name: contacto
+        label: Datos de contacto
+        file: src/content/datos/contacto.json
+        format: json
+        fields:
+          - name: direccion
+            label: Dirección
+            widget: object
+            fields:
+              - { name: valor, label: Dirección completa, widget: string }
+              - name: estado
+                label: Estado
+                widget: select
+                options:
+                  - { label: Verificado, value: verificado }
+                  - { label: Por confirmar (se muestra con aviso), value: por-confirmar }
+              - { name: fuente, label: Fuente del dato, widget: string, required: false }
+          - name: direccionCorta
+            label: Dirección corta
+            widget: string
+            hint: Versión breve para la franja de contacto de la portada.
+          - name: telefonos
+            label: Teléfonos
+            label_singular: Teléfono
+            widget: list
+            min: 1
+            summary: "{{fields.valor}}"
+            fields:
+              - { name: valor, label: Número, widget: string, hint: "Formato +56 64 123 4567" }
+              - name: estado
+                label: Estado
+                widget: select
+                options:
+                  - { label: Verificado, value: verificado }
+                  - { label: Por confirmar (se muestra con aviso), value: por-confirmar }
+              - { name: fuente, label: Fuente del dato, widget: string, required: false }
+          - name: correos
+            label: Correos
+            label_singular: Correo
+            widget: list
+            min: 1
+            summary: "{{fields.etiqueta}}: {{fields.valor}}"
+            hint: El primero es el principal (formulario de contacto y portada).
+            fields:
+              - { name: etiqueta, label: Para qué es, widget: string, hint: "Por ejemplo Secretaría o Dirección" }
+              - { name: valor, label: Correo, widget: string }
+              - name: estado
+                label: Estado
+                widget: select
+                options:
+                  - { label: Verificado, value: verificado }
+                  - { label: Por confirmar (se muestra con aviso), value: por-confirmar }
+              - { name: fuente, label: Fuente del dato, widget: string, required: false }
+          - name: redes
+            label: Redes sociales
+            label_singular: Red social
+            widget: list
+            summary: "{{fields.etiqueta}}"
+            hint: Solo cuentas oficiales del liceo. Si se llama «Facebook», la portada muestra el botón de Facebook.
+            fields:
+              - { name: etiqueta, label: Nombre, widget: string, hint: "Por ejemplo Facebook o Instagram" }
+              - { name: href, label: Dirección (URL), widget: string, hint: "Debe empezar con https://" }
+          - name: horarioAtencion
+            label: Horario de atención
+            widget: string
+            required: false
+            hint: Por ejemplo «Lunes a viernes, 8:00 a 17:00». Si queda vacío no se muestra.
+
+      # Comunidad educativa
+      - name: comunidad
+        label: Comunidad educativa
+        file: src/content/datos/comunidad.json
+        format: json
+        fields:
+          - name: grupos
+            label: Grupos
+            label_singular: Grupo
+            widget: list
+            summary: "{{fields.titulo}}"
+            hint: El orden de la lista es el orden en la página. Publique nombres y fotos solo con autorización de cada persona.
+            fields:
+              - { name: titulo, label: Título del grupo, widget: string }
+              - name: icono
+                label: Ícono
+                widget: select
+                default: asistentes
+                options:
+                  - { label: Edificio (dirección), value: directivo }
+                  - { label: Calculadora (administración), value: administracion }
+                  - { label: Birrete (docentes), value: docentes }
+                  - { label: Manos y corazón (integración), value: pie }
+                  - { label: Maletín (asistentes), value: asistentes }
+              - { name: descripcion, label: Descripción, widget: text, required: false }
+              - { name: dotacion, label: Cantidad (texto), widget: string, required: false, hint: "Por ejemplo «5 cargos» o «54 docentes»" }
+              - name: destacarPrimero
+                label: Destacar a la primera persona arriba
+                widget: boolean
+                default: false
+                hint: Muestra a la primera persona sola sobre el resto (por ejemplo, el director).
+              - name: integrantes
+                label: Personas
+                label_singular: Persona
+                widget: list
+                summary: "{{fields.cargo}} · {{fields.nombre}}"
+                fields:
+                  - { name: nombre, label: Nombre, widget: string, required: false, hint: "Si queda vacío se muestra «Nombre por publicar»" }
+                  - { name: cargo, label: Cargo, widget: string }
+                  - { name: area, label: Área, widget: string, required: false, hint: "Opcional, va bajo el cargo" }
+                  - name: foto
+                    label: Foto
+                    widget: image
+                    required: false
+                    media_folder: /public/images/comunidad
+                    public_folder: /images/comunidad
+                    hint: Vertical (4:5), de unos 640 × 800 px. Solo con autorización de la persona.
+                  - { name: correo, label: Correo institucional, widget: string, required: false, hint: "Nunca un correo personal" }

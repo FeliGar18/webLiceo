@@ -1,53 +1,69 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { z } from "zod";
+import { categoriasNoticia } from "@/components/noticias/categorias";
 import type { Noticia } from "@/lib/types";
+import { imagenPropia } from "./imagenes";
 
 /**
  * Noticias del liceo.
  *
- * Las entradas marcadas `ejemplo: true` solo muestran el diseño y aparecen con
- * la etiqueta "Texto de ejemplo". Reemplácelas por noticias reales y elimine
- * las de ejemplo antes de publicar.
+ * Cada noticia es un archivo JSON en src/content/datos/noticias/ (el nombre del
+ * archivo es su dirección: /noticias/<archivo>). Se crean, editan y borran
+ * desde el panel de administración (/admin); ver docs/panel-admin.md.
+ *
+ * Las entradas con `ejemplo: true` solo muestran el diseño y aparecen con la
+ * etiqueta "Texto de ejemplo". Elimínelas antes de publicar.
  *
  * Fotografías: no publique imágenes en que se identifique a estudiantes sin la
  * autorización escrita de su apoderado (ver README, "Imágenes y menores de edad").
  */
-export const noticias: Noticia[] = [
-  {
-    slug: "ejemplo-inicio-ano-escolar",
-    titulo: "Así se verá una noticia del liceo",
-    fecha: "2026-03-02",
-    categoria: "Institucional",
-    bajada:
-      "Texto de ejemplo para mostrar el diseño de una noticia: título, fecha, categoría, bajada y cuerpo.",
-    cuerpo: [
-      "Este es un texto de ejemplo. Cada noticia tiene un título de no más de dos líneas, una bajada que resume lo esencial y un cuerpo en párrafos breves.",
-      "Para publicar una noticia real, edite el archivo src/content/noticias.ts siguiendo el formato de esta entrada y cambie el campo ejemplo a false.",
-    ],
-    ejemplo: true,
-  },
-  {
-    slug: "ejemplo-actividad-especialidades",
-    titulo: "Ejemplo de noticia de especialidades",
-    fecha: "2026-02-16",
-    categoria: "Especialidades",
-    bajada: "Texto de ejemplo para una actividad de taller o una visita a una empresa colaboradora.",
-    cuerpo: [
-      "Este es un texto de ejemplo. Las noticias de especialidades pueden contar una práctica en terreno, una visita técnica o un trabajo destacado de taller.",
-      "Recuerde no identificar a estudiantes por nombre ni por fotografía sin autorización de sus apoderados.",
-    ],
-    ejemplo: true,
-  },
-  {
-    slug: "ejemplo-proceso-admision",
-    titulo: "Ejemplo de aviso de admisión",
-    fecha: "2026-01-12",
-    categoria: "Admisión",
-    bajada: "Texto de ejemplo para un aviso sobre plazos del Sistema de Admisión Escolar.",
-    cuerpo: [
-      "Este es un texto de ejemplo. Las fechas del proceso las fija el Ministerio de Educación y se publican en sistemadeadmisionescolar.cl.",
-    ],
-    ejemplo: true,
-  },
-];
+
+const CARPETA = join(process.cwd(), "src", "content", "datos", "noticias");
+
+/** Texto opcional: el panel puede guardarlo vacío, como null o no guardarlo. */
+const opcional = z.string().nullish().transform((v) => v?.trim() ?? "");
+
+const noticiaSchema = z.object({
+  titulo: z.string().trim().min(1),
+  fecha: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "La fecha debe tener el formato AAAA-MM-DD"),
+  categoria: z.enum(categoriasNoticia),
+  bajada: z.string().trim().min(1),
+  /** Párrafos separados por una línea en blanco. Texto plano, sin HTML. */
+  cuerpo: opcional,
+  imagen: opcional,
+  imagenAlt: opcional,
+  ejemplo: z.boolean().nullish().transform((v) => v ?? false),
+});
+
+function leerNoticias(): Noticia[] {
+  return readdirSync(CARPETA)
+    .filter((archivo) => archivo.endsWith(".json"))
+    .map((archivo) => {
+      const slug = archivo.replace(/\.json$/, "");
+      const resultado = noticiaSchema.safeParse(JSON.parse(readFileSync(join(CARPETA, archivo), "utf8")));
+      if (!resultado.success) {
+        throw new Error(`La noticia "${archivo}" tiene datos inválidos: ${resultado.error.message}`);
+      }
+      const n = resultado.data;
+      return {
+        slug,
+        titulo: n.titulo,
+        fecha: n.fecha,
+        categoria: n.categoria,
+        bajada: n.bajada,
+        cuerpo: n.cuerpo
+          .split(/\n\s*\n/)
+          .map((p) => p.replace(/\s*\n\s*/g, " ").trim())
+          .filter(Boolean),
+        // Las fotos se muestran ajustadas a su marco: el tamaño solo es referencial.
+        imagen: n.imagen ? imagenPropia(n.imagen, n.imagenAlt || n.titulo, 1600, 1000) : undefined,
+        ejemplo: n.ejemplo,
+      };
+    });
+}
+
+export const noticias: Noticia[] = leerNoticias();
 
 export function noticiasOrdenadas(): Noticia[] {
   return [...noticias].sort((a, b) => b.fecha.localeCompare(a.fecha));

@@ -1,0 +1,10 @@
+{
+  "titulo": "Ejemplo de aviso de admisión",
+  "fecha": "2026-01-12",
+  "categoria": "Admisión",
+  "bajada": "Texto de ejemplo para un aviso sobre plazos del Sistema de Admisión Escolar.",
+  "cuerpo": "Este es un texto de ejemplo. Las fechas del proceso las fija el Ministerio de Educación y se publican en sistemadeadmisionescolar.cl.",
+  "imagen": "",
+  "imagenAlt": "",
+  "ejemplo": true
+}

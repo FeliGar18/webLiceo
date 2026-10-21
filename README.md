@@ -72,13 +72,20 @@ DESIGN.md                 Sistema visual y reglas de diseño
 
 ## Cómo actualizar el contenido
 
-Todo el contenido está centralizado en `src/content/`. No hace falta tocar componentes.
+**Panel de administración (`/admin`):** noticias, cifras de la portada, datos de contacto y comunidad
+educativa se agregan, editan y borran desde el panel, sin tocar código. Guía completa:
+[`docs/panel-admin.md`](docs/panel-admin.md). Esos datos viven en `src/content/datos/` (JSON).
+
+El resto del contenido está en `src/content/`. No hace falta tocar componentes.
 
 | Qué | Archivo |
 | --- | --- |
-| Nombre, dirección, correos, teléfono, redes, sostenedor, hitos | `src/content/institucion.ts` |
+| Nombre, sostenedor, hitos | `src/content/institucion.ts` |
+| Dirección, correos, teléfonos, redes, horario | Panel → Datos de contacto (`src/content/datos/contacto.json`) |
+| Cifras de la portada | Panel → Cifras de la portada (`src/content/datos/cifras.json`) |
+| Comunidad educativa | Panel → Comunidad educativa (`src/content/datos/comunidad.json`) |
 | Especialidades (resumen, competencias, perfil de egreso, campo laboral, galería) | `src/content/especialidades.ts` |
-| Noticias | `src/content/noticias.ts` |
+| Noticias | Panel → Noticias (`src/content/datos/noticias/*.json`) |
 | Documentos descargables | `src/content/documentos.ts` |
 | Proyectos y actividades | `src/content/proyectos.ts` |
 | Menú y pie de página | `src/content/navegacion.ts` |
@@ -100,10 +107,8 @@ Los resúmenes de especialidad tienen `validado: false` mientras sean provisiona
 
 ### Publicar una noticia
 
-Agregue un objeto al arreglo de `src/content/noticias.ts` con `slug` único (minúsculas y guiones),
-`fecha` en formato `AAAA-MM-DD`, `categoria`, `titulo`, `bajada`, `cuerpo` (párrafos) y
-`ejemplo: false`. **Elimine las noticias de ejemplo antes de publicar.** Para una imagen, copie el
-archivo a `public/images/noticias/` y use `imagenPropia(src, alt, ancho, alto)`.
+Desde el panel: **Noticias → Nueva noticia** (ver [`docs/panel-admin.md`](docs/panel-admin.md)).
+**Elimine las noticias de ejemplo antes de publicar.**
 
 ### Reemplazar imágenes provisionales por fotografías del liceo
 
@@ -154,20 +159,20 @@ Copie `.env.example` a `.env.local` para desarrollo. En Vercel se configuran en
 | **Resend** (resend.com) | Para el formulario | Envío de los mensajes de contacto por correo. Requiere verificar el dominio del remitente (registros DNS SPF/DKIM). |
 | **Meta (Graph API)** | Opcional | Muestra las publicaciones de Facebook en la grilla de noticias de la portada, visibles sin sesión. Ver [`docs/facebook.md`](docs/facebook.md). |
 | Vercel Blob | Opcional | Documentos o fotografías que deban persistir y no quepan en el repositorio. |
-| Base de datos (Postgres desde el Marketplace de Vercel, p. ej. Neon) | No por ahora | Solo si en el futuro se agrega un panel de administración o limitación de frecuencia persistente. |
+| **Sveltia CMS** | Incluido | Panel de administración en `/admin` (gratuito, sin servidor). Guarda los cambios en GitHub. Ver [`docs/panel-admin.md`](docs/panel-admin.md). |
+| Base de datos (Postgres desde el Marketplace de Vercel, p. ej. Neon) | No por ahora | Solo si en el futuro se necesitan usuarios con roles propios o limitación de frecuencia persistente. |
 
 El sitio **no usa base de datos**: todo el contenido vive en el repositorio y el formulario envía un
 correo sin guardar los mensajes. Esto evita guardar datos personales y mantiene costos en cero.
 
-### Hacia un panel de administración (futuro)
+### Panel de administración
 
-La arquitectura ya separa contenido (`src/content/`) de presentación, con tipos en
-`src/lib/types.ts`. Para un panel con usuarios y roles se recomienda: Postgres administrado
-(Marketplace de Vercel), autenticación mantenida (p. ej. Auth.js o el proveedor del sostenedor),
-autorización por rol verificada en el servidor, validación con zod, y Vercel Blob para archivos.
-Las funciones de `src/content/*` (p. ej. `noticiasOrdenadas`, `getNoticia`) serían reemplazadas por
-consultas a la base de datos con `"use cache"` y `cacheTag`. No se construyó en esta versión porque
-no era necesario para publicar.
+El panel `/admin` (Sveltia CMS) edita archivos JSON de `src/content/datos/` y guarda cada cambio
+como un commit en GitHub; Vercel vuelve a publicar solo. No usa base de datos: el historial y los
+permisos son los de GitHub (cada editor necesita una cuenta con acceso de escritura al repositorio).
+Si más adelante se necesitan usuarios propios con roles, la alternativa es Postgres administrado,
+autenticación (p. ej. Auth.js) y Vercel Blob, reemplazando las funciones de `src/content/*`.
+Guía: [`docs/panel-admin.md`](docs/panel-admin.md).
 
 ## Pruebas y verificación
 

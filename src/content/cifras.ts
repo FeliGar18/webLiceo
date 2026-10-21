@@ -1,9 +1,13 @@
+import { z } from "zod";
+import datos from "./datos/cifras.json";
+
 /**
  * Cifras de la portada (debajo del video).
  *
- * Solo datos entregados por el liceo. Mientras `cifra` sea null, la portada
- * muestra el espacio con la etiqueta "Por confirmar" en vez de inventar un número.
- * `texto` es opcional: una frase corta que acompaña la cifra.
+ * Se editan desde el panel de administración (/admin), que guarda
+ * src/content/datos/cifras.json. Solo datos entregados por el liceo: si
+ * `cifra` queda vacía, la portada muestra "Cifra por confirmar" en vez de
+ * inventar un número. `texto` es opcional.
  */
 export type Cifra = {
   cifra: string | null;
@@ -11,10 +15,20 @@ export type Cifra = {
   texto?: string;
 };
 
-export const cifras: Cifra[] = [
-  // Cifras entregadas por el liceo.
-  { cifra: "30", titulo: "años", texto: "Entregando educación técnico-profesional de excelencia" },
-  { cifra: "29", titulo: "generaciones", texto: "Egresadas desde 1996" },
-  { cifra: "850+", titulo: "alumnos" },
-  { cifra: "50+", titulo: "profesionales", texto: "Al servicio de la comunidad educativa" },
-];
+const opcional = z.string().nullish().transform((v) => v?.trim() ?? "");
+
+const cifrasSchema = z.object({
+  cifras: z.array(
+    z.object({
+      cifra: opcional,
+      titulo: z.string().trim().min(1),
+      texto: opcional,
+    }),
+  ),
+});
+
+export const cifras: Cifra[] = cifrasSchema.parse(datos).cifras.map((c) => ({
+  cifra: c.cifra || null,
+  titulo: c.titulo,
+  texto: c.texto || undefined,
+}));

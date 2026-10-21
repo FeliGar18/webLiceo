@@ -1,0 +1,10 @@
+{
+  "titulo": "Así se verá una noticia del liceo",
+  "fecha": "2026-03-02",
+  "categoria": "Institucional",
+  "bajada": "Texto de ejemplo para mostrar el diseño de una noticia: título, fecha, categoría, bajada y cuerpo.",
+  "cuerpo": "Este es un texto de ejemplo. Cada noticia tiene un título de no más de dos líneas, una bajada que resume lo esencial y un cuerpo en párrafos breves.\n\nPara publicar una noticia real, edite el archivo src/content/noticias.ts siguiendo el formato de esta entrada y cambie el campo ejemplo a false.",
+  "imagen": "",
+  "imagenAlt": "",
+  "ejemplo": true
+}

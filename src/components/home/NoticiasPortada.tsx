@@ -12,7 +12,7 @@ import { obtenerPublicacionesFacebook, type PublicacionFacebook } from "@/lib/fa
 const MAXIMO = 6;
 const LARGO_TITULO = 90;
 
-const facebook = institucion.redes.find((r) => r.etiqueta === "Facebook")!;
+const facebook = institucion.redes.find((r) => r.etiqueta.toLowerCase() === "facebook");
 
 const formatoFecha = new Intl.DateTimeFormat("es-CL", {
   day: "numeric",
@@ -171,11 +171,13 @@ export async function NoticiasPortada() {
                 Todas las noticias
                 <ArrowRight aria-hidden className="flecha size-4" />
               </Link>
-              <a href={facebook.href} target="_blank" rel="noopener noreferrer" className="btn bg-surface text-ink hover:bg-surface-strong">
-                Facebook
-                <ArrowUpRight aria-hidden className="flecha flecha-diagonal size-4" />
-                <span className="sr-only">(abre una pestaña nueva)</span>
-              </a>
+              {facebook ? (
+                <a href={facebook.href} target="_blank" rel="noopener noreferrer" className="btn bg-surface text-ink hover:bg-surface-strong">
+                  Facebook
+                  <ArrowUpRight aria-hidden className="flecha flecha-diagonal size-4" />
+                  <span className="sr-only">(abre una pestaña nueva)</span>
+                </a>
+              ) : null}
             </div>
           </div>
         </div>

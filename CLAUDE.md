@@ -68,7 +68,9 @@ En Windows, si `node` no está en el PATH de la terminal de Git Bash:
 
 | Qué | Dónde |
 | --- | --- |
-| Datos del liceo (dirección, correos, teléfono, redes, hitos) | `src/content/institucion.ts` |
+| Datos del liceo (nombre, sostenedor, hitos) | `src/content/institucion.ts` |
+| **Editable desde el panel /admin** (noticias, cifras, contacto, comunidad) | `src/content/datos/*.json` (ver `docs/panel-admin.md`) |
+| Configuración del panel (Sveltia CMS) | `public/admin/config.yml` |
 | Especialidades (módulos del PEI, título, talleres, logros, pendientes) | `src/content/especialidades.ts` |
 | Comunidad educativa (cargos según dotación del PEI) | `src/content/comunidad.ts` |
 | Noticias (hoy solo 3 de **ejemplo**) | `src/content/noticias.ts` |

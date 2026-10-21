@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "predev": "node scripts/copiar-cms.mjs",
     "build": "next build",
+    "prebuild": "node scripts/copiar-cms.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -19,6 +21,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@sveltia/cms": "0.230.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^24.19.2",
     "@types/react": "^19",

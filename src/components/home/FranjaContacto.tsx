@@ -49,7 +49,7 @@ export function FranjaContacto() {
               title={`${institucion.direccion.valor}, ${institucion.region}`}
               className="flex min-h-11 min-w-0 items-center text-muted underline-offset-2 hover:text-ink hover:underline"
             >
-              <span className="truncate">Sector San Javier km 7, Ruta T-74, {institucion.comuna}</span>
+              <span className="truncate">{institucion.direccionCorta}</span>
               <span className="sr-only"> (abre Google Maps en una pestaña nueva)</span>
             </a>
           </Dato>

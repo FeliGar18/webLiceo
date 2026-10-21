@@ -1,0 +1,40 @@
+{
+  "direccion": {
+    "valor": "Sector San Javier km 7, Ruta T-74, camino a Puerto Nuevo, La Unión",
+    "estado": "verificado",
+    "fuente": "Proyecto Educativo Institucional 2025-2026 (Sistema de Admisión Escolar, Mineduc)"
+  },
+  "direccionCorta": "Sector San Javier km 7, Ruta T-74, La Unión",
+  "telefonos": [
+    {
+      "valor": "+56 64 257 0409",
+      "estado": "por-confirmar",
+      "fuente": "PEI y RIE (las fuentes lo escriben de formas distintas)"
+    }
+  ],
+  "correos": [
+    {
+      "etiqueta": "Secretaría",
+      "valor": "i.launion.secretaria@snaeduca.cl",
+      "estado": "verificado",
+      "fuente": "Página del liceo en snaeduca.cl"
+    },
+    {
+      "etiqueta": "Dirección",
+      "valor": "i.launion.direccion@snaeduca.cl",
+      "estado": "verificado",
+      "fuente": "Proyecto Educativo Institucional 2025-2026 (Sistema de Admisión Escolar, Mineduc)"
+    }
+  ],
+  "redes": [
+    {
+      "etiqueta": "Facebook",
+      "href": "https://www.facebook.com/indufenner"
+    },
+    {
+      "etiqueta": "Instagram",
+      "href": "https://www.instagram.com/indufenner/"
+    }
+  ],
+  "horarioAtencion": ""
+}

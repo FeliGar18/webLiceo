@@ -42,6 +42,33 @@ const cabecerasSeguridad = [
   ...(esProduccion ? [{ key: "Content-Security-Policy", value: csp }] : []),
 ];
 
+/*
+ * CSP del panel de administración (/admin, Sveltia CMS). Reemplaza a la del
+ * sitio solo en esas rutas: el panel habla con la API de GitHub, muestra fotos
+ * del repositorio, consulta el estado de GitHub (githubstatus.com), carga sus
+ * tipografías desde jsDelivr y algunos módulos opcionales desde unpkg.
+ */
+const cspPanel = [
+  "default-src 'self'",
+  "script-src 'self' https://unpkg.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' blob: data: https://*.githubusercontent.com",
+  "font-src 'self' https://cdn.jsdelivr.net",
+  "connect-src 'self' blob: data: https://api.github.com https://*.githubusercontent.com https://www.githubstatus.com https://unpkg.com",
+  "media-src 'self' blob:",
+  "frame-src blob:",
+  "manifest-src 'self' blob:",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+].join("; ");
+
+const cabecerasPanel = [
+  { key: "X-Robots-Tag", value: "noindex, nofollow" },
+  ...(esProduccion ? [{ key: "Content-Security-Policy", value: cspPanel }] : []),
+];
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
@@ -52,12 +79,26 @@ const nextConfig: NextConfig = {
     // el optimizador del sitio: el navegador del visitante no contacta a Facebook.
     remotePatterns: [{ protocol: "https", hostname: "**.fbcdn.net" }],
   },
-  async headers() {
-    return [{ source: "/:path*", headers: cabecerasSeguridad }];
+  // Las noticias se leen con fs desde src/content/datos/noticias (las edita el
+  // panel): se incluyen en el servidor para las páginas que se generan al vuelo.
+  outputFileTracingIncludes: {
+    "/**": ["./src/content/datos/noticias/*.json"],
   },
-  // Algunos navegadores piden /favicon.ico aunque exista <link rel="icon">.
+  async headers() {
+    return [
+      { source: "/:path*", headers: cabecerasSeguridad },
+      // Va después: para /admin, su CSP reemplaza a la del sitio.
+      { source: "/admin", headers: cabecerasPanel },
+      { source: "/admin/:path*", headers: cabecerasPanel },
+    ];
+  },
   async rewrites() {
-    return [{ source: "/favicon.ico", destination: "/icon" }];
+    return [
+      // Algunos navegadores piden /favicon.ico aunque exista <link rel="icon">.
+      { source: "/favicon.ico", destination: "/icon" },
+      // Panel de administración (archivo estático en public/admin/).
+      { source: "/admin", destination: "/admin/index.html" },
+    ];
   },
   turbopack: {
     rules: {

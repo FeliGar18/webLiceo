@@ -1,0 +1,889 @@
+{
+  "grupos": [
+    {
+      "titulo": "Equipo directivo",
+      "icono": "directivo",
+      "descripcion": "Conduce el proyecto educativo y la gestión del liceo.",
+      "dotacion": "5 cargos",
+      "destacarPrimero": true,
+      "integrantes": [
+        {
+          "nombre": "Ernesto Uslar",
+          "cargo": "Director",
+          "area": "Dirección",
+          "foto": "/images/comunidad/ernesto-uslar.jpg",
+          "correo": "i.launion.direccion@snaeduca.cl"
+        },
+        {
+          "nombre": "Miroslava Montecinos",
+          "cargo": "Jefa de UTP",
+          "area": "Unidad Técnico-Pedagógica",
+          "foto": "/images/comunidad/miroslava-montecinos.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Ramon Aguilera",
+          "cargo": "Encargado de Convivencia Escolar",
+          "area": "Convivencia escolar",
+          "foto": "/images/comunidad/ramon-aguilera.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jaime Navarrete",
+          "cargo": "Jefe Administrativo",
+          "area": "Administración",
+          "foto": "/images/comunidad/jaime-navarrete.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Juan Garcia",
+          "cargo": "Coordinador de Especialidades",
+          "area": "Formación técnico-profesional",
+          "foto": "/images/comunidad/juan-garcia.jpg",
+          "correo": ""
+        }
+      ]
+    },
+    {
+      "titulo": "Área Administrativa y Finanzas",
+      "icono": "administracion",
+      "descripcion": "Gestiona la administración, los recursos y las finanzas del liceo.",
+      "dotacion": "4 cargos",
+      "destacarPrimero": false,
+      "integrantes": [
+        {
+          "nombre": "Daniela Rilling",
+          "cargo": "Secretaria",
+          "area": "Administración",
+          "foto": "/images/comunidad/daniela-rilling.jpg",
+          "correo": "i.launion.secretaria@snaeduca.cl"
+        },
+        {
+          "nombre": "Esteban Uribe",
+          "cargo": "Prevencionista de Riesgos",
+          "area": "Seguridad y prevención",
+          "foto": "/images/comunidad/esteban-uribe.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Fredy Oporto",
+          "cargo": "Cargo por confirmar",
+          "area": "Área Administrativa y Finanzas",
+          "foto": "/images/comunidad/fredy-oporto.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "",
+          "cargo": "Cargo por confirmar",
+          "area": "Área Administrativa y Finanzas",
+          "foto": "",
+          "correo": ""
+        }
+      ]
+    },
+    {
+      "titulo": "Docentes",
+      "icono": "docentes",
+      "descripcion": "Enseñan la formación general y la formación diferenciada de cada especialidad, en aulas, talleres y laboratorios.",
+      "dotacion": "54 docentes",
+      "destacarPrimero": false,
+      "integrantes": [
+        {
+          "nombre": "Andrea Avila",
+          "cargo": "Docente de Lenguaje",
+          "area": "",
+          "foto": "/images/comunidad/andrea-avila.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Daniela Burgos",
+          "cargo": "Docente de Lenguaje",
+          "area": "",
+          "foto": "/images/comunidad/daniela-burgos.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Diego Gallardo",
+          "cargo": "Docente de Lenguaje",
+          "area": "",
+          "foto": "/images/comunidad/diego-gallardo.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Karina Sanzana",
+          "cargo": "Docente de Lenguaje",
+          "area": "",
+          "foto": "/images/comunidad/karina-sanzana.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Lissette Quezada",
+          "cargo": "Docente de Lenguaje",
+          "area": "",
+          "foto": "/images/comunidad/lissette-quezada.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Bexi Zambrano",
+          "cargo": "Docente de Matemática",
+          "area": "",
+          "foto": "/images/comunidad/bexi-zambrano.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Hector Gallardo",
+          "cargo": "Docente de Matemática",
+          "area": "",
+          "foto": "/images/comunidad/hector-gallardo.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Hugo Barrientos",
+          "cargo": "Docente de Matemática",
+          "area": "",
+          "foto": "/images/comunidad/hugo-barrientos.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Lorena Solis",
+          "cargo": "Docente de Matemática",
+          "area": "",
+          "foto": "/images/comunidad/lorena-solis.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Pamela Del Rio",
+          "cargo": "Docente de Matemática",
+          "area": "",
+          "foto": "/images/comunidad/pamela-del-rio.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Romina Fernandoy",
+          "cargo": "Docente de Matemática",
+          "area": "",
+          "foto": "/images/comunidad/romina-fernandoy.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Daniel Salas",
+          "cargo": "Docente de Historia",
+          "area": "",
+          "foto": "/images/comunidad/daniel-salas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Dany Melendre",
+          "cargo": "Docente de Historia",
+          "area": "",
+          "foto": "/images/comunidad/dany-melendre.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Nory Rosas",
+          "cargo": "Docente de Historia",
+          "area": "",
+          "foto": "/images/comunidad/nory-rosas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Debora Alarcon",
+          "cargo": "Docente de Inglés",
+          "area": "",
+          "foto": "/images/comunidad/debora-alarcon.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Maria Rios",
+          "cargo": "Docente de Inglés",
+          "area": "",
+          "foto": "/images/comunidad/maria-rios.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Romina Torres",
+          "cargo": "Docente de Inglés",
+          "area": "",
+          "foto": "/images/comunidad/romina-torres.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Carmen Concha",
+          "cargo": "Docente de Biología y Ciencias",
+          "area": "",
+          "foto": "/images/comunidad/carmen-concha.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Marlene Millapan",
+          "cargo": "Docente de Biología y Ciencias",
+          "area": "",
+          "foto": "/images/comunidad/marlene-millapan.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Felipe Cifuentes",
+          "cargo": "Docente de Física",
+          "area": "",
+          "foto": "/images/comunidad/felipe-cifuentes.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Evelyn Guerra",
+          "cargo": "Docente de Filosofía",
+          "area": "",
+          "foto": "/images/comunidad/evelyn-guerra.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Sandra Labbe",
+          "cargo": "Docente de Religión",
+          "area": "",
+          "foto": "/images/comunidad/sandra-labbe.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Angelina Figueroa",
+          "cargo": "Docente de Tecnología",
+          "area": "",
+          "foto": "/images/comunidad/angelina-figueroa.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Eduardo Bello",
+          "cargo": "Docente de Tecnología",
+          "area": "",
+          "foto": "/images/comunidad/eduardo-bello.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Felipe Relh",
+          "cargo": "Docente de Tecnología",
+          "area": "",
+          "foto": "/images/comunidad/felipe-relh.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Marbelis Rojas",
+          "cargo": "Docente de Artes",
+          "area": "",
+          "foto": "/images/comunidad/marbelis-rojas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Matias Carcamo",
+          "cargo": "Docente de Música",
+          "area": "",
+          "foto": "/images/comunidad/matias-carcamo.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Marcelo Vergara",
+          "cargo": "Docente de Educación Física",
+          "area": "",
+          "foto": "/images/comunidad/marcelo-vergara.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Miguel Leal",
+          "cargo": "Docente de Educación Física",
+          "area": "",
+          "foto": "/images/comunidad/miguel-leal.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Pedro Saldivia",
+          "cargo": "Docente de Educación Física",
+          "area": "",
+          "foto": "/images/comunidad/pedro-saldivia.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jaime Becerra",
+          "cargo": "Docente de Voleibol",
+          "area": "",
+          "foto": "/images/comunidad/jaime-becerra.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Nayeli Aros",
+          "cargo": "Docente de Edificación",
+          "area": "",
+          "foto": "/images/comunidad/nayeli-aros.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Roberto Iturriaga",
+          "cargo": "Docente de Edificación",
+          "area": "",
+          "foto": "/images/comunidad/roberto-iturriaga.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Ruben Aravera",
+          "cargo": "Docente de Edificación",
+          "area": "",
+          "foto": "/images/comunidad/ruben-aravera.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Angelo Ramirez",
+          "cargo": "Docente de Electricidad",
+          "area": "",
+          "foto": "/images/comunidad/angelo-ramirez.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Javier Cifuentes",
+          "cargo": "Docente de Electricidad",
+          "area": "",
+          "foto": "/images/comunidad/javier-cifuentes.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Julio Oyarzun",
+          "cargo": "Docente de Electricidad",
+          "area": "",
+          "foto": "/images/comunidad/julio-oyarzun.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Francisco Vera",
+          "cargo": "Docente de Estructuras Metálicas",
+          "area": "",
+          "foto": "/images/comunidad/francisco-vera.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Raul Quezada",
+          "cargo": "Docente de Estructuras Metálicas",
+          "area": "",
+          "foto": "/images/comunidad/raul-quezada.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Claudia Ceverio",
+          "cargo": "Docente de Instalaciones Sanitarias",
+          "area": "",
+          "foto": "/images/comunidad/claudia-ceverio.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Cristian Asenjo",
+          "cargo": "Docente de Mecánica Automotriz",
+          "area": "",
+          "foto": "/images/comunidad/cristian-asenjo.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jose Mansilla",
+          "cargo": "Docente de Mecánica Automotriz",
+          "area": "",
+          "foto": "/images/comunidad/jose-mansilla.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Mauricio Quezada",
+          "cargo": "Docente de Mecánica Automotriz",
+          "area": "",
+          "foto": "/images/comunidad/mauricio-quezada.jpg",
+          "correo": ""
+        }
+      ]
+    },
+    {
+      "titulo": "Programa de Integración Escolar",
+      "icono": "pie",
+      "descripcion": "Acompaña a estudiantes con necesidades educativas especiales junto a docentes y familias.",
+      "dotacion": "16 profesionales",
+      "destacarPrimero": false,
+      "integrantes": [
+        {
+          "nombre": "Susana Villalon",
+          "cargo": "Coordinadora PIE",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/susana-villalon.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Cristian Villalon",
+          "cargo": "Psicólogo",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/cristian-villalon.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Joel Martinez",
+          "cargo": "Terapeuta Ocupacional",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/joel-martinez.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Aylin Ferrada",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/aylin-ferrada.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Camila Ponce",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/camila-ponce.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Carolina Andrade",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/carolina-andrade.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Geraldine Bahamondes",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/geraldine-bahamondes.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Karla Catrihual",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/karla-catrihual.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Susana Union",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/susana-union.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Vanesa Saldivia",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/vanesa-saldivia.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Viviana Soto",
+          "cargo": "Educadora Diferencial",
+          "area": "Programa de Integración Escolar",
+          "foto": "/images/comunidad/viviana-soto.jpg",
+          "correo": ""
+        }
+      ]
+    },
+    {
+      "titulo": "Asistentes de la educación",
+      "icono": "asistentes",
+      "descripcion": "Apoyan el bienestar de estudiantes y familias, la convivencia y la seguridad en talleres, y sostienen el funcionamiento diario del liceo, el internado y la atención a la comunidad.",
+      "dotacion": "69 asistentes y 5 profesionales de apoyo",
+      "destacarPrimero": false,
+      "integrantes": [
+        {
+          "nombre": "Patricio Alvarez",
+          "cargo": "Inspector Jefe",
+          "area": "",
+          "foto": "/images/comunidad/patricio-alvarez.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Hector Bravo",
+          "cargo": "Coordinador Residencia Escolar",
+          "area": "",
+          "foto": "/images/comunidad/hector-bravo.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Alejandro Guzman",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/alejandro-guzman.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Carlos Flandez",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/carlos-flandez.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Cristian Manzano",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/cristian-manzano.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Felipe Barraza",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/felipe-barraza.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Francisca Meeder",
+          "cargo": "Inspectora",
+          "area": "",
+          "foto": "/images/comunidad/francisca-meeder.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Genaro Solis",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/genaro-solis.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Gonzalo Villagran",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/gonzalo-villagran.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Guido Puebla",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/guido-puebla.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Hector Hurtado",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/hector-hurtado.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Humberto Gallegos",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/humberto-gallegos.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jose Luis Guarda",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/jose-luis-guarda.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jose Luis Soto",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/jose-luis-soto.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Julio Casanova",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/julio-casanova.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Luis Rosas",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/luis-rosas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Marcela Casanova",
+          "cargo": "Inspectora",
+          "area": "",
+          "foto": "/images/comunidad/marcela-casanova.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Maria Pascuala Avila",
+          "cargo": "Inspectora",
+          "area": "",
+          "foto": "/images/comunidad/maria-pascuala-avila.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Marta Guarda",
+          "cargo": "Inspectora",
+          "area": "",
+          "foto": "/images/comunidad/marta-guarda.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Mauricio Villanueva",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/mauricio-villanueva.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Minerva Baeza",
+          "cargo": "Inspectora",
+          "area": "",
+          "foto": "/images/comunidad/minerva-baeza.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Raul Paredes",
+          "cargo": "Inspector",
+          "area": "",
+          "foto": "/images/comunidad/raul-paredes.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Ivana Arancibia",
+          "cargo": "Psicóloga",
+          "area": "",
+          "foto": "/images/comunidad/ivana-arancibia.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Sharon Soto",
+          "cargo": "Psicóloga",
+          "area": "",
+          "foto": "/images/comunidad/sharon-soto.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jessica Catalan",
+          "cargo": "Trabajadora Social",
+          "area": "",
+          "foto": "/images/comunidad/jessica-catalan.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Ximena Ojeda",
+          "cargo": "Trabajadora Social",
+          "area": "",
+          "foto": "/images/comunidad/ximena-ojeda.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Gabriel Pezoa",
+          "cargo": "Técnico Edificación",
+          "area": "",
+          "foto": "/images/comunidad/gabriel-pezoa.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Eric Vera",
+          "cargo": "Técnico Estructuras Metálicas",
+          "area": "",
+          "foto": "/images/comunidad/eric-vera.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Luis Medina",
+          "cargo": "Técnico Instalaciones Sanitarias",
+          "area": "",
+          "foto": "/images/comunidad/luis-medina.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Maria Jose Erices",
+          "cargo": "Secretaria Docencia",
+          "area": "",
+          "foto": "/images/comunidad/maria-jose-erices.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Pedro Fernandez",
+          "cargo": "Encargado de Informática",
+          "area": "",
+          "foto": "/images/comunidad/pedro-fernandez.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jesus Espinoza",
+          "cargo": "Asistente de Informática",
+          "area": "",
+          "foto": "/images/comunidad/jesus-espinoza.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Edith Monasterio",
+          "cargo": "Encargada de Biblioteca",
+          "area": "",
+          "foto": "/images/comunidad/edith-monasterio.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Catalina Egaña",
+          "cargo": "Nutricionista",
+          "area": "",
+          "foto": "/images/comunidad/catalina-egana.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Selmira Vera",
+          "cargo": "Técnico Paramédico",
+          "area": "",
+          "foto": "/images/comunidad/selmira-vera.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Andrea Sanhueza",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/andrea-sanhueza.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Bernardita Montero",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/bernardita-montero.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Camila Mendoza",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/camila-mendoza.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Doris Villegas",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/doris-villegas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Iris Ojeda",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/iris-ojeda.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jacqueline Vega",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/jacqueline-vega.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Jovita Chacon",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/jovita-chacon.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Margarita Lipiante",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/margarita-lipiante.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Maria Gatica",
+          "cargo": "Manipuladora de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/maria-gatica.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Ricardo Chatre",
+          "cargo": "Manipulador de Alimentos",
+          "area": "",
+          "foto": "/images/comunidad/ricardo-chatre.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Ercito Mancilla",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/ercito-mancilla.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Irma Cardenas",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/irma-cardenas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Juan Vera",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/juan-vera.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Luis Huala",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/luis-huala.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Margarita Ortiz",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/margarita-ortiz.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Maria Cardenas",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/maria-cardenas.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Patricia Montecinos",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/patricia-montecinos.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Veronica Retamales",
+          "cargo": "Auxiliar",
+          "area": "",
+          "foto": "/images/comunidad/veronica-retamales.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Emerson Canales",
+          "cargo": "Encargado de Parques y Jardines",
+          "area": "",
+          "foto": "/images/comunidad/emerson-canales.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Victor Melo",
+          "cargo": "Portero",
+          "area": "",
+          "foto": "/images/comunidad/victor-melo.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "German Sepulveda",
+          "cargo": "Conductor",
+          "area": "",
+          "foto": "/images/comunidad/german-sepulveda.jpg",
+          "correo": ""
+        },
+        {
+          "nombre": "Mauricio Muñoz",
+          "cargo": "Conductor",
+          "area": "",
+          "foto": "/images/comunidad/mauricio-munoz.jpg",
+          "correo": ""
+        }
+      ]
+    }
+  ]
+}

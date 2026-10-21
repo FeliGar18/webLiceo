@@ -53,14 +53,20 @@ export default function Inicio() {
             >
               <span className="intro-line" style={{ ["--i" as string]: 0 }}>
                 <span>Liceo Bicentenario</span>
-              </span>
+              </span>{" "}
               <span className="intro-line" style={{ ["--i" as string]: 1 }}>
                 <span>Industrial</span>
+              </span>{" "}
+              {/* Nombre completo del liceo: tercera línea del título, a menor escala. */}
+              <span
+                className="intro-line mt-4 text-[clamp(1.375rem,0.75rem+2.7vw,3.25rem)] leading-[1.05] tracking-[-0.03em] text-[#ece8ea] sm:mt-5"
+                style={{ ["--i" as string]: 2 }}
+              >
+                <span>Ingeniero Ricardo Fenner Ruedi</span>
               </span>
             </h1>
-            <p className="intro-fade mt-8 max-w-[44ch] text-lead leading-snug text-[#ece8ea]" style={{ ["--i" as string]: 0 }}>
-              Ingeniero Ricardo Fenner Ruedi. Educación media técnico-profesional en San Javier, La Unión, Región de
-              Los Ríos, desde 1996.
+            <p className="intro-fade mt-7 max-w-[44ch] text-lead leading-snug text-[#ece8ea]" style={{ ["--i" as string]: 0 }}>
+              Educación media técnico-profesional en La Unión, Región de Los Ríos, desde 1996.
             </p>
             <Link href="/admision" className="intro-fade btn btn-primary mt-8" style={{ ["--i" as string]: 1 }}>
               Cómo postular

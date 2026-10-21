@@ -44,3 +44,6 @@ next-env.d.ts
 # herramientas locales
 .taste-skill/
 .claude/
+
+# panel de administración: se copia desde node_modules (scripts/copiar-cms.mjs)
+/public/admin/cms/
