@@ -17,6 +17,9 @@
   --accent-strong: #730f0b;
   --accent-ink: #ffffff;
   --accent-soft: #f1dfdf;
+  /* Dorado: solo para el acceso FIS del pie (sobre fondo oscuro). */
+  --oro: #cfae5f;
+  --oro-claro: #ecd393;
 
   --esp-edificacion: #8a4a2b;
   --esp-edificacion-ink: #ffffff;
@@ -195,6 +198,54 @@ select {
   }
   .btn-light:hover {
     background: var(--surface);
+  }
+}
+
+/*
+ * Botón dorado discreto (acceso FIS del pie): texto dorado sobre un bloque
+ * oscuro. Al pasar el cursor, un destello cruza el botón una vez (una franja
+ * clara sólida inclinada, sin degradado) y el dorado se aclara.
+ */
+.btn-oro {
+  position: relative;
+  background: #2a2629;
+  color: var(--oro);
+  letter-spacing: 0.01em;
+}
+.btn-oro::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -40%;
+  width: 22%;
+  background: rgb(255 240 200 / 0.28);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-oro:hover {
+    background: #332c2f;
+    color: var(--oro-claro);
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .btn-oro:hover::after {
+    animation: destello-oro 700ms var(--ease-out);
+  }
+}
+.btn-oro:focus-visible {
+  color: var(--oro-claro);
+}
+@keyframes destello-oro {
+  from {
+    left: -40%;
+    opacity: 1;
+  }
+  to {
+    left: 125%;
+    opacity: 1;
   }
 }
 

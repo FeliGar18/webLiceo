@@ -153,6 +153,20 @@ html {
   }
 }
 
+/* Tiempo restante de la carpeta: el canto se llena de izquierda a derecha.
+   La duración la fija HeroCarpetas (6 s, o 20 s si alguien la eligió). */
+.progreso-carpeta {
+  transform: scaleX(0);
+  animation-name: progreso-carpeta;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes progreso-carpeta {
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Contenido de la carpeta al cambiar de especialidad. */
 @keyframes panel-in {
   from {

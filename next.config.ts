@@ -25,6 +25,8 @@ const csp = [
   "img-src 'self' data: blob:",
   "font-src 'self'",
   "connect-src 'self'",
+  // Mapa de Google Maps de la portada (MapaGoogle).
+  "frame-src https://www.google.com",
   "frame-ancestors 'none'",
   "form-action 'self'",
   "base-uri 'self'",
@@ -75,6 +77,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
+    // 90: fotos pequeñas de origen, que pierden demasiado con una segunda compresión a 75.
+    qualities: [75, 90],
     // Fotos de las publicaciones de Facebook (src/lib/facebook.ts). Pasan por
     // el optimizador del sitio: el navegador del visitante no contacta a Facebook.
     remotePatterns: [{ protocol: "https", hostname: "**.fbcdn.net" }],

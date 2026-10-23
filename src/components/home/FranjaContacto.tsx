@@ -59,7 +59,7 @@ export function FranjaContacto() {
           </Dato>
           <Dato icono={MapPin} titulo="Dirección" crece>
             <a
-              href={institucion.mapaUrl}
+              href={institucion.comoLlegarUrl}
               target="_blank"
               rel="noopener noreferrer"
               title={`${institucion.direccion.valor}, ${institucion.region}`}

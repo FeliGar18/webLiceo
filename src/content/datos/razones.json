@@ -14,12 +14,17 @@
     {
       "icono": "bicentenario",
       "titulo": "Liceo Bicentenario",
-      "texto": "Seleccionado en 2019 en el programa Liceos Bicentenario del Ministerio de Educación."
+      "texto": "Desde 2019 en el programa Liceos Bicentenario de Excelencia: su postulación obtuvo el puntaje más alto del país, con un proyecto centrado en la innovación y la tecnología."
+    },
+    {
+      "icono": "trayectoria",
+      "titulo": "Excelencia académica",
+      "texto": "Dos décadas de excelencia en el SIMCE, reconocido por el Mineduc como Liceo Exitoso, y Nivel de Desempeño Alto de la Agencia de Calidad en 2016, 2017 y 2018."
     },
     {
       "icono": "internado",
       "titulo": "Internado",
-      "texto": "Régimen interno y externo, según el Reglamento Interno 2026, con residencia escolar en el propio liceo."
+      "texto": "Régimen interno y externo, con residencia escolar en el propio liceo; desde 2018 funciona también el Internado de Damas."
     }
   ]
 }

@@ -119,6 +119,67 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
   const campo = { "--accent": tinta, "--accent-ink": fondo } as CSSProperties;
   const iconoClase = "size-6";
 
+  const seccionModulos = (
+    <section aria-labelledby="plan" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
+      <Icono color={color}>
+        <BookOpen className={iconoClase} />
+      </Icono>
+      <h2 id="plan" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
+        Módulos de la especialidad
+      </h2>
+      <div className="mt-6">
+        <Lista items={especialidad.plan.modulos} color={color} />
+      </div>
+      <p className="mt-8 text-small text-muted">
+        Formación diferenciada según el plan de estudio vigente ({especialidad.plan.resolucion}), publicado en el{" "}
+        <a href={URL_PEI} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent underline">
+          Proyecto Educativo Institucional
+        </a>
+        . Algunos módulos pueden ser electivos.
+      </p>
+    </section>
+  );
+  const seccionAreas = (
+    <section aria-labelledby="areas" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
+      <Icono color={color}>
+        <BookOpen className={iconoClase} />
+      </Icono>
+      <h2 id="areas" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
+        Áreas de aprendizaje
+      </h2>
+      <div className="mt-6">
+        <ListaContenido contenido={especialidad.areaFormativa} color={color} />
+      </div>
+    </section>
+  );
+  const seccionCampo = (
+    <section aria-labelledby="campo-laboral" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
+      <Icono color={color}>
+        <Briefcase className={iconoClase} />
+      </Icono>
+      <h2 id="campo-laboral" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
+        Campo laboral
+      </h2>
+      <div className="mt-6">
+        <ListaContenido contenido={especialidad.campoLaboral} color={color} />
+      </div>
+    </section>
+  );
+  const seccionPerfil = (
+    <section aria-labelledby="perfil-egreso" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
+      <Icono color={color}>
+        <GraduationCap className={iconoClase} />
+      </Icono>
+      <h2 id="perfil-egreso" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
+        Perfil de egreso
+      </h2>
+      <div className="mt-6">
+        <ListaContenido contenido={especialidad.perfilEgreso} color={color} />
+      </div>
+    </section>
+  );
+
+
   return (
     <>
       <div style={campo}>
@@ -157,19 +218,29 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
       <Container className="mt-[var(--section-gap)] grid gap-6 lg:grid-cols-12">
         <section aria-labelledby="descripcion" className="bg-surface p-7 chamfer chamfer-lg sm:p-10 lg:col-span-7">
           <h2 id="descripcion" className="text-[clamp(1.75rem,1.2rem+2vw,2.75rem)]">
-            La especialidad
+            Descripción de la especialidad
           </h2>
-          <p className="mt-6 max-w-[60ch] text-lead leading-snug">{especialidad.resumen.texto}</p>
-          {especialidad.resumen.validado ? null : (
-            <p className="mt-3">
-              <EtiquetaProvisional />
-            </p>
+          {especialidad.descripcion ? (
+            especialidad.descripcion.map((parrafo, i) => (
+              <p key={i} className={`max-w-[60ch] ${i === 0 ? "mt-6 text-lead leading-snug" : "mt-5"}`}>
+                {parrafo}
+              </p>
+            ))
+          ) : (
+            <>
+              <p className="mt-6 max-w-[60ch] text-lead leading-snug">{especialidad.resumen.texto}</p>
+              {especialidad.resumen.validado ? null : (
+                <p className="mt-3">
+                  <EtiquetaProvisional />
+                </p>
+              )}
+              <p className="mt-6 max-w-[60ch]">
+                La formación diferenciada se desarrolla en talleres y laboratorios del liceo, con un plan de estudio
+                organizado en módulos. Al egresar y aprobar la práctica profesional, el estudiante obtiene el título de
+                técnico de nivel medio.
+              </p>
+            </>
           )}
-          <p className="mt-6 max-w-[60ch]">
-            La formación diferenciada se desarrolla en talleres y laboratorios del liceo, con un plan de estudio
-            organizado en módulos. Al egresar y aprobar la práctica profesional, el estudiante obtiene el título de
-            técnico de nivel medio.
-          </p>
         </section>
 
         <section
@@ -183,57 +254,29 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
           </h2>
           <p className="mt-5 text-lead font-extrabold leading-tight tracking-[-0.02em]">{especialidad.titulo}</p>
           <p className="mt-auto pt-8 text-small font-semibold">
-            Lo otorga el Ministerio de Educación al aprobar la práctica profesional.
+            {especialidad.tituloNota ?? "Lo otorga el Ministerio de Educación al aprobar la práctica profesional."}
           </p>
         </section>
       </Container>
 
-      {/* Plan de estudio y campo laboral */}
-      <Container className="mt-6 grid gap-6 lg:grid-cols-2">
-        <section aria-labelledby="plan" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
-          <Icono color={color}>
-            <BookOpen className={iconoClase} />
-          </Icono>
-          <h2 id="plan" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
-            Módulos de la especialidad
-          </h2>
-          <div className="mt-6">
-            <Lista items={especialidad.plan.modulos} color={color} />
+      {/* Áreas de aprendizaje, campo laboral, módulos y perfil de egreso */}
+      {especialidad.areaFormativa.estado === "validado" ? (
+        // Con áreas de aprendizaje: áreas | campo laboral, y debajo módulos | perfil de egreso.
+        <Container className="mt-6 grid gap-6 lg:grid-cols-2">
+          {seccionAreas}
+          {seccionCampo}
+          {seccionModulos}
+          {seccionPerfil}
+        </Container>
+      ) : (
+        <Container className="mt-6 grid gap-6 lg:grid-cols-2">
+          {seccionModulos}
+          <div className="grid gap-6">
+            {seccionCampo}
+            {seccionPerfil}
           </div>
-          <p className="mt-8 text-small text-muted">
-            Formación diferenciada según el plan de estudio vigente ({especialidad.plan.resolucion}), publicado en el{" "}
-            <a href={URL_PEI} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent underline">
-              Proyecto Educativo Institucional
-            </a>
-            . Algunos módulos pueden ser electivos.
-          </p>
-        </section>
-
-        <div className="grid gap-6">
-          <section aria-labelledby="campo-laboral" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
-            <Icono color={color}>
-              <Briefcase className={iconoClase} />
-            </Icono>
-            <h2 id="campo-laboral" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
-              Campo laboral
-            </h2>
-            <div className="mt-6">
-              <ListaContenido contenido={especialidad.campoLaboral} color={color} />
-            </div>
-          </section>
-          <section aria-labelledby="perfil-egreso" className="bg-surface p-7 chamfer chamfer-lg sm:p-10">
-            <Icono color={color}>
-              <GraduationCap className={iconoClase} />
-            </Icono>
-            <h2 id="perfil-egreso" className="mt-8 text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)]">
-              Perfil de egreso
-            </h2>
-            <div className="mt-6">
-              <ListaContenido contenido={especialidad.perfilEgreso} color={color} />
-            </div>
-          </section>
-        </div>
-      </Container>
+        </Container>
+      )}
 
       {/* Infraestructura y equipamiento */}
       <section aria-labelledby="infraestructura" className="mt-[var(--section-gap)] bg-ink py-20 text-bg on-dark sm:py-28">
@@ -243,8 +286,8 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
               Infraestructura y equipamiento
             </h2>
             <p className="max-w-[52ch] text-[#e4dfe2] lg:col-span-6">
-              El liceo cuenta con cinco talleres de especialidad y ocho laboratorios, además de internado, gimnasio y
-              centro de recursos para el aprendizaje, según su Proyecto Educativo Institucional.
+              {especialidad.infraestructuraTexto ??
+                "El liceo cuenta con cinco talleres de especialidad y ocho laboratorios, además de internado, gimnasio y centro de recursos para el aprendizaje, según su Proyecto Educativo Institucional."}
             </p>
           </div>
           <ul className="mt-14 grid gap-6 md:grid-cols-3">

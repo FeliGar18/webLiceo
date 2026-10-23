@@ -286,6 +286,11 @@ collections:
             widget: string
             required: false
             hint: Por ejemplo «Lunes a viernes, 8:00 a 17:00». Si queda vacío no se muestra.
+          - name: accesoFis
+            label: Enlace «Acceso FIS»
+            widget: string
+            required: false
+            hint: Dirección (https://…) del botón dorado del pie de página. Si queda vacío, el botón se ve pero no lleva a ninguna parte.
 
       # Comunidad educativa
       - name: comunidad

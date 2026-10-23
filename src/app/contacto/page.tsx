@@ -149,12 +149,12 @@ export default function ContactoPage() {
                 {institucion.comuna}, {institucion.region}
               </p>
               <a
-                href={institucion.mapaUrl}
+                href={institucion.comoLlegarUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary mt-8"
               >
-                Abrir en Google Maps
+                Cómo llegar
                 <ExternalLink aria-hidden className="size-4" />
                 <span className="sr-only">(se abre en otra pestaña)</span>
               </a>

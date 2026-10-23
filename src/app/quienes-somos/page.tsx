@@ -4,9 +4,9 @@ import type { ReactNode } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Encabezado, TituloSeccion } from "@/components/ui/Encabezado";
-import { EtiquetaProvisional, Pendiente } from "@/components/ui/Pendiente";
+import { EtiquetaProvisional } from "@/components/ui/Pendiente";
 import { especialidades } from "@/content/especialidades";
-import { FUENTE_PEI, FUENTE_RIE, URL_PEI, institucion } from "@/content/institucion";
+import { FUENTE_PEI, FUENTE_RIE, URL_PEI, institucion, identidadSna } from "@/content/institucion";
 import { logoLiceo } from "@/content/marca";
 import type { Verificacion } from "@/lib/types";
 import { crearMetadata } from "@/lib/seo";
@@ -62,7 +62,7 @@ const subpaginas = [
   {
     href: "/quienes-somos/proyecto-educativo",
     titulo: "Proyecto educativo",
-    texto: "El PEI 2025-2026: visión, misión, sellos y planes de estudio.",
+    texto: "Visión, misión, valores y perfil del egresado.",
   },
   {
     href: "/quienes-somos/comunidad",
@@ -126,16 +126,14 @@ export default function QuienesSomosPage() {
       <Container as="section" aria-labelledby="sello" className="mt-[var(--section-gap)]">
         <div className="grid gap-8 bg-surface p-[clamp(1.5rem,1rem+3vw,4rem)] lg:grid-cols-12">
           <TituloSeccion id="sello" className="lg:col-span-6">
-            Sello, misión y visión
+            Misión y visión
           </TituloSeccion>
           <div className="reveal space-y-6 lg:col-span-6">
-            <p className="max-w-[60ch]">
-              El sello, la misión y la visión del liceo están definidos en su Proyecto Educativo Institucional. Los
-              publicaremos aquí tal como aparecen en ese documento.
+            <p className="max-w-[60ch] text-lead leading-snug">{identidadSna.mision}</p>
+            <p className="max-w-[60ch] text-muted">
+              Misión de SNA Educa, la red a la que pertenece el liceo. Su visión, valores y perfil del egresado están
+              en el proyecto educativo.
             </p>
-            <Pendiente className="bg-surface-strong!">
-              Pendiente de transcripción desde el PEI 2025-2026, a cargo del liceo.
-            </Pendiente>
             <div className="flex flex-wrap gap-3">
               <a href={URL_PEI} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
                 Leer el PEI (PDF)

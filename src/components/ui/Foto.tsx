@@ -21,6 +21,7 @@ export function Foto({
   forma = "chamfer",
   aspecto = "aspect-[4/3]",
   movimiento = true,
+  calidad,
 }: {
   imagen: Imagen;
   className?: string;
@@ -30,6 +31,8 @@ export function Foto({
   forma?: "chamfer" | "chamfer chamfer-lg" | "none";
   aspecto?: string;
   movimiento?: boolean;
+  /** Calidad de compresión (75 por defecto; 90 para fotos de baja resolución). */
+  calidad?: 75 | 90;
 }) {
   const texto = leyenda ?? (imagen.provisional ? "Imagen referencial, no corresponde al liceo." : undefined);
   const animar = movimiento && !prioridad;
@@ -46,6 +49,7 @@ export function Foto({
             alt={imagen.alt}
             fill
             sizes={sizes}
+            quality={calidad}
             preload={prioridad}
             loading={prioridad ? "eager" : "lazy"}
             className="zoom-img object-cover"

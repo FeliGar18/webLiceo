@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, FileText, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Emblema } from "@/components/ui/Emblema";
 import { Foto } from "@/components/ui/Foto";
+import { MapaGoogle } from "@/components/home/MapaGoogle";
 import { Pendiente } from "@/components/ui/Pendiente";
 import { documentos } from "@/content/documentos";
 import { especialidades } from "@/content/especialidades";
@@ -191,11 +192,15 @@ export function Recursos() {
 }
 
 export function Ubicacion() {
-  const paisaje = imagenes.laUnion();
   return (
     <section aria-labelledby="ubicacion" className="pt-[var(--section-gap)]">
       <Container className="grid items-end gap-10 lg:grid-cols-12">
-        <Foto imagen={paisaje} forma="chamfer chamfer-lg" aspecto="aspect-[16/10]" className="lg:col-span-7" sizes="(min-width: 1024px) 58vw, 100vw" />
+        <MapaGoogle
+          latitud={institucion.coordenadas.latitud}
+          longitud={institucion.coordenadas.longitud}
+          comoLlegarUrl={institucion.comoLlegarUrl}
+          className="lg:col-span-7"
+        />
         <div className="lg:col-span-5">
           <h2 id="ubicacion" className="reveal text-head">
             Dónde estamos
@@ -205,8 +210,8 @@ export function Ubicacion() {
             {institucion.direccion.valor}, {institucion.region}.
           </p>
           <div className="reveal reveal-3 mt-8 flex flex-wrap gap-3">
-            <a href={institucion.mapaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-              Abrir en Google Maps
+            <a href={institucion.comoLlegarUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              Cómo llegar
               <ArrowUpRight aria-hidden className="flecha flecha-diagonal size-4" />
               <span className="sr-only">(abre en una pestaña nueva)</span>
             </a>

@@ -11,7 +11,7 @@ export const navegacionPrincipal: ItemNavegacion[] = [
       {
         etiqueta: "Proyecto educativo",
         href: "/quienes-somos/proyecto-educativo",
-        descripcion: "Sellos, visión y misión",
+        descripcion: "Visión, misión y valores",
       },
       {
         etiqueta: "Comunidad educativa",

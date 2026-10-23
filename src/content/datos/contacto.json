@@ -36,5 +36,6 @@
       "href": "https://www.instagram.com/indufenner/"
     }
   ],
-  "horarioAtencion": ""
+  "horarioAtencion": "",
+  "accesoFis": "https://fis-fenner-fltn.vercel.app/interno/alimentacion.html"
 }

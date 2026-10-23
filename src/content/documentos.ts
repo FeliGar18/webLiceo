@@ -32,14 +32,47 @@ export const documentos: Documento[] = [
     vigencia: "2026",
     publicadoEn: "Sistema de Admisión Escolar (Mineduc)",
   },
+  {
+    id: "reglamento-evaluacion-2025",
+    titulo: "Reglamento de Evaluación y Promoción",
+    categoria: "Reglamentos",
+    descripcion:
+      "Cómo se evalúa y califica, asistencia mínima, requisitos para pasar de curso, licencia de enseñanza media y situaciones especiales.",
+    // Documento de SNA Educa para sus liceos, entregado por el liceo (octubre de 2026).
+    url: "/archivos/reglamento-evaluacion-promocion-2025.pdf",
+    formato: "PDF",
+    vigencia: "2025",
+    publicadoEn: "SNA Educa",
+  },
 ];
 
 /** Documentos que el liceo debe publicar y que este sitio aún no enlaza. */
 export const documentosPendientes: string[] = [
-  "Reglamento de Evaluación, Calificación y Promoción",
   "Plan Integral de Seguridad Escolar",
   "Calendario escolar del año en curso",
   "Listas de útiles y requisitos de taller por especialidad",
 ];
 
 export const categoriasDocumento = Array.from(new Set(documentos.map((d) => d.categoria)));
+
+/** Plantillas con el membrete del liceo (entregadas por el liceo, octubre de 2026). */
+export const plantillas: { titulo: string; descripcion: string; url: string; formato: "Word (DOCX)" | "PowerPoint (PPTX)" }[] = [
+  {
+    titulo: "Informe tamaño carta",
+    descripcion: "Hoja carta (21,6 × 27,9 cm) con el membrete del liceo y SNA Educa y numeración de páginas.",
+    url: "/archivos/plantillas/plantilla-informe-carta.docx",
+    formato: "Word (DOCX)",
+  },
+  {
+    titulo: "Informe tamaño oficio",
+    descripcion: "Hoja oficio (21,6 × 33 cm) con el membrete del liceo y SNA Educa y numeración de páginas.",
+    url: "/archivos/plantillas/plantilla-informe-oficio.docx",
+    formato: "Word (DOCX)",
+  },
+  {
+    titulo: "Presentación institucional",
+    descripcion: "Seis diapositivas en formato panorámico (16:9) con los logos del liceo y SNA Educa.",
+    url: "/archivos/plantillas/plantilla-presentacion-institucional.pptx",
+    formato: "PowerPoint (PPTX)",
+  },
+];

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, KeyRound } from "lucide-react";
 import { institucion } from "@/content/institucion";
-import { logoLiceo, logoSostenedor } from "@/content/marca";
+import { logoBicentenarioBlanco, logoCentroInnovacion, logoLiceo, logoSostenedor } from "@/content/marca";
 import { navegacionPie } from "@/content/navegacion";
 import { Container } from "@/components/ui/Container";
 
@@ -109,7 +109,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-6 bg-[#2a2629] p-5 sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col items-start gap-6 bg-[#2a2629] p-5 sm:flex-row sm:items-center">
           {logoSostenedor ? (
             // PNG transparente: va directo sobre el fondo oscuro, sin recuadro.
             <Image
@@ -127,6 +127,27 @@ export function SiteFooter() {
             </a>
             . RBD {institucion.rbd.valor}.
           </p>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-5 sm:ml-auto">
+            {logoBicentenarioBlanco ? (
+              <Image
+                src={logoBicentenarioBlanco.src}
+                alt={logoBicentenarioBlanco.alt}
+                width={logoBicentenarioBlanco.ancho}
+                height={logoBicentenarioBlanco.alto}
+                className="h-10 w-auto flex-none sm:h-12"
+                unoptimized
+              />
+            ) : null}
+            {logoCentroInnovacion ? (
+              <Image
+                src={logoCentroInnovacion.src}
+                alt={logoCentroInnovacion.alt}
+                width={logoCentroInnovacion.ancho}
+                height={logoCentroInnovacion.alto}
+                className="h-16 w-auto flex-none sm:h-20"
+              />
+            ) : null}
+          </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-3 text-small text-[#c9c3c6] sm:flex-row sm:items-center sm:justify-between">
@@ -136,9 +157,24 @@ export function SiteFooter() {
               Créditos de imágenes
             </Link>
           </p>
-          <a href="#contenido" className="btn btn-light self-start sm:self-auto">
-            Volver arriba
-          </a>
+          <div className="flex flex-wrap gap-3 self-start sm:self-auto">
+            {institucion.accesoFis ? (
+              <a href={institucion.accesoFis} target="_blank" rel="noopener noreferrer" className="btn btn-oro">
+                <KeyRound aria-hidden className="size-4" />
+                Acceso FIS
+                <span className="sr-only">(abre en una pestaña nueva)</span>
+              </a>
+            ) : (
+              // Sin enlace configurado (panel → Datos de contacto): se ve, pero no lleva a ninguna parte.
+              <span className="btn btn-oro cursor-default" aria-disabled="true" title="Enlace por configurar">
+                <KeyRound aria-hidden className="size-4" />
+                Acceso FIS
+              </span>
+            )}
+            <a href="#contenido" className="btn btn-light">
+              Volver arriba
+            </a>
+          </div>
         </div>
       </Container>
     </footer>

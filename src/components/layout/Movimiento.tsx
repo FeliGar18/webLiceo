@@ -157,22 +157,20 @@ export function Movimiento() {
 
     if (entradas.size === 0) return desmarcar;
 
-    const observador = new IntersectionObserver(
-      (registros) => {
-        const llegan = registros
-          .filter((e) => e.isIntersecting)
-          .map((e) => e.target)
-          .sort((a, b) => {
-            const ra = a.getBoundingClientRect();
-            const rb = b.getBoundingClientRect();
-            return ra.top - rb.top || ra.left - rb.left;
-          });
-
-        llegan.forEach((el, i) => {
-          observador.unobserve(el);
+    /** Hace entrar un grupo de elementos, escalonados de arriba abajo. */
+    const hacerEntrar = (elementos: Element[]) => {
+      elementos
+        .sort((a, b) => {
+          const ra = a.getBoundingClientRect();
+          const rb = b.getBoundingClientRect();
+          return ra.top - rb.top || ra.left - rb.left;
+        })
+        .forEach((el, i) => {
+          observador.unobserve(vigiladoDe(el));
           marcados.delete(el);
           const entrada = entradas.get(el);
           if (!entrada) return;
+          entradas.delete(el);
           for (const a of retenidas.get(el) ?? []) {
             a.cancel();
             activas.delete(a);
@@ -183,13 +181,40 @@ export function Movimiento() {
             a.finished.then(soltar, soltar);
           }
         });
-      },
+    };
+
+    // Una foto oculta con clip-path no cuenta como visible para el observador:
+    // se vigila su contenedor, que no está recortado.
+    const vigilados = new Map<Element, Element>();
+    const vigiladoDe = (el: Element) => (el.matches(FOTO) && el.parentElement) || el;
+    const observador = new IntersectionObserver(
+      (registros) =>
+        hacerEntrar(registros.filter((e) => e.isIntersecting).map((e) => vigilados.get(e.target) ?? e.target)),
       { rootMargin: "0px 0px -10% 0px", threshold: 0.12 },
     );
 
-    entradas.forEach((_, el) => observador.observe(el));
+    // Lo último de la página nunca sube por sobre el margen inferior del
+    // observador (-10 %): al llegar al final, entra todo lo que esté a la vista.
+    let cuadro = 0;
+    const alFinal = () => {
+      cancelAnimationFrame(cuadro);
+      cuadro = requestAnimationFrame(() => {
+        const raiz = document.documentElement;
+        if (window.scrollY + window.innerHeight < raiz.scrollHeight - 4) return;
+        hacerEntrar([...entradas.keys()].filter((el) => el.getBoundingClientRect().top < window.innerHeight));
+      });
+    };
+    window.addEventListener("scroll", alFinal, { passive: true });
+
+    entradas.forEach((_, el) => {
+      const vigilado = vigiladoDe(el);
+      vigilados.set(vigilado, el);
+      observador.observe(vigilado);
+    });
     return () => {
       observador.disconnect();
+      window.removeEventListener("scroll", alFinal);
+      cancelAnimationFrame(cuadro);
       // Al salir de la página, lo que no alcanzó a entrar queda visible.
       activas.forEach((a) => a.cancel());
       desmarcar();

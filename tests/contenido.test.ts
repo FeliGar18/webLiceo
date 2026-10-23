@@ -69,7 +69,12 @@ describe("documentos", () => {
     expect(duplicados(documentos.map((d) => d.id))).toEqual([]);
   });
 
-  it.each(documentos.map((d) => [d.id, d.url]))("%s usa una URL https (%s)", (_id, url) => {
-    expect(new URL(url).protocol).toBe("https:");
+  // Externos por https, o archivos propios del sitio en /archivos/ que existan en public.
+  it.each(documentos.map((d) => [d.id, d.url]))("%s usa una URL https o un archivo propio (%s)", (_id, url) => {
+    if (url.startsWith("/archivos/")) {
+      expect(existsSync(join(raiz, "public", url))).toBe(true);
+    } else {
+      expect(new URL(url).protocol).toBe("https:");
+    }
   });
 });

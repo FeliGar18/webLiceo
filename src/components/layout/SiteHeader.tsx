@@ -6,31 +6,68 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { accionPrincipal, navegacionPrincipal } from "@/content/navegacion";
-import { logoLiceo } from "@/content/marca";
+import { logoBicentenario, logoLiceo, logoSostenedor } from "@/content/marca";
 import type { ItemNavegacion } from "@/lib/types";
 
 function estaActivo(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function Marca() {
+/** Ancho del logo Liceos Bicentenario (h-9, 1366×364) más su línea y separaciones, en rem. */
+const ANCHO_BICENTENARIO_REM = 2.25 * (1366 / 364) + 2 + 0.0625;
+
+function Marca({ marcaRef, conBicentenario }: { marcaRef: React.Ref<HTMLAnchorElement>; conBicentenario: boolean }) {
   return (
-    <Link href="/" className="flex min-h-12 items-center gap-3 text-ink no-underline" aria-label="Inicio, Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi">
-      {logoLiceo ? (
-        <Image
-          src={logoLiceo.src}
-          alt=""
-          width={logoLiceo.ancho}
-          height={logoLiceo.alto}
-          className="h-12 w-auto"
-          preload
-        />
+    <div className="flex min-w-0 items-center gap-3 xl:gap-4">
+      {/* Sostenedor y liceo, separados por una línea fina (pedido expreso). Solo desde 1280 px: antes no cabe junto al menú. */}
+      {logoSostenedor ? (
+        <>
+          <Image
+            src={logoSostenedor.src}
+            alt="SNA Educa"
+            width={logoSostenedor.ancho}
+            height={logoSostenedor.alto}
+            className="hidden h-[3.75rem] w-auto flex-none xl:block"
+            preload
+          />
+          <span aria-hidden className="hidden h-12 w-px flex-none bg-surface-strong xl:block" />
+        </>
       ) : null}
-      <span className="flex flex-col leading-[1.05]">
-        <span className="text-[0.9375rem] font-extrabold tracking-[-0.02em]">Liceo Bicentenario Industrial</span>
-        <span className="text-small font-semibold text-muted">Ing. Ricardo Fenner Ruedi · La Unión</span>
-      </span>
-    </Link>
+      <Link ref={marcaRef} href="/" className="flex min-h-12 flex-none items-center gap-3 text-ink no-underline" aria-label="Inicio, Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi">
+        {logoLiceo ? (
+          <Image
+            src={logoLiceo.src}
+            alt=""
+            width={logoLiceo.ancho}
+            height={logoLiceo.alto}
+            className="h-12 w-auto"
+            preload
+          />
+        ) : null}
+        <span className="flex flex-col leading-[1.05]">
+          <span className="whitespace-nowrap text-[0.9375rem] font-extrabold tracking-[-0.02em]">Liceo Bicentenario Industrial</span>
+          <span className="whitespace-nowrap text-small font-semibold text-muted">Ing. Ricardo Fenner Ruedi · La Unión</span>
+        </span>
+      </Link>
+      {/*
+        Programa Liceos Bicentenario, tras otra línea fina. Solo cuando cabe junto al
+        menú: el encabezado mide el espacio libre (el ancho del texto cambia entre
+        navegadores y con el tamaño de letra del usuario).
+      */}
+      {logoBicentenario && conBicentenario ? (
+        <>
+          <span aria-hidden className="h-12 w-px flex-none bg-surface-strong" />
+          <Image
+            src={logoBicentenario.src}
+            alt={logoBicentenario.alt}
+            width={logoBicentenario.ancho}
+            height={logoBicentenario.alto}
+            className="h-9 w-auto flex-none"
+            unoptimized
+          />
+        </>
+      ) : null}
+    </div>
   );
 }
 
@@ -55,7 +92,7 @@ function Desplegable({
         aria-expanded={abierto}
         aria-controls={panelId}
         onClick={onToggle}
-        className={`link-linea flex min-h-11 items-center gap-1 px-3 font-semibold ${activo ? "text-accent" : "text-ink"}`}
+        className={`link-linea flex min-h-11 items-center gap-1 whitespace-nowrap px-2 text-[0.9375rem] font-semibold ${activo ? "text-accent" : "text-ink"}`}
       >
         {item.etiqueta}
         <ChevronDown
@@ -92,6 +129,30 @@ export function SiteHeader() {
   const [abierto, setAbierto] = useState<string | null>(null);
   const [menuMovil, setMenuMovil] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const filaRef = useRef<HTMLDivElement>(null);
+  const marcaRef = useRef<HTMLAnchorElement>(null);
+  const [cabeBicentenario, setCabeBicentenario] = useState(false);
+
+  useEffect(() => {
+    const fila = filaRef.current;
+    if (!fila || !logoBicentenario) return;
+    // El menú está alineado a la derecha: su borde izquierdo no depende de si el logo se ve.
+    const medir = () => {
+      const nav = navRef.current;
+      const marca = marcaRef.current;
+      if (!nav || !marca || getComputedStyle(nav).display === "none") return setCabeBicentenario(false);
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const estilo = getComputedStyle(fila);
+      const bordeMenu = fila.getBoundingClientRect().right - parseFloat(estilo.paddingRight) - nav.offsetWidth;
+      const libre = bordeMenu - parseFloat(estilo.columnGap) - marca.getBoundingClientRect().right;
+      setCabeBicentenario(libre >= ANCHO_BICENTENARIO_REM * rem);
+    };
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(fila);
+    document.fonts?.ready.then(medir);
+    return () => observador.disconnect();
+  }, []);
   const botonMovilRef = useRef<HTMLButtonElement>(null);
   const cerrar = useCallback(() => {
     setAbierto(null);
@@ -142,8 +203,8 @@ export function SiteHeader() {
       >
         Saltar al contenido
       </a>
-      <div className="mx-auto flex w-full max-w-[90rem] items-center justify-between gap-6 px-[var(--gutter)] py-2.5">
-        <Marca />
+      <div ref={filaRef} className="mx-auto flex w-full max-w-[90rem] items-center justify-between gap-6 px-[var(--gutter)] py-2.5">
+        <Marca marcaRef={marcaRef} conBicentenario={cabeBicentenario} />
 
         <nav ref={navRef} aria-label="Principal" className="hidden lg:block">
           <ul className="flex items-center">
@@ -162,7 +223,7 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={estaActivo(pathname, item.href) ? "page" : undefined}
-                    className={`link-linea flex min-h-11 items-center px-3 font-semibold no-underline aria-[current=page]:text-accent ${
+                    className={`link-linea flex min-h-11 items-center whitespace-nowrap px-2 text-[0.9375rem] font-semibold no-underline aria-[current=page]:text-accent ${
                       estaActivo(pathname, item.href) ? "" : "text-ink"
                     }`}
                   >
@@ -171,7 +232,7 @@ export function SiteHeader() {
                 </li>
               ),
             )}
-            <li className="ml-3">
+            <li className="ml-2">
               <Link href={accionPrincipal.href} className="btn btn-primary">
                 {accionPrincipal.etiqueta}
               </Link>

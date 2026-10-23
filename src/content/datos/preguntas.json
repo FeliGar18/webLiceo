@@ -5,24 +5,37 @@
       "pregunta": "¿Cómo se postula al liceo?",
       "respuesta": "A través del Sistema de Admisión Escolar (SAE) del Mineduc, en sistemadeadmisionescolar.cl, dentro de las fechas del calendario de admisión."
     },
-    { "pregunta": "¿Qué cursos tiene el liceo?", "respuesta": "De 1° a 4° año medio." },
+    {
+      "pregunta": "¿Qué cursos tiene el liceo?",
+      "respuesta": "De 1° a 4° año medio."
+    },
     {
       "pregunta": "¿Cuándo se estudia la especialidad?",
       "respuesta": "La formación diferenciada técnico-profesional, propia de cada especialidad, se cursa en 3° y 4° medio."
     },
     {
       "pregunta": "¿El liceo tiene internado?",
-      "respuesta": "Sí. El liceo funciona en régimen interno (internado) y externo."
+      "respuesta": "Sí. El liceo funciona en régimen interno (internado) y externo. Desde 2018 tiene también un Internado de Damas, con capacidad para 78 estudiantes."
     },
     {
       "pregunta": "¿Se puede ir a la universidad después?",
       "respuesta": "Sí. Al egresar se obtiene la licencia de enseñanza media, que permite rendir la PAES y postular a la educación superior, además del título técnico."
     },
     {
+      "pregunta": "¿Qué se necesita para pasar de curso?",
+      "respuesta": "Asistir al menos al 85 % de las clases de cada asignatura (90 % en las de carácter práctico, como los talleres) y aprobar todas las asignaturas y módulos. También se pasa de curso con una asignatura reprobada si el promedio anual es 4,5 o más, o con dos si es 5,0 o más. Las notas van de 1,0 a 7,0 y se aprueba con 4,0."
+    },
+    {
       "pregunta": "¿Qué uniforme se usa?",
       "respuesta": "Las normas de uniforme están en el Reglamento Interno, disponible en la sección Documentos."
     },
-    { "pregunta": "¿Hay transporte escolar?", "respuesta": "" },
-    { "pregunta": "¿Cuándo es la práctica profesional?", "respuesta": "" }
+    {
+      "pregunta": "¿Hay transporte escolar?",
+      "respuesta": ""
+    },
+    {
+      "pregunta": "¿Cuándo es la práctica profesional?",
+      "respuesta": "Al terminar 4° medio. Dura 360 horas y se hace en un centro de práctica de la región o de otra región del país. Al aprobarla se obtiene el título de Técnico de Nivel Medio, reconocido por el Ministerio de Educación."
+    }
   ]
 }

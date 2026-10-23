@@ -134,6 +134,11 @@ export default function PrivacidadPage() {
               momento se rigen por sus propias políticas de privacidad.
             </p>
             <p>
+              La página de inicio incluye un mapa de Google Maps con la ubicación del liceo. Cuando llega a esa parte de
+              la página, su navegador se conecta con Google Maps, que puede usar cookies propias según su política de
+              privacidad.
+            </p>
+            <p>
               Cuando la página de inicio muestra publicaciones del liceo en Facebook, el sitio las obtiene desde su propio
               servidor: su navegador no se conecta con Facebook para verlas.
             </p>

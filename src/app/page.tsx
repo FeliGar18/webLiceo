@@ -85,6 +85,14 @@ export default function Inicio() {
               />
             </div>
           ) : null}
+          {/* Lema del liceo: una sola línea al pie del video, alineada a la derecha. */}
+          <p
+            className="intro-fade flex items-center gap-4 text-lead font-semibold leading-snug tracking-[-0.01em] text-[#ece8ea] lg:col-span-12 lg:justify-end lg:whitespace-nowrap"
+            style={{ ["--i" as string]: 2 }}
+          >
+            <span aria-hidden className="h-1 w-10 flex-none bg-accent" />
+            «Más y mejores oportunidades para la vida»
+          </p>
         </Container>
         </div>
         <HeroCarpetas especialidades={especialidades} />

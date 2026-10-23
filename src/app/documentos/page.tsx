@@ -1,9 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Encabezado } from "@/components/ui/Encabezado";
 import { Pendiente } from "@/components/ui/Pendiente";
-import { documentos, documentosPendientes } from "@/content/documentos";
+import { documentos, documentosPendientes, plantillas } from "@/content/documentos";
+import { fondoPantalla, logosDescargables } from "@/content/marca";
 import { crearMetadata } from "@/lib/seo";
 import type { Documento } from "@/lib/types";
 
@@ -121,6 +123,110 @@ export default function DocumentosPage() {
               </ul>
             </>
           )}
+        </Container>
+      </section>
+
+      <section aria-labelledby="logos" className="mt-[var(--section-gap)]">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+            <h2 id="logos" className="text-head lg:col-span-7">
+              Logos e insignias
+            </h2>
+            <p className="max-w-[48ch] text-muted lg:col-span-5">
+              Archivos originales para actividades, presentaciones y documentos del liceo. Úselos sin cambiar sus colores
+              ni sus proporciones.
+            </p>
+          </div>
+          <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {logosDescargables.map((l) => (
+              <li key={l.logo.src}>
+                <div
+                  className={`flex aspect-[4/3] items-center justify-center p-8 chamfer ${l.fondoOscuro ? "bg-ink" : "bg-surface"}`}
+                >
+                  <Image
+                    src={l.logo.src}
+                    alt={l.logo.alt}
+                    width={l.logo.ancho}
+                    height={l.logo.alto}
+                    className="max-h-full w-auto max-w-full object-contain"
+                    unoptimized={l.formato === "SVG"}
+                  />
+                </div>
+                <p className="mt-4 font-extrabold tracking-[-0.01em]">{l.nombre}</p>
+                <p className="mt-1 text-small text-muted">
+                  {l.detalle} {l.formato}.
+                </p>
+                <a href={l.logo.src} download className="btn btn-ink mt-4">
+                  <Download aria-hidden className="size-4" />
+                  Descargar
+                  <span className="sr-only"> el logo de {l.nombre} ({l.formato})</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="overflow-hidden chamfer chamfer-lg lg:col-span-8">
+              <Image
+                src={fondoPantalla.src}
+                alt={fondoPantalla.alt}
+                width={fondoPantalla.ancho}
+                height={fondoPantalla.alto}
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                quality={90}
+                className="h-auto w-full"
+              />
+            </div>
+            <div className="lg:col-span-4">
+              <h3 className="text-lead font-extrabold tracking-[-0.02em]">Fondo de pantalla</h3>
+              <p className="mt-2 max-w-[40ch] text-small text-muted">
+                Para el computador o para proyectar en actividades del liceo. JPG, {fondoPantalla.ancho} × {fondoPantalla.alto}{" "}
+                píxeles.
+              </p>
+              <a href={fondoPantalla.src} download className="btn btn-ink mt-4">
+                <Download aria-hidden className="size-4" />
+                Descargar
+                <span className="sr-only"> el fondo de pantalla (JPG)</span>
+              </a>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section aria-labelledby="plantillas" className="mt-[var(--section-gap)]">
+        <Container className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <h2 id="plantillas" className="text-head">
+              Plantillas
+            </h2>
+            <p className="mt-6 max-w-[40ch] text-muted">
+              Documentos y presentaciones con el membrete del liceo, listos para informes, comunicaciones y exposiciones.
+            </p>
+          </div>
+          <ul className="space-y-3 lg:col-span-7">
+            {plantillas.map((p) => (
+              <li key={p.url} className="flex flex-col gap-4 bg-surface p-6 sm:flex-row sm:items-center sm:p-8">
+                {/* Programa con que se abre, en el color de cada uno (Word azul, PowerPoint naranjo rojizo). */}
+                <span
+                  aria-hidden
+                  className={`w-20 flex-none text-[1.75rem] font-extrabold leading-none tracking-[-0.03em] ${
+                    p.formato.startsWith("Word") ? "text-[#2b579a]" : "text-[#c43e1c]"
+                  }`}
+                >
+                  {p.formato.startsWith("Word") ? "Word" : "PPT"}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-extrabold tracking-[-0.01em]">{p.titulo}</p>
+                  <p className="mt-1 text-small text-muted">{p.descripcion} {p.formato}.</p>
+                </div>
+                <a href={p.url} download className="btn btn-ink self-start sm:self-center">
+                  <Download aria-hidden className="size-4" />
+                  Descargar
+                  <span className="sr-only"> la plantilla {p.titulo} ({p.formato})</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 

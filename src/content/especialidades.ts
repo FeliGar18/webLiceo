@@ -6,15 +6,14 @@ import { imagenProvisional } from "./imagenes";
  * Especialidades técnico-profesionales del liceo.
  *
  * Verificado en el PEI 2025-2026 (Sistema de Admisión Escolar, Mineduc):
- * - Nombres oficiales y módulos del plan de estudio (formación diferenciada).
- * - Talleres y laboratorios del liceo.
+ * - Nombres oficiales, títulos y módulos del plan de estudio (formación diferenciada).
  * - Logros y experiencias de cada especialidad.
  *
- * Provisional (el liceo debe validarlo):
- * - Los resúmenes (`validado: false`).
+ * Entregado por el liceo (octubre de 2026), para las cinco especialidades:
+ * - Descripción, áreas de aprendizaje, campo laboral e infraestructura.
  *
  * Pendiente (no se publica sin información oficial):
- * - Competencias, perfil de egreso, actividades prácticas y campo laboral.
+ * - Competencias, perfil de egreso y actividades prácticas.
  *   Para completarlos, cambie `pendiente(...)` por `{ estado: "validado", valor: [...] }`.
  */
 
@@ -28,13 +27,6 @@ const NOTA_CAMPO = "Campo laboral pendiente de validación por la jefatura de es
 const NOTA_AREA = "Descripción del área formativa pendiente de validación.";
 
 const REX_2023 = "Rex. N° 1549 del 20 de marzo de 2023";
-
-const LAB = "Uno de los ocho laboratorios con que cuenta el liceo.";
-const TALLER = "Uno de los cinco talleres de especialidad del liceo, donde se realizan las prácticas del plan de estudio.";
-const MULTISECTORIAL = {
-  nombre: "Taller Multisectorial de Innovación y Tecnología",
-  detalle: "Implementado en 2020 y 2021 dentro del programa Liceos Bicentenario, compartido por las especialidades.",
-};
 
 const base = {
   areaFormativa: pendiente(NOTA_AREA),
@@ -56,12 +48,46 @@ export const especialidades: Especialidad[] = [
     color: "esp-edificacion",
     sector: "Construcción",
     imagen: imagenProvisional("/images/especialidades/edificacion.jpg"),
+    // Descripción, título, áreas, campo laboral e infraestructura: texto entregado por el liceo (octubre de 2026).
     resumen: {
       texto:
-        "Formación en los procesos de una obra de edificación: lectura de planos, trazado, obra gruesa y terminaciones, con trabajo en taller y en terreno.",
-      validado: false,
+        "La especialidad de Construcción Mención Edificación forma técnicos capacitados para participar en todas las etapas de un proyecto de construcción, desde la lectura e interpretación de planos hasta la ejecución y supervisión de obras.",
+      validado: true,
+    },
+    descripcion: [
+      "La especialidad de Construcción Mención Edificación forma técnicos capacitados para participar en todas las etapas de un proyecto de construcción, desde la lectura e interpretación de planos hasta la ejecución y supervisión de obras. Nuestros estudiantes desarrollan competencias en albañilería, hormigón armado, terminaciones y gestión de proyectos constructivos.",
+      "Durante su formación, los estudiantes aprenden técnicas modernas de construcción, cálculo de materiales, seguridad en obras y uso de tecnología aplicada a la construcción, preparándolos para desempeñarse en el dinámico sector de la construcción.",
+    ],
+    areaFormativa: {
+      estado: "validado",
+      valor: [
+        "Lectura e interpretación de planos arquitectónicos",
+        "Técnicas de albañilería y mampostería",
+        "Hormigón armado y estructuras",
+        "Cálculo de materiales y cubicaciones",
+        "Terminaciones de obra y revestimientos",
+        "Topografía básica aplicada",
+        "Seguridad en obras de construcción",
+        "Gestión y administración de proyectos",
+      ],
+    },
+    campoLaboral: {
+      estado: "validado",
+      valor: [
+        "Empresas constructoras",
+        "Obras de edificación habitacional",
+        "Construcción de edificios comerciales",
+        "Empresas de remodelación",
+        "Supervisión de obras",
+        "Maestro constructor independiente",
+        "Empresas inmobiliarias",
+        "Organismos públicos de infraestructura",
+      ],
     },
     titulo: "Técnico de Nivel Medio en Construcción, mención Edificación",
+    tituloNota: "Reconocido por el Ministerio de Educación",
+    infraestructuraTexto:
+      "Disponemos de talleres especializados y áreas de práctica donde los estudiantes pueden desarrollar proyectos reales de construcción bajo supervisión profesional.",
     plan: {
       resolucion: REX_2023,
       fuente: FUENTE_PEI,
@@ -77,9 +103,9 @@ export const especialidades: Especialidad[] = [
       ],
     },
     espacios: [
-      { nombre: "Taller de Edificación", detalle: TALLER },
-      { nombre: "Laboratorio de Dibujo", detalle: LAB },
-      MULTISECTORIAL,
+      { nombre: "Taller de Construcción", detalle: "Espacio equipado para prácticas de albañilería y hormigón" },
+      { nombre: "Sala de Proyectos", detalle: "Computadores con software de diseño y planificación" },
+      { nombre: "Herramientas Profesionales", detalle: "Equipos y herramientas de construcción especializadas" },
     ],
     logros: [
       { anio: "2024", texto: "Pasantía en la Universidad Técnica Federico Santa María, en Concepción." },
@@ -94,12 +120,46 @@ export const especialidades: Especialidad[] = [
     color: "esp-electricidad",
     sector: "Electricidad",
     imagen: imagenProvisional("/images/especialidades/electricidad.jpg"),
+    // Descripción, título, áreas, campo laboral e infraestructura: texto entregado por el liceo (octubre de 2026).
     resumen: {
       texto:
-        "Formación en instalaciones eléctricas: circuitos, tableros, canalizaciones y normas de seguridad eléctrica, con práctica en laboratorio y taller.",
-      validado: false,
+        "La especialidad de Electricidad forma técnicos capacitados para diseñar, instalar, mantener y reparar sistemas eléctricos en instalaciones residenciales, comerciales e industriales.",
+      validado: true,
+    },
+    descripcion: [
+      "La especialidad de Electricidad forma técnicos capacitados para diseñar, instalar, mantener y reparar sistemas eléctricos en instalaciones residenciales, comerciales e industriales. Nuestros estudiantes adquieren conocimientos sólidos en circuitos eléctricos, automatización, control industrial y energías renovables.",
+      "Durante 3° y 4° medio, los estudiantes desarrollan competencias prácticas en nuestros talleres equipados con tecnología moderna, preparándolos para insertarse exitosamente en el mundo laboral o continuar estudios superiores en el área.",
+    ],
+    areaFormativa: {
+      estado: "validado",
+      valor: [
+        "Instalaciones eléctricas domiciliarias e industriales",
+        "Circuitos eléctricos y electrónica básica",
+        "Automatización y control industrial",
+        "Máquinas eléctricas y transformadores",
+        "Energías renovables y eficiencia energética",
+        "Normativa eléctrica y seguridad",
+        "Lectura e interpretación de planos eléctricos",
+        "Mantención preventiva y correctiva",
+      ],
+    },
+    campoLaboral: {
+      estado: "validado",
+      valor: [
+        "Empresas de instalaciones eléctricas",
+        "Industrias y plantas de producción",
+        "Empresas de mantención eléctrica",
+        "Constructoras y obras civiles",
+        "Empresas de energías renovables",
+        "Servicios técnicos independientes",
+        "Empresas de automatización industrial",
+        "Sector minero y energético",
+      ],
     },
     titulo: "Técnico de Nivel Medio en Electricidad",
+    tituloNota: "Reconocido por el Ministerio de Educación",
+    infraestructuraTexto:
+      "Contamos con talleres completamente equipados con herramientas y equipos de última generación para que nuestros estudiantes desarrollen sus habilidades en un ambiente profesional.",
     plan: {
       resolucion: REX_2023,
       fuente: FUENTE_PEI,
@@ -119,9 +179,9 @@ export const especialidades: Especialidad[] = [
       ],
     },
     espacios: [
-      { nombre: "Taller de Electricidad", detalle: TALLER },
-      { nombre: "Laboratorio de Electrónica", detalle: LAB },
-      { nombre: "Laboratorio de Neumática", detalle: LAB },
+      { nombre: "Taller de Instalaciones", detalle: "Paneles de práctica y simuladores de instalaciones reales" },
+      { nombre: "Laboratorio de Control", detalle: "PLCs, sensores y sistemas de automatización industrial" },
+      { nombre: "Equipos Profesionales", detalle: "Instrumentos de medición y herramientas especializadas" },
     ],
     logros: [
       { anio: "2024", texto: "Medalla de Oro en Instalaciones Eléctricas y en Robótica Móvil, y Medalla de Plata en Control Industrial, en la VIII Olimpiada Técnica Nacional WorldSkills." },
@@ -140,12 +200,46 @@ export const especialidades: Especialidad[] = [
     color: "esp-mecanica",
     sector: "Metalmecánico",
     imagen: imagenProvisional("/images/especialidades/mecanica-automotriz.jpg"),
+    // Descripción, título, áreas, campo laboral e infraestructura: texto entregado por el liceo (octubre de 2026).
     resumen: {
       texto:
-        "Formación en el diagnóstico, mantenimiento y reparación de vehículos: motor, transmisión, frenos, suspensión y sistemas eléctricos.",
-      validado: false,
+        "La especialidad de Mecánica Automotriz forma técnicos capacitados para diagnosticar, mantener y reparar sistemas mecánicos y electrónicos de vehículos livianos y pesados.",
+      validado: true,
+    },
+    descripcion: [
+      "La especialidad de Mecánica Automotriz forma técnicos capacitados para diagnosticar, mantener y reparar sistemas mecánicos y electrónicos de vehículos livianos y pesados. Nuestros estudiantes desarrollan competencias en motores, sistemas de transmisión, frenos, suspensión, electricidad automotriz y diagnóstico computarizado.",
+      "Durante su formación, los estudiantes trabajan con vehículos reales y tecnología de diagnóstico moderna, aprendiendo tanto mecánica tradicional como sistemas electrónicos avanzados, preparándolos para el dinámico sector automotriz actual.",
+    ],
+    areaFormativa: {
+      estado: "validado",
+      valor: [
+        "Motores de combustión interna bencineros y diésel",
+        "Sistemas de transmisión manual y automática",
+        "Sistemas de frenos y suspensión",
+        "Electricidad y electrónica automotriz",
+        "Diagnóstico computarizado con scanner",
+        "Sistemas de inyección electrónica",
+        "Aire acondicionado automotriz",
+        "Mantención preventiva y correctiva",
+      ],
+    },
+    campoLaboral: {
+      estado: "validado",
+      valor: [
+        "Talleres mecánicos automotrices",
+        "Concesionarias de vehículos",
+        "Empresas de transporte",
+        "Servicios técnicos especializados",
+        "Empresas de mantención de flotas",
+        "Mecánico independiente",
+        "Empresas mineras y forestales",
+        "Centros de revisión técnica",
+      ],
     },
     titulo: "Técnico de Nivel Medio en Mecánica Automotriz",
+    tituloNota: "Reconocido por el Ministerio de Educación",
+    infraestructuraTexto:
+      "Contamos con talleres completamente equipados con vehículos, herramientas y tecnología de diagnóstico para una formación práctica de excelencia.",
     plan: {
       resolucion: REX_2023,
       fuente: FUENTE_PEI,
@@ -159,9 +253,9 @@ export const especialidades: Especialidad[] = [
       ],
     },
     espacios: [
-      { nombre: "Taller de Mecánica Automotriz", detalle: TALLER },
-      { nombre: "Laboratorio de Autotrónica", detalle: LAB },
-      { nombre: "Laboratorio de Neumática", detalle: LAB },
+      { nombre: "Taller Mecánico", detalle: "Vehículos reales y elevadores para prácticas completas" },
+      { nombre: "Equipos de Diagnóstico", detalle: "Scanner automotriz y equipos de medición especializados" },
+      { nombre: "Herramientas Profesionales", detalle: "Set completo de herramientas mecánicas y neumáticas" },
     ],
     logros: [
       { anio: "2024", texto: "Medalla de Excelencia en Tecnología Mecánica en la VIII Olimpiada Técnica Nacional WorldSkills." },
@@ -178,12 +272,47 @@ export const especialidades: Especialidad[] = [
     color: "esp-metalicas",
     sector: "Metalmecánico",
     imagen: imagenProvisional("/images/especialidades/construcciones-metalicas.jpg"),
+    // Descripción, áreas, campo laboral e infraestructura: texto entregado por el liceo (octubre de 2026).
+    // El texto del liceo dice "Estructuras Metálicas"; el nombre y el título oficiales (PEI) son "Construcciones Metálicas".
     resumen: {
       texto:
-        "Formación en el trazado, corte, soldadura y montaje de estructuras de acero, desde la lectura del plano hasta la pieza terminada.",
-      validado: false,
+        "La especialidad de Estructuras Metálicas forma técnicos capacitados para diseñar, fabricar y montar estructuras de acero para la construcción, industria y minería.",
+      validado: true,
+    },
+    descripcion: [
+      "La especialidad de Estructuras Metálicas forma técnicos capacitados para diseñar, fabricar y montar estructuras de acero para la construcción, industria y minería. Nuestros estudiantes desarrollan competencias en soldadura, corte, plegado, lectura de planos estructurales y cálculo de estructuras metálicas.",
+      "Durante su formación, los estudiantes trabajan con equipos industriales de soldadura, corte y conformado de metales, aprendiendo técnicas modernas de fabricación y montaje de estructuras, preparándolos para el sector industrial y de la construcción.",
+    ],
+    areaFormativa: {
+      estado: "validado",
+      valor: [
+        "Soldadura al arco eléctrico (SMAW, GMAW, GTAW)",
+        "Lectura e interpretación de planos estructurales",
+        "Corte y conformado de metales",
+        "Cálculo y diseño de estructuras metálicas",
+        "Montaje de estructuras industriales",
+        "Trazado y desarrollo de piezas metálicas",
+        "Seguridad en trabajos de altura y soldadura",
+        "Control de calidad en soldadura",
+      ],
+    },
+    campoLaboral: {
+      estado: "validado",
+      valor: [
+        "Empresas de fabricación de estructuras metálicas",
+        "Constructoras de obras industriales",
+        "Empresas de montaje industrial",
+        "Talleres de soldadura y calderería",
+        "Industria minera y forestal",
+        "Empresas de mantención industrial",
+        "Maestranza y talleres mecánicos",
+        "Proyectos de infraestructura",
+      ],
     },
     titulo: "Técnico de Nivel Medio en Construcciones Metálicas",
+    tituloNota: "Reconocido por el Ministerio de Educación",
+    infraestructuraTexto:
+      "Nuestros talleres están equipados con maquinaria industrial y equipos de soldadura profesionales para una formación práctica de alto nivel.",
     plan: {
       resolucion: "Rex. N° 232 de 2016 (1° y 2° medio) y Rex. N° 678 de 2020 (3° y 4° medio)",
       fuente: FUENTE_PEI,
@@ -201,9 +330,9 @@ export const especialidades: Especialidad[] = [
       ],
     },
     espacios: [
-      { nombre: "Taller de Construcciones Metálicas", detalle: TALLER },
-      { nombre: "Simulador de Soldadura", detalle: LAB },
-      MULTISECTORIAL,
+      { nombre: "Taller de Soldadura", detalle: "Equipos de soldadura eléctrica, MIG/MAG y TIG" },
+      { nombre: "Maquinaria Industrial", detalle: "Plegadoras, cizallas, taladros y equipos de corte" },
+      { nombre: "Área de Montaje", detalle: "Espacio para ensamblaje de estructuras a escala real" },
     ],
     logros: [
       { anio: "2024", texto: "Medalla de Excelencia en Soldadura en la VIII Olimpiada Técnica Nacional WorldSkills." },
@@ -220,12 +349,46 @@ export const especialidades: Especialidad[] = [
     color: "esp-sanitarias",
     sector: "Construcción",
     imagen: imagenProvisional("/images/especialidades/instalaciones-sanitarias.jpg"),
+    // Descripción, título, áreas, campo laboral e infraestructura: texto entregado por el liceo (octubre de 2026).
     resumen: {
       texto:
-        "Formación en redes de agua potable, alcantarillado y gas: trazado, unión de tuberías, artefactos sanitarios y pruebas de instalación.",
-      validado: false,
+        "La especialidad de Instalaciones Sanitarias forma técnicos capacitados para diseñar, instalar y mantener sistemas de agua potable, alcantarillado, gas y climatización en edificaciones residenciales, comerciales e industriales.",
+      validado: true,
+    },
+    descripcion: [
+      "La especialidad de Instalaciones Sanitarias forma técnicos capacitados para diseñar, instalar y mantener sistemas de agua potable, alcantarillado, gas y climatización en edificaciones residenciales, comerciales e industriales. Nuestros estudiantes adquieren conocimientos en gasfitería, cañerías, sistemas de calefacción y normativas sanitarias vigentes.",
+      "Durante su formación, los estudiantes desarrollan habilidades prácticas en la instalación de redes sanitarias, sistemas de evacuación de aguas, instalaciones de gas y sistemas de climatización, preparándolos para responder a las necesidades del sector construcción e industria.",
+    ],
+    areaFormativa: {
+      estado: "validado",
+      valor: [
+        "Instalaciones de agua potable fría y caliente",
+        "Sistemas de alcantarillado y evacuación",
+        "Instalaciones de gas domiciliario e industrial",
+        "Sistemas de calefacción y climatización",
+        "Lectura e interpretación de planos sanitarios",
+        "Normativa sanitaria y de seguridad",
+        "Cálculo de redes y dimensionamiento",
+        "Mantención y reparación de sistemas",
+      ],
+    },
+    campoLaboral: {
+      estado: "validado",
+      valor: [
+        "Empresas de instalaciones sanitarias",
+        "Constructoras y obras de edificación",
+        "Empresas de mantención de edificios",
+        "Servicios de gasfitería independiente",
+        "Empresas de climatización",
+        "Industrias y plantas de producción",
+        "Empresas de instalaciones de gas",
+        "Servicios públicos sanitarios",
+      ],
     },
     titulo: "Técnico de Nivel Medio en Instalaciones Sanitarias",
+    tituloNota: "Reconocido por el Ministerio de Educación",
+    infraestructuraTexto:
+      "Nuestros talleres cuentan con instalaciones completas para que los estudiantes practiquen en condiciones similares a las que encontrarán en el campo laboral.",
     plan: {
       resolucion: REX_2023,
       fuente: FUENTE_PEI,
@@ -245,8 +408,9 @@ export const especialidades: Especialidad[] = [
       ],
     },
     espacios: [
-      { nombre: "Taller de Instalaciones Sanitarias", detalle: TALLER },
-      MULTISECTORIAL,
+      { nombre: "Taller de Cañerías", detalle: "Paneles de práctica con redes de agua y alcantarillado" },
+      { nombre: "Laboratorio de Gas", detalle: "Instalaciones para prácticas de sistemas de gas" },
+      { nombre: "Herramientas Especializadas", detalle: "Equipos profesionales de gasfitería y soldadura" },
     ],
     logros: [
       { anio: "2024", texto: "Destacada participación en Riego Tecnificado en la VIII Olimpiada Técnica Nacional WorldSkills." },

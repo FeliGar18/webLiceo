@@ -64,6 +64,9 @@ export type Especialidad = {
   sector: string;
   /** Descripción breve editable. Se marca como provisional mientras `validado` sea `false`. */
   resumen: { texto: string; validado: boolean };
+  /** Descripción completa entregada por el liceo, en párrafos. Si falta, se usa `resumen`. */
+  descripcion?: string[];
+  /** Áreas de aprendizaje de la especialidad (se muestran como "Áreas de aprendizaje"). */
   areaFormativa: Contenido<string[]>;
   competencias: Contenido<string[]>;
   perfilEgreso: Contenido<string[]>;
@@ -73,10 +76,14 @@ export type Especialidad = {
   enlaces: Enlace[];
   /** Título que se obtiene al egresar y aprobar la práctica profesional. */
   titulo: string;
+  /** Nota bajo el título (por defecto, que lo otorga el Mineduc al aprobar la práctica). */
+  tituloNota?: string;
   /** Plan de estudio de la formación diferenciada, transcrito del PEI. */
   plan: { resolucion: string; modulos: string[]; fuente: string };
   /** Talleres y laboratorios del liceo ligados a la especialidad (PEI). */
   espacios: { nombre: string; detalle: string }[];
+  /** Introducción propia de "Infraestructura y equipamiento" (si falta, se usa la general del PEI). */
+  infraestructuraTexto?: string;
   /** Logros y experiencias de la especialidad que constan en el PEI. */
   logros: { anio: string; texto: string }[];
 };
