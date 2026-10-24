@@ -44,7 +44,9 @@ function Marca({ marcaRef, conBicentenario }: { marcaRef: React.Ref<HTMLAnchorEl
             preload
           />
         ) : null}
-        <span className="flex flex-col leading-[1.05]">
+        {/* Entre 1024 y 1279 px el menú completo no deja espacio al nombre: queda solo la
+            insignia (que lleva el nombre) y el texto sigue disponible para lectores de pantalla. */}
+        <span className="flex flex-col leading-[1.05] lg:max-xl:sr-only">
           <span className="whitespace-nowrap text-[0.9375rem] font-extrabold tracking-[-0.02em]">Liceo Bicentenario Industrial</span>
           <span className="whitespace-nowrap text-small font-semibold text-muted">Ing. Ricardo Fenner Ruedi · La Unión</span>
           {/* El nombre accesible empieza con el texto visible (WCAG 2.5.3). */}
