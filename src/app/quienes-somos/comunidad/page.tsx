@@ -60,7 +60,7 @@ function Tarjeta({ persona }: { persona: Integrante }) {
         ) : null}
       </div>
       <div className="flex flex-1 flex-col pt-5">
-        <h3 className="text-[1.0625rem] leading-tight tracking-[-0.02em] sm:text-[1.25rem]">{persona.cargo}</h3>
+        <h3 className="text-[0.9375rem] leading-tight tracking-[-0.02em] hyphens-auto sm:text-[1.25rem]">{persona.cargo}</h3>
         {persona.area ? <p className="mt-1 text-small font-semibold text-muted">{persona.area}</p> : null}
         <p className={`mt-3 text-[0.9375rem] sm:text-body ${persona.nombre ? "font-semibold" : "text-muted"}`}>
           {persona.nombre ?? (persona.cantidad ? "Nombres por publicar" : "Nombre por publicar")}

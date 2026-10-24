@@ -33,7 +33,7 @@ function Marca({ marcaRef, conBicentenario }: { marcaRef: React.Ref<HTMLAnchorEl
           <span aria-hidden className="hidden h-12 w-px flex-none bg-surface-strong xl:block" />
         </>
       ) : null}
-      <Link ref={marcaRef} href="/" className="flex min-h-12 flex-none items-center gap-3 text-ink no-underline" aria-label="Inicio, Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi">
+      <Link ref={marcaRef} href="/" className="flex min-h-12 flex-none items-center gap-3 text-ink no-underline">
         {logoLiceo ? (
           <Image
             src={logoLiceo.src}
@@ -47,6 +47,8 @@ function Marca({ marcaRef, conBicentenario }: { marcaRef: React.Ref<HTMLAnchorEl
         <span className="flex flex-col leading-[1.05]">
           <span className="whitespace-nowrap text-[0.9375rem] font-extrabold tracking-[-0.02em]">Liceo Bicentenario Industrial</span>
           <span className="whitespace-nowrap text-small font-semibold text-muted">Ing. Ricardo Fenner Ruedi · La Unión</span>
+          {/* El nombre accesible empieza con el texto visible (WCAG 2.5.3). */}
+          <span className="sr-only">, ir al inicio</span>
         </span>
       </Link>
       {/*

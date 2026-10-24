@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { VideoFondo as Datos } from "@/content/portada";
@@ -12,10 +13,14 @@ import type { VideoFondo as Datos } from "@/content/portada";
  * - Se pausa cuando sale de la pantalla (ahorra batería y CPU).
  * - Botón visible para pausarlo o reanudarlo (WCAG 2.2.2).
  * - Es decorativo: oculto para lectores de pantalla; el botón sí es accesible.
+ * - Rendimiento: el póster es una imagen optimizada y precargada (es lo primero
+ *   que se pinta, el LCP de la portada). El video, que pesa más, aparece encima
+ *   con un fundido recién cuando empieza a reproducirse.
  */
 export function VideoFondo({ datos }: { datos: Datos }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [pausado, setPausado] = useState(true);
+  const [visible, setVisible] = useState(false);
   const pausadoPorUsuario = useRef(false);
 
   useEffect(() => {
@@ -68,18 +73,29 @@ export function VideoFondo({ datos }: { datos: Datos }) {
 
   return (
     <>
+      <Image
+        src={datos.poster}
+        alt=""
+        fill
+        loading="eager"
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover"
+      />
       <video
         ref={ref}
+        onPlaying={() => setVisible(true)}
         aria-hidden
         tabIndex={-1}
         muted
         loop
         playsInline
         preload="metadata"
-        poster={datos.poster}
         width={datos.ancho}
         height={datos.alto}
-        className="video-fondo absolute inset-0 size-full object-cover"
+        className={`video-fondo absolute inset-0 size-full object-cover transition-opacity duration-700 ease-[var(--ease-out)] ${
+          visible ? "opacity-100" : "opacity-0"
+        }`}
       >
         <source src={datos.webm} type="video/webm" />
         {datos.mp4 ? <source src={datos.mp4} type="video/mp4" /> : null}
