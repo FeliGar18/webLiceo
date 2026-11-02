@@ -20,12 +20,17 @@ export type Integrante = {
   /** Se omite cuando el cargo basta (p. ej. asistentes de la educación). */
   area?: string;
   nombre?: string;
+  /** «Sr.», «Sra.» o «Srta.», solo si el liceo lo indicó (nunca se deduce del nombre). */
+  tratamiento?: Tratamiento;
   foto?: Imagen;
   /** Solo correos institucionales verificados (nunca personales). */
   correo?: string;
   /** Número de personas en ese cargo, cuando es más de una. */
   cantidad?: number;
 };
+
+export const tratamientos = ["Sr.", "Sra.", "Srta."] as const;
+export type Tratamiento = (typeof tratamientos)[number];
 
 export const iconosGrupo = ["directivo", "administracion", "docentes", "pie", "asistentes"] as const;
 export type IconoGrupo = (typeof iconosGrupo)[number];
@@ -57,6 +62,7 @@ const comunidadSchema = z.object({
       integrantes: z.array(
         z.object({
           nombre: texto,
+          tratamiento: z.enum(tratamientos).nullish().or(z.literal("")).transform((v) => v || undefined),
           cargo: z.string().trim().min(1),
           area: texto,
           foto: texto,
@@ -89,8 +95,9 @@ export const grupos: GrupoComunidad[] = comunidadSchema.parse(datos).grupos.map(
     cargo: p.cargo,
     area: p.area || undefined,
     nombre: p.nombre || undefined,
+    tratamiento: p.nombre ? p.tratamiento : undefined,
     // Tamaño referencial: la tarjeta muestra la foto ajustada a 4:5.
-    foto: p.foto ? imagenPropia(p.foto, p.nombre ? `${p.nombre}, ${p.cargo}` : p.cargo, 640, 800) : undefined,
+    foto: p.foto ? imagenPropia(p.foto, p.nombre ? `${p.tratamiento ? `${p.tratamiento} ` : ""}${p.nombre}, ${p.cargo}` : p.cargo, 640, 800) : undefined,
     correo: p.correo || undefined,
     cantidad: p.cantidad ?? undefined,
   })),

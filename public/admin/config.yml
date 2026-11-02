@@ -327,8 +327,14 @@ collections:
                 label: Personas
                 label_singular: Persona
                 widget: list
-                summary: "{{fields.cargo}} · {{fields.nombre}}"
+                summary: "{{fields.cargo}} · {{fields.tratamiento}} {{fields.nombre}}"
                 fields:
+                  - name: tratamiento
+                    label: Tratamiento
+                    widget: select
+                    options: ["Sr.", "Sra.", "Srta."]
+                    required: false
+                    hint: Va antes del nombre. Si queda vacío, se muestra solo el nombre.
                   - { name: nombre, label: Nombre, widget: string, required: false, hint: "Si queda vacío se muestra «Nombre por publicar»" }
                   - { name: cargo, label: Cargo, widget: string }
                   - { name: area, label: Área, widget: string, required: false, hint: "Opcional, va bajo el cargo" }
