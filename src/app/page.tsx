@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Cifras } from "@/components/home/Cifras";
 import { FranjaContacto } from "@/components/home/FranjaContacto";
 import { HeroCarpetas } from "@/components/home/HeroCarpetas";
+import { LogosAliados } from "@/components/home/LogosAliados";
 import { CalendarioAdmision, Internado, PorQueEstudiar, PreguntasFrecuentes } from "@/components/home/Informacion";
 import { Marquesina } from "@/components/home/Marquesina";
 import { NoticiasPortada } from "@/components/home/NoticiasPortada";
@@ -99,6 +100,7 @@ export default function Inicio() {
       </section>
 
       <Cifras />
+      <LogosAliados />
       <NoticiasPortada />
       <PorQueEstudiar />
       <ListaEspecialidades />

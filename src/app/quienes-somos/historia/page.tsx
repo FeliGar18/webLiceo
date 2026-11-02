@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Encabezado, TituloSeccion } from "@/components/ui/Encabezado";
 import { Foto } from "@/components/ui/Foto";
 import { FotoAmpliable } from "@/components/ui/FotoAmpliable";
+import { LogosAliados } from "@/components/home/LogosAliados";
 import { imagenes } from "@/content/imagenes";
 import {
   FUENTE_PEI,
@@ -49,7 +50,12 @@ export default function HistoriaPage() {
 
       {/* Vista aérea del campus a todo el ancho; se abre en grande al hacer clic. */}
       <Container>
-        <FotoAmpliable imagen={imagenes.campusAereo()} prioridad className="intro-fade" />
+        <FotoAmpliable
+          imagen={imagenes.campusAereo()}
+          prioridad
+          leyenda="Vista aérea del campus. Fotografía actual, 2026."
+          className="intro-fade"
+        />
       </Container>
 
       <Container as="section" aria-labelledby="nombre" className="mt-[calc(var(--section-gap)/2)]">
@@ -193,6 +199,9 @@ export default function HistoriaPage() {
           </div>
         </div>
       </Container>
+
+      {/* Convenios y alianzas: la misma franja de logos de la portada. */}
+      <LogosAliados />
 
       {/* Estudiantes y docentes en el extranjero */}
       <section aria-labelledby="mundo" className="mt-[var(--section-gap)] bg-ink py-16 text-bg on-dark sm:py-24">

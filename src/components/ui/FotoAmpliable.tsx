@@ -16,11 +16,14 @@ export function FotoAmpliable({
   imagen,
   aspecto = "aspect-[2/1]",
   prioridad = false,
+  leyenda,
   className = "",
 }: {
   imagen: Imagen;
   aspecto?: string;
   prioridad?: boolean;
+  /** Texto bajo la foto, alineado a la derecha. */
+  leyenda?: string;
   className?: string;
 }) {
   const dialogo = useRef<HTMLDialogElement>(null);
@@ -46,6 +49,7 @@ export function FotoAmpliable({
           Ver en grande
         </span>
       </button>
+      {leyenda ? <figcaption className="mt-3 text-right text-small text-muted">{leyenda}</figcaption> : null}
 
       <dialog
         ref={dialogo}
