@@ -10,6 +10,7 @@ const RUTAS: { ruta: string; prioridad: number; frecuencia: MetadataRoute.Sitema
   { ruta: "/quienes-somos/historia", prioridad: 0.6, frecuencia: "yearly" },
   { ruta: "/quienes-somos/proyecto-educativo", prioridad: 0.7, frecuencia: "yearly" },
   { ruta: "/quienes-somos/comunidad", prioridad: 0.6, frecuencia: "monthly" },
+  { ruta: "/quienes-somos/centro-de-innovacion", prioridad: 0.6, frecuencia: "monthly" },
   { ruta: "/especialidades", prioridad: 0.9, frecuencia: "monthly" },
   { ruta: "/admision", prioridad: 0.9, frecuencia: "monthly" },
   { ruta: "/noticias", prioridad: 0.7, frecuencia: "weekly" },

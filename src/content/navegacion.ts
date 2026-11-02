@@ -2,6 +2,7 @@ import type { ItemNavegacion } from "@/lib/types";
 import { especialidades } from "./especialidades";
 
 export const navegacionPrincipal: ItemNavegacion[] = [
+  { etiqueta: "Inicio", href: "/" },
   {
     etiqueta: "El liceo",
     href: "/quienes-somos",
@@ -17,6 +18,11 @@ export const navegacionPrincipal: ItemNavegacion[] = [
         etiqueta: "Comunidad educativa",
         href: "/quienes-somos/comunidad",
         descripcion: "Equipo directivo y estamentos",
+      },
+      {
+        etiqueta: "Centro de Innovación",
+        href: "/quienes-somos/centro-de-innovacion",
+        descripcion: "Innovación y tecnología",
       },
     ],
   },
@@ -45,6 +51,7 @@ export const navegacionPie: { titulo: string; enlaces: ItemNavegacion[] }[] = [
       { etiqueta: "Historia", href: "/quienes-somos/historia" },
       { etiqueta: "Proyecto educativo", href: "/quienes-somos/proyecto-educativo" },
       { etiqueta: "Comunidad educativa", href: "/quienes-somos/comunidad" },
+      { etiqueta: "Centro de Innovación", href: "/quienes-somos/centro-de-innovacion" },
     ],
   },
   {

@@ -69,6 +69,11 @@ const subpaginas = [
     titulo: "Comunidad educativa",
     texto: "Equipo directivo, docentes, asistentes, estudiantes y apoderados.",
   },
+  {
+    href: "/quienes-somos/centro-de-innovacion",
+    titulo: "Centro de Innovación",
+    texto: "El espacio del liceo dedicado a la innovación y la tecnología.",
+  },
 ];
 
 export default function QuienesSomosPage() {
