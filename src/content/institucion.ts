@@ -163,7 +163,7 @@ export const liderazgo: {
     periodo: "Director actual",
     foto: "ernestoUslar",
     texto:
-      "Asumió durante la pandemia, con el desafío de que ningún estudiante quedara atrás, en las regiones de Los Ríos y Los Lagos. Ha impulsado el mejoramiento de las dependencias, la implementación tecnológica de laboratorios y talleres y la vinculación con redes externas.",
+      "Asumió en plena pandemia y llevó al liceo a su transformación digital. Bajo su liderazgo nació el Centro de Innovación, con robótica, IoT, electromovilidad, impresión 3D e inteligencia artificial, con visión de Industria 4.0. También consolidó al Fenner como referente nacional en robótica, con oro en WorldSkills Chile.",
   },
 ];
 
