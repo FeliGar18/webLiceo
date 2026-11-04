@@ -74,39 +74,62 @@ export function interpretarRespuesta(json: unknown): PublicacionFacebook[] {
     }));
 }
 
+/** Motivo que da Meta en un error ("(#100) …", código, tipo). Nunca incluye el token. */
+export function motivoError(estado: number, json: unknown): string {
+  const error = (json as { error?: { message?: unknown; code?: unknown; type?: unknown } } | null)?.error;
+  const partes = [error?.type, error?.code !== undefined ? `código ${error.code}` : null, error?.message].filter(
+    (p): p is string | number => typeof p === "string" || typeof p === "number",
+  );
+  return `Graph API respondió ${estado}${partes.length ? `: ${partes.join(" · ")}` : ""}`;
+}
+
+type Resultado = { ok: true; publicaciones: PublicacionFacebook[] } | { ok: false; motivo: string };
+
 /**
- * Consulta cacheada: se renueva en segundo plano cada hora. Lanza si falla.
+ * Consulta cacheada: se renueva en segundo plano cada hora.
+ *
+ * Nunca lanza: un error dentro de "use cache" haría fallar el build al
+ * prerenderizar la portada. Si Facebook falla, el resultado vale solo unos
+ * minutos, para que se vuelva a intentar pronto.
  * El token se lee aquí dentro para que no forme parte de la clave de caché.
  */
-async function consultar(pagina: string): Promise<PublicacionFacebook[]> {
+async function consultar(pagina: string): Promise<Resultado> {
   "use cache";
-  cacheLife("hours");
 
   const token = leerConfig()?.token;
-  if (!token) return [];
+  if (!token) {
+    cacheLife("hours");
+    return { ok: true, publicaciones: [] };
+  }
   const params = new URLSearchParams({
     fields: "id,message,created_time,permalink_url,full_picture",
     limit: String(LIMITE),
     access_token: token,
   });
-  const res = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${encodeURIComponent(pagina)}/posts?${params}`, {
-    signal: AbortSignal.timeout(TIMEOUT_MS),
-  });
-  if (!res.ok) {
-    // El cuerpo de error de Meta no incluye el token, pero tampoco se registra completo.
-    throw new Error(`Graph API respondió ${res.status}`);
+  try {
+    const res = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${encodeURIComponent(pagina)}/posts?${params}`, {
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    const json: unknown = await res.json().catch(() => null);
+    if (!res.ok) {
+      cacheLife("minutes");
+      return { ok: false, motivo: motivoError(res.status, json) };
+    }
+    cacheLife("hours");
+    return { ok: true, publicaciones: interpretarRespuesta(json) };
+  } catch (error) {
+    cacheLife("minutes");
+    return { ok: false, motivo: error instanceof Error ? error.message : String(error) };
   }
-  return interpretarRespuesta(await res.json());
 }
 
 export async function obtenerPublicacionesFacebook(): Promise<PublicacionFacebook[]> {
   const config = leerConfig();
   if (!config) return [];
-  try {
-    return await consultar(config.pagina);
-  } catch (error) {
-    // Un error no se guarda en caché: la próxima visita vuelve a intentarlo.
-    console.error("[facebook] No se pudieron leer las publicaciones:", error instanceof Error ? error.message : error);
+  const resultado = await consultar(config.pagina);
+  if (!resultado.ok) {
+    console.error("[facebook] No se pudieron leer las publicaciones:", resultado.motivo);
     return [];
   }
+  return resultado.publicaciones;
 }

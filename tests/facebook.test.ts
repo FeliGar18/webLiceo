@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { interpretarRespuesta, obtenerPublicacionesFacebook } from "@/lib/facebook";
+import { interpretarRespuesta, motivoError, obtenerPublicacionesFacebook } from "@/lib/facebook";
 
 describe("interpretarRespuesta (Graph API de Facebook)", () => {
   it("convierte las publicaciones y normaliza la fecha a ISO 8601", () => {
@@ -68,5 +68,18 @@ describe("obtenerPublicacionesFacebook", () => {
     await expect(obtenerPublicacionesFacebook()).resolves.toEqual([]);
     expect(espia).not.toHaveBeenCalled();
     espia.mockRestore();
+  });
+});
+
+describe("motivoError", () => {
+  it("resume el error de Meta sin datos sensibles", () => {
+    const json = { error: { message: "(#100) Pages Public Content Access", type: "OAuthException", code: 100 } };
+    expect(motivoError(400, json)).toBe(
+      "Graph API respondió 400: OAuthException · código 100 · (#100) Pages Public Content Access",
+    );
+  });
+
+  it("deja solo el estado si la respuesta no trae detalle", () => {
+    expect(motivoError(502, null)).toBe("Graph API respondió 502");
   });
 });
