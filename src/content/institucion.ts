@@ -148,6 +148,8 @@ export const liderazgo: {
     nombre: "José Eduardo Poblete Ramos",
     periodo: "Primer director del liceo",
     foto: "josePoblete",
+    texto:
+      "Siendo director del Liceo Agrícola «San Javier», asumió el desafío de partir de cero y dirigió ambos establecimientos durante los primeros cuatro años. Puso en marcha el liceo con dos especialidades, Estructuras Metálicas y Electricidad, en salas y un galpón prestados, y sentó las bases de lo que hoy es el Liceo Industrial.",
   },
   {
     nombre: "Luis Adrián Álvarez Igor",
