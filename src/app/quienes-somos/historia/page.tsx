@@ -2,6 +2,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Encabezado, TituloSeccion } from "@/components/ui/Encabezado";
 import { Foto } from "@/components/ui/Foto";
+import { Pendiente } from "@/components/ui/Pendiente";
 import { FotoAmpliable } from "@/components/ui/FotoAmpliable";
 import { LogosAliados } from "@/components/home/LogosAliados";
 import { imagenes } from "@/content/imagenes";
@@ -234,12 +235,16 @@ export default function HistoriaPage() {
       {/* Quienes han dirigido el liceo */}
       <Container as="section" aria-labelledby="direccion" className="mt-[var(--section-gap)]">
         <TituloSeccion id="direccion">El «Espíritu Fenner»</TituloSeccion>
-        <div className="reveal mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="reveal mt-12 grid gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {liderazgo.map((d) => (
             <article key={d.nombre} className="flex flex-col">
               <p className="text-small font-semibold text-accent">{d.periodo}</p>
               <h3 className="mt-2 text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] leading-tight tracking-[-0.03em]">{d.nombre}</h3>
-              <p className="mt-4 max-w-[52ch] text-lead leading-snug">{d.texto}</p>
+              {d.texto ? (
+                <p className="mt-4 max-w-[52ch] text-lead leading-snug">{d.texto}</p>
+              ) : (
+                <Pendiente className="mt-4">Reseña de su gestión pendiente de entrega por el liceo.</Pendiente>
+              )}
               {d.foto ? (
                 // La foto de Ernesto Uslar mide 680 px: se muestran a lo más a 28 rem para no agrandarla.
                 <Foto imagen={imagenes[d.foto]()} calidad={90} sizes="448px" className="mt-auto w-full max-w-md pt-8" />

@@ -137,7 +137,18 @@ export const campus = {
 };
 
 /** Quienes han dirigido el liceo (FUENTE_RESENA y comunidad educativa). */
-export const liderazgo: { nombre: string; periodo: string; texto: string; foto?: "luisAlvarez" | "ernestoUslar" }[] = [
+export const liderazgo: {
+  nombre: string;
+  periodo: string;
+  /** Sin texto, la página lo marca como pendiente. */
+  texto?: string;
+  foto?: "josePoblete" | "luisAlvarez" | "ernestoUslar";
+}[] = [
+  {
+    nombre: "José Eduardo Poblete Ramos",
+    periodo: "Primer director del liceo",
+    foto: "josePoblete",
+  },
   {
     nombre: "Luis Adrián Álvarez Igor",
     periodo: "Hasta febrero de 2020",

@@ -37,6 +37,8 @@ export const imagenes = {
     imagenPropia("/images/historia/campus-aereo.jpg", "Vista aérea del campus del liceo junto a la Ruta T-74: pabellones, talleres, gimnasio y estacionamientos rodeados de áreas verdes.", 2000, 1125),
   luisAlvarez: () =>
     imagenPropia("/images/historia/luis-alvarez.jpg", "Luis Adrián Álvarez Igor, sonriente, en un bosque.", 960, 720),
+  josePoblete: () =>
+    imagenPropia("/images/historia/jose-poblete.jpg", "Retrato de José Eduardo Poblete Ramos, de traje oscuro y corbata azul.", 1055, 791),
   ernestoUslar: () =>
     imagenPropia("/images/historia/ernesto-uslar.jpg", "Ernesto Uslar Goverts habla en un podio durante una ceremonia del liceo.", 680, 510),
 };
