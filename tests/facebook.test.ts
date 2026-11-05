@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { interpretarRespuesta, motivoError, obtenerPublicacionesFacebook } from "@/lib/facebook";
+import { interpretarRespuesta, motivoError, obtenerPublicacionesFacebook, tituloYResumen } from "@/lib/facebook";
 
 describe("interpretarRespuesta (Graph API de Facebook)", () => {
   it("convierte las publicaciones y normaliza la fecha a ISO 8601", () => {
@@ -81,5 +81,24 @@ describe("motivoError", () => {
 
   it("deja solo el estado si la respuesta no trae detalle", () => {
     expect(motivoError(502, null)).toBe("Graph API respondió 502");
+  });
+});
+
+describe("tituloYResumen", () => {
+  it("usa la primera línea como título y el resto como resumen", () => {
+    expect(tituloYResumen("Titulación 2026\nFelicitamos a nuestros egresados.\nGracias a las familias.")).toEqual({
+      titulo: "Titulación 2026",
+      resumen: "Felicitamos a nuestros egresados. Gracias a las familias.",
+    });
+  });
+
+  it("recorta una primera línea larga en una palabra y pasa el resto al resumen", () => {
+    const { titulo, resumen } = tituloYResumen("uno dos tres cuatro", 9);
+    expect(titulo).toBe("uno dos…");
+    expect(resumen).toBe("tres cuatro");
+  });
+
+  it("sin texto (solo foto) usa un título genérico", () => {
+    expect(tituloYResumen("")).toEqual({ titulo: "Publicación del liceo", resumen: "" });
   });
 });

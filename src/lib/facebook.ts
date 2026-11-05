@@ -18,7 +18,10 @@ import { z } from "zod";
 
 /** Versión de la Graph API. Meta mantiene cada versión unos dos años. */
 const GRAPH_VERSION = "v23.0";
-const LIMITE = 10;
+/** Publicaciones por página de la Graph API (máximo que acepta Meta). */
+const POR_PAGINA = 100;
+/** Tope del historial: la página /noticias muestra hasta estas publicaciones. */
+const MAXIMO_PUBLICACIONES = 300;
 const TIMEOUT_MS = 10_000;
 
 export type PublicacionFacebook = {
@@ -41,6 +44,8 @@ const respuestaSchema = z.object({
       full_picture: z.string().url().optional(),
     }),
   ),
+  /** Meta pagina los resultados: `next` trae la página siguiente (incluye el token: no se registra). */
+  paging: z.object({ next: z.string().url().optional() }).optional(),
 });
 
 type Config = { pagina: string; token: string };
@@ -74,6 +79,22 @@ export function interpretarRespuesta(json: unknown): PublicacionFacebook[] {
     }));
 }
 
+/**
+ * Una publicación no tiene título: se usa su primera línea, recortada a
+ * `largo` caracteres, y el resto del texto como resumen.
+ */
+export function tituloYResumen(texto: string, largo = 90): { titulo: string; resumen: string } {
+  const [primera = "", ...resto] = texto.split(/\n+/);
+  let titulo = primera.trim();
+  let resumen = resto.join(" ").trim();
+  if (titulo.length > largo) {
+    const corte = titulo.lastIndexOf(" ", largo);
+    resumen = `${titulo.slice(corte + 1)} ${resumen}`.trim();
+    titulo = `${titulo.slice(0, corte)}…`;
+  }
+  return { titulo: titulo || "Publicación del liceo", resumen };
+}
+
 /** Motivo que da Meta en un error ("(#100) …", código, tipo). Nunca incluye el token. */
 export function motivoError(estado: number, json: unknown): string {
   const error = (json as { error?: { message?: unknown; code?: unknown; type?: unknown } } | null)?.error;
@@ -86,7 +107,8 @@ export function motivoError(estado: number, json: unknown): string {
 type Resultado = { ok: true; publicaciones: PublicacionFacebook[] } | { ok: false; motivo: string };
 
 /**
- * Consulta cacheada: se renueva en segundo plano cada hora.
+ * Consulta cacheada: se renueva en segundo plano cada hora. Trae el historial
+ * de la página (hasta MAXIMO_PUBLICACIONES), de la más reciente a la más antigua.
  *
  * Nunca lanza: un error dentro de "use cache" haría fallar el build al
  * prerenderizar la portada. Si Facebook falla, el resultado vale solo unos
@@ -103,20 +125,27 @@ async function consultar(pagina: string): Promise<Resultado> {
   }
   const params = new URLSearchParams({
     fields: "id,message,created_time,permalink_url,full_picture",
-    limit: String(LIMITE),
+    limit: String(POR_PAGINA),
     access_token: token,
   });
+  let url: string | undefined = `https://graph.facebook.com/${GRAPH_VERSION}/${encodeURIComponent(pagina)}/posts?${params}`;
+  const publicaciones: PublicacionFacebook[] = [];
   try {
-    const res = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${encodeURIComponent(pagina)}/posts?${params}`, {
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
-    const json: unknown = await res.json().catch(() => null);
-    if (!res.ok) {
-      cacheLife("minutes");
-      return { ok: false, motivo: motivoError(res.status, json) };
+    // Recorre las páginas de resultados hasta juntar el historial o llegar al tope.
+    while (url && publicaciones.length < MAXIMO_PUBLICACIONES) {
+      const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) });
+      const json: unknown = await res.json().catch(() => null);
+      if (!res.ok) {
+        // Si falla una página siguiente, se muestra lo ya leído.
+        if (publicaciones.length > 0) break;
+        cacheLife("minutes");
+        return { ok: false, motivo: motivoError(res.status, json) };
+      }
+      publicaciones.push(...interpretarRespuesta(json));
+      url = respuestaSchema.parse(json).paging?.next;
     }
     cacheLife("hours");
-    return { ok: true, publicaciones: interpretarRespuesta(json) };
+    return { ok: true, publicaciones: publicaciones.slice(0, MAXIMO_PUBLICACIONES) };
   } catch (error) {
     cacheLife("minutes");
     return { ok: false, motivo: error instanceof Error ? error.message : String(error) };

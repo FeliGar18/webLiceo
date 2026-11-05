@@ -6,20 +6,12 @@ import { Emblema } from "@/components/ui/Emblema";
 import { EtiquetaProvisional } from "@/components/ui/Pendiente";
 import { institucion } from "@/content/institucion";
 import { noticiasOrdenadas } from "@/content/noticias";
-import { formatearFecha } from "@/lib/fechas";
-import { obtenerPublicacionesFacebook, type PublicacionFacebook } from "@/lib/facebook";
+import { formatearFecha, formatearInstante } from "@/lib/fechas";
+import { obtenerPublicacionesFacebook, tituloYResumen, type PublicacionFacebook } from "@/lib/facebook";
 
 const MAXIMO = 6;
-const LARGO_TITULO = 90;
 
 const facebook = institucion.redes.find((r) => r.etiqueta.toLowerCase() === "facebook");
-
-const formatoFecha = new Intl.DateTimeFormat("es-CL", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "America/Santiago",
-});
 
 /** Lo que necesita una tarjeta, venga la noticia del sitio o de Facebook. */
 type Tarjeta = {
@@ -52,22 +44,15 @@ function desdeSitio(): Tarjeta[] {
     }));
 }
 
-/** Una publicación de Facebook no tiene título: se usa su primera línea (recortada) y el resto como resumen. */
+/** Una publicación de Facebook no tiene título: se usa su primera línea y el resto como resumen. */
 function desdeFacebook(p: PublicacionFacebook): Tarjeta {
-  const [primera = "", ...resto] = p.texto.split(/\n+/);
-  let titulo = primera.trim();
-  let resumen = resto.join(" ").trim();
-  if (titulo.length > LARGO_TITULO) {
-    const corte = titulo.lastIndexOf(" ", LARGO_TITULO);
-    resumen = `${titulo.slice(corte + 1)} ${resumen}`.trim();
-    titulo = `${titulo.slice(0, corte)}…`;
-  }
+  const { titulo, resumen } = tituloYResumen(p.texto);
   return {
     clave: p.id,
-    titulo: titulo || "Publicación del liceo",
+    titulo,
     resumen,
     fechaIso: p.fecha,
-    fechaTexto: formatoFecha.format(new Date(p.fecha)),
+    fechaTexto: formatearInstante(p.fecha),
     etiqueta: "Facebook",
     href: p.enlace,
     externo: true,

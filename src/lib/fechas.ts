@@ -13,3 +13,8 @@ const formato = new Intl.DateTimeFormat("es-CL", {
 export function formatearFecha(iso: string): string {
   return formato.format(new Date(`${iso}T12:00:00-03:00`));
 }
+
+/** Formatea un instante ISO 8601 con hora (p. ej. el de una publicación de Facebook), en hora de Chile. */
+export function formatearInstante(iso: string): string {
+  return formato.format(new Date(iso));
+}

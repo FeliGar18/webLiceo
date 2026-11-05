@@ -1,26 +1,57 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import type { ReactNode } from "react";
 import { useId, useState } from "react";
 import { Foto } from "@/components/ui/Foto";
 import { EtiquetaProvisional } from "@/components/ui/Pendiente";
 import type { CategoriaNoticia, Imagen } from "@/lib/types";
 import { categoriasNoticia } from "./categorias";
 
+/** Las publicaciones de la página de Facebook del liceo se filtran aparte. */
+export const CATEGORIA_FACEBOOK = "Facebook";
+
 export type ItemNoticia = {
-  slug: string;
+  /** Identificador único: el slug de la noticia o el id de la publicación. */
+  clave: string;
   titulo: string;
   fechaIso: string;
   /** Fecha ya formateada en el servidor (evita diferencias al hidratar). */
   fechaTexto: string;
-  categoria: CategoriaNoticia;
+  categoria: CategoriaNoticia | typeof CATEGORIA_FACEBOOK;
   bajada: string;
   ejemplo: boolean;
+  /** Página de la noticia en el sitio, o la publicación en Facebook. */
+  href: string;
+  externo: boolean;
   imagen?: Imagen;
+  /** Foto de una publicación de Facebook (sin medidas conocidas). */
+  fotoExterna?: string;
 };
 
-type Filtro = CategoriaNoticia | "Todas";
+type Filtro = ItemNoticia["categoria"] | "Todas";
+
+const categoriasFiltro: ItemNoticia["categoria"][] = [...categoriasNoticia, CATEGORIA_FACEBOOK];
+
+/** Enlace que cubre toda la noticia (after:inset-0): interno, o a Facebook en una pestaña nueva. */
+function Enlace({ item, children }: { item: ItemNoticia; children: ReactNode }) {
+  const clase = "text-ink no-underline after:absolute after:inset-0 hover:underline";
+  if (!item.externo) {
+    return (
+      <Link href={item.href} className={clase}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={item.href} target="_blank" rel="noopener noreferrer" className={clase}>
+      {children}
+      <span className="sr-only"> (abre Facebook en una pestaña nueva)</span>
+    </a>
+  );
+}
 
 function contarNoticias(n: number) {
   return n === 1 ? "1 noticia" : `${n} noticias`;
@@ -45,25 +76,28 @@ function Destacada({ item }: { item: ItemNoticia }) {
   return (
     <article className="relative grid gap-8 lg:grid-cols-12 lg:items-end">
       <div
-        className={`chamfer chamfer-lg bg-surface p-6 sm:p-10 lg:p-14 ${item.imagen ? "lg:col-span-7" : "lg:col-span-12"}`}
+        className={`chamfer chamfer-lg bg-surface p-6 sm:p-10 lg:p-14 ${item.imagen || item.fotoExterna ? "lg:col-span-7" : "lg:col-span-12"}`}
       >
         <Meta item={item} />
         <h2 className="mt-6 max-w-[22ch] text-head">
-          <Link
-            href={`/noticias/${item.slug}`}
-            className="text-ink no-underline after:absolute after:inset-0 hover:underline"
-          >
-            {item.titulo}
-          </Link>
+          <Enlace item={item}>{item.titulo}</Enlace>
         </h2>
-        <p className="mt-6 max-w-[56ch] text-lead leading-snug">{item.bajada}</p>
+        {item.bajada ? <p className="mt-6 line-clamp-6 max-w-[56ch] text-lead leading-snug">{item.bajada}</p> : null}
         <p aria-hidden className="mt-8 inline-flex items-center gap-2 font-semibold text-accent">
-          Leer noticia
-          <ArrowRight aria-hidden className="flecha size-5" />
+          {item.externo ? "Ver en Facebook" : "Leer noticia"}
+          {item.externo ? (
+            <ArrowUpRight aria-hidden className="flecha flecha-diagonal size-5" />
+          ) : (
+            <ArrowRight aria-hidden className="flecha size-5" />
+          )}
         </p>
       </div>
       {item.imagen ? (
         <Foto imagen={item.imagen} className="lg:col-span-5" sizes="(min-width: 1024px) 40vw, 100vw" />
+      ) : item.fotoExterna ? (
+        <div className="relative aspect-[4/3] overflow-hidden bg-surface chamfer chamfer-lg lg:col-span-5">
+          <Image src={item.fotoExterna} alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+        </div>
       ) : null}
     </article>
   );
@@ -73,11 +107,12 @@ export function ListadoNoticias({ items }: { items: ItemNoticia[] }) {
   const [filtro, setFiltro] = useState<Filtro>("Todas");
   const idTituloResto = useId();
 
-
-  const opciones: { valor: Filtro; cantidad: number }[] = [
+  const todas: { valor: Filtro; cantidad: number }[] = [
     { valor: "Todas", cantidad: items.length },
-    ...categoriasNoticia.map((c) => ({ valor: c, cantidad: items.filter((i) => i.categoria === c).length })),
+    ...categoriasFiltro.map((c) => ({ valor: c, cantidad: items.filter((i) => i.categoria === c).length })),
   ];
+  // El filtro Facebook aparece solo si hay publicaciones de Facebook.
+  const opciones = todas.filter((o) => o.valor !== CATEGORIA_FACEBOOK || o.cantidad > 0);
 
   const visibles = filtro === "Todas" ? items : items.filter((i) => i.categoria === filtro);
   const [primera, ...resto] = visibles;
@@ -138,18 +173,13 @@ export function ListadoNoticias({ items }: { items: ItemNoticia[] }) {
           </h2>
           <ol className="mt-12 space-y-12 sm:space-y-14">
             {resto.map((item) => (
-              <li key={item.slug} className="relative grid gap-3 md:grid-cols-12 md:gap-8">
+              <li key={item.clave} className="relative grid gap-3 md:grid-cols-12 md:gap-8">
                 <Meta item={item} className="md:col-span-4 lg:col-span-3 md:flex-col md:items-start" />
                 <div className="md:col-span-8 lg:col-span-9">
                   <h3 className="max-w-[30ch] text-lead leading-tight tracking-[-0.025em]">
-                    <Link
-                      href={`/noticias/${item.slug}`}
-                      className="text-ink no-underline after:absolute after:inset-0 hover:underline"
-                    >
-                      {item.titulo}
-                    </Link>
+                    <Enlace item={item}>{item.titulo}</Enlace>
                   </h3>
-                  <p className="mt-3 max-w-[60ch]">{item.bajada}</p>
+                  {item.bajada ? <p className="mt-3 line-clamp-3 max-w-[60ch]">{item.bajada}</p> : null}
                 </div>
               </li>
             ))}

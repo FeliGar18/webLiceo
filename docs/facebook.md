@@ -10,12 +10,16 @@ página de Facebook del liceo ([facebook.com/indufenner](https://www.facebook.co
   **cualquier persona, sin iniciar sesión en Facebook**. Se renuevan solas en segundo plano cada hora.
   El navegador del visitante no se conecta con Facebook: las fotos pasan por el optimizador de
   imágenes del sitio. Como las publicaciones no tienen título, se usa su primera línea.
+- **Historial en /noticias:** la página Noticias muestra todas las publicaciones de Facebook (hasta 300,
+  de la más reciente a la más antigua) junto a las noticias del sitio, con un filtro «Facebook». Mientras haya
+  publicaciones de Facebook, las noticias de ejemplo no se muestran.
 - **Sin token:** la grilla muestra las noticias del propio sitio (`src/content/noticias.ts`).
 
 Si el token deja de funcionar, el sitio vuelve solo a las noticias del sitio y registra el error en los logs de
 Vercel (`[facebook] No se pudieron leer las publicaciones`). Nunca se cae la portada.
 
-Código: `src/lib/facebook.ts` (lectura de la API) y `src/components/home/NoticiasPortada.tsx`.
+Código: `src/lib/facebook.ts` (lectura de la API), `src/components/home/NoticiasPortada.tsx` y
+`src/app/noticias/page.tsx`.
 
 ## Qué se necesita
 
