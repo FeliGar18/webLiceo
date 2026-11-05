@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Encabezado, TituloSeccion } from "@/components/ui/Encabezado";
 import { Pendiente } from "@/components/ui/Pendiente";
-import { FUENTE_RESENA, campus, hitos } from "@/content/institucion";
+import { FUENTE_RESENA, campus, centroInnovacion, hitos } from "@/content/institucion";
 import { logoCentroInnovacion } from "@/content/marca";
 import { crearMetadata } from "@/lib/seo";
 
@@ -62,11 +62,27 @@ export default function CentroInnovacionPage() {
               {otrosLaboratorios.at(-1)}. Entre 2020 y 2021 el liceo implementó el Taller Multisectorial de
               Innovación y Tecnología, parte del programa Liceos Bicentenario.
             </p>
-            <Pendiente>
-              Pendiente de entrega por el liceo: qué se hace en el centro, su equipamiento, quiénes lo usan y fotografías
-              del espacio.
-            </Pendiente>
+            <p>
+              Nació bajo la dirección de Ernesto Uslar Goverts, como parte de la transformación digital del liceo, con
+              visión de {centroInnovacion.enfoque}.
+            </p>
+            <Pendiente>Pendiente de entrega por el liceo: su equipamiento, quiénes lo usan y fotografías del espacio.</Pendiente>
           </div>
+        </div>
+      </Container>
+
+      <Container as="section" aria-labelledby="areas" className="mt-[var(--section-gap)]">
+        <div className="grid gap-8 lg:grid-cols-12">
+          <TituloSeccion id="areas" className="lg:col-span-5">
+            Áreas de trabajo
+          </TituloSeccion>
+          <ul className="reveal flex flex-wrap content-start gap-3 lg:col-span-7">
+            {centroInnovacion.areas.map((a) => (
+              <li key={a} className="bg-surface px-4 py-2 font-semibold chamfer [--chamfer:0.5rem]">
+                {a}
+              </li>
+            ))}
+          </ul>
         </div>
       </Container>
 

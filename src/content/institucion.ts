@@ -136,6 +136,12 @@ export const campus = {
   terreno: "10,96 hectáreas",
 };
 
+/** Áreas de trabajo del Centro de Innovación (reseña de la dirección, en «Espíritu Fenner»). */
+export const centroInnovacion = {
+  areas: ["Robótica", "Internet de las cosas (IoT)", "Electromovilidad", "Impresión 3D", "Inteligencia artificial"],
+  enfoque: "Industria 4.0",
+};
+
 /** Quienes han dirigido el liceo (FUENTE_RESENA y comunidad educativa). */
 export const liderazgo: {
   nombre: string;
