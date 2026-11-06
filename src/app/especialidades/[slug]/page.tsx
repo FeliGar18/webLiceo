@@ -176,6 +176,9 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
       <div className="mt-6">
         <ListaContenido contenido={especialidad.perfilEgreso} color={color} />
       </div>
+      {especialidad.perfilFuente && especialidad.perfilEgreso.estado === "validado" ? (
+        <p className="mt-6 text-small text-muted">Fuente: {especialidad.perfilFuente}.</p>
+      ) : null}
     </section>
   );
 
@@ -334,7 +337,7 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
         </Container>
       ) : null}
 
-      {/* Lo que falta publicar */}
+      {/* Competencias y actividades prácticas */}
       <Container className="mt-[var(--section-gap)] grid gap-6 lg:grid-cols-2">
         <section aria-labelledby="competencias" className="flex gap-5">
           <Icono color={color}>
@@ -347,6 +350,9 @@ export default async function EspecialidadPage({ params }: PageProps<"/especiali
             <div className="mt-4">
               <ListaContenido contenido={especialidad.competencias} color={color} />
             </div>
+            {especialidad.perfilFuente && especialidad.competencias.estado === "validado" ? (
+              <p className="mt-4 text-small text-muted">Fuente: {especialidad.perfilFuente}.</p>
+            ) : null}
           </div>
         </section>
         <section aria-labelledby="actividades" className="flex gap-5">

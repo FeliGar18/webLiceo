@@ -12,8 +12,11 @@ import { imagenProvisional } from "./imagenes";
  * Entregado por el liceo (octubre de 2026), para las cinco especialidades:
  * - Descripción, áreas de aprendizaje, campo laboral e infraestructura.
  *
+ * Perfil profesional de SNA Educa (entregado por el liceo, noviembre de 2026):
+ * - Perfil de egreso (competencia general y puestos de trabajo) y competencias.
+ *
  * Pendiente (no se publica sin información oficial):
- * - Competencias, perfil de egreso y actividades prácticas.
+ * - Actividades prácticas.
  *   Para completarlos, cambie `pendiente(...)` por `{ estado: "validado", valor: [...] }`.
  */
 
@@ -25,6 +28,8 @@ const NOTA_COMPETENCIAS = "Competencias pendientes de validación por la jefatur
 const NOTA_ACTIVIDADES = "Actividades prácticas y de taller pendientes de validación.";
 const NOTA_CAMPO = "Campo laboral pendiente de validación por la jefatura de especialidad.";
 const NOTA_AREA = "Descripción del área formativa pendiente de validación.";
+
+const FUENTE_PERFIL = "Perfil profesional de la especialidad, SNA Educa";
 
 const REX_2023 = "Rex. N° 1549 del 20 de marzo de 2023";
 
@@ -42,6 +47,29 @@ export const especialidades: Especialidad[] = [
   {
     ...base,
     slug: "edificacion",
+    // Perfil de egreso y competencias: perfil profesional de SNA Educa (entregado por el liceo, noviembre de 2026).
+    perfilEgreso: {
+      estado: "validado",
+      valor: [
+        "Programa y ejecuta obras constructivas y trabajos de su especialidad, operando los procesos a su cargo desde un enfoque de mejora continua y de acuerdo a estándares éticos, técnicos, medioambientales, normativos y de seguridad vigentes en el país y en el mundo.",
+        "Puede trabajar en empresas constructoras, mineras, plantas de prefabricado, laboratorios de suelo y de hormigón y servicios públicos, como trabajador dependiente, de forma independiente en obras pequeñas, como microempresario, contratista de pequeñas obras o dibujante técnico.",
+      ],
+    },
+    competencias: {
+      estado: "validado",
+      valor: [
+        "Ejecuta procedimientos de gestión administrativa, servicio y ventas para pequeñas obras constructivas y trabajos de especialidad.",
+        "Interpreta planos de obras y detalles constructivos, contextualizando las normativas y estándares vigentes.",
+        "Ejecuta trazado, replanteo y excavación de fundaciones de obras de edificación.",
+        "Fabrica hormigón, fundaciones, bases de radier y radieres de hormigón.",
+        "Ejecuta obra gruesa de albañilería.",
+        "Ejecuta obra gruesa en carpintería.",
+        "Arma obra gruesa con módulos prefabricados.",
+        "Instala y aplica revestimientos interiores y exteriores.",
+        "Aplica la normativa eléctrica.",
+      ],
+    },
+    perfilFuente: FUENTE_PERFIL,
     nombre: "Construcción, mención Edificación",
     nombreCorto: "Edificación",
     emblema: "casa",
@@ -114,6 +142,24 @@ export const especialidades: Especialidad[] = [
   {
     ...base,
     slug: "electricidad",
+    // Perfil de egreso y competencias: perfil profesional de SNA Educa (entregado por el liceo, noviembre de 2026).
+    perfilEgreso: {
+      estado: "validado",
+      valor: [
+        "Instala, opera, controla y mantiene sistemas eléctricos domiciliarios, industriales, comerciales y de iluminación que emplean energía eléctrica de media y baja tensión, cumpliendo las normativas legales, de seguridad y de calidad vigentes.",
+        "Puede trabajar como técnico eléctrico, instalador eléctrico, operador de equipos y maquinarias o vendedor técnico, en empresas agroindustriales, mineras, manufactureras, de mantención electromecánica y de generación y distribución de electricidad.",
+      ],
+    },
+    competencias: {
+      estado: "validado",
+      valor: [
+        "Monta, instala y desmonta componentes en redes de distribución, dispositivos, máquinas y equipos eléctricos.",
+        "Controla máquinas y sistemas eléctricos con dispositivos manuales, semiautomáticos y automáticos.",
+        "Opera, programa y mantiene dispositivos, máquinas y equipos eléctricos.",
+        "Efectúa labores administrativas, de servicio y de venta, aplicando técnicas de calidad.",
+      ],
+    },
+    perfilFuente: FUENTE_PERFIL,
     nombre: "Electricidad",
     nombreCorto: "Electricidad",
     emblema: "rayo",
@@ -194,6 +240,24 @@ export const especialidades: Especialidad[] = [
   {
     ...base,
     slug: "mecanica-automotriz",
+    // Perfil de egreso y competencias: perfil profesional de SNA Educa (entregado por el liceo, noviembre de 2026).
+    perfilEgreso: {
+      estado: "validado",
+      valor: [
+        "Diagnostica y mantiene motores mecánicos y electrónicos y sus sistemas auxiliares, y reemplaza sistemas y componentes de vehículos automotrices, maquinaria agrícola y pesada, de acuerdo a estándares éticos, técnicos, medioambientales y de seguridad propios de la especialidad.",
+        "Puede trabajar como mecánico de mantención en servicios técnicos, operador de maquinaria agrícola e industrial, mecánico a bordo en el sector naval y pesquero, mecánico de flota o vendedor de repuestos, equipos y vehículos, en talleres, plantas de revisión técnica, empresas mineras, constructoras, de transporte y pesqueras.",
+      ],
+    },
+    competencias: {
+      estado: "validado",
+      valor: [
+        "Diagnostica, mantiene y reemplaza componentes de sistemas eléctricos y electrónicos de vehículos automotrices y maquinaria agrícola y pesada.",
+        "Diagnostica, mantiene y reemplaza componentes de la planta motriz y del tren de rodado, según procedimientos y especificaciones del fabricante.",
+        "Diagnostica, mantiene y reemplaza componentes de sistemas hidráulicos y neumáticos, según especificaciones del fabricante y la normativa vigente.",
+        "Planifica y ejecuta la prestación de servicios de calidad, de acuerdo a estándares éticos, técnicos, medioambientales y de seguridad.",
+      ],
+    },
+    perfilFuente: FUENTE_PERFIL,
     nombre: "Mecánica Automotriz",
     nombreCorto: "Mecánica Automotriz",
     emblema: "engranaje",
@@ -266,6 +330,23 @@ export const especialidades: Especialidad[] = [
   {
     ...base,
     slug: "construcciones-metalicas",
+    // Perfil de egreso y competencias: perfil profesional de SNA Educa (entregado por el liceo, noviembre de 2026).
+    perfilEgreso: {
+      estado: "validado",
+      valor: [
+        "Fabrica, traza y repara estructuras metálicas y elementos decorativos en chapas, perfiles y tubos de acero, y suelda y monta tuberías y estructuras metálicas, aplicando las normas de calidad y seguridad establecidas.",
+        "Puede trabajar como montador de tuberías, montador de estructuras metálicas, carpintero metálico, soldador o calderero, en talleres metalmecánicos, empresas constructoras y mineras, y en los rubros naviero, de la construcción y la agroindustria.",
+      ],
+    },
+    competencias: {
+      estado: "validado",
+      valor: [
+        "Fabrica y repara piezas de construcciones metálicas.",
+        "Suelda piezas de construcciones metálicas.",
+        "Monta elementos y subconjuntos de construcciones metálicas.",
+      ],
+    },
+    perfilFuente: FUENTE_PERFIL,
     nombre: "Construcciones Metálicas",
     nombreCorto: "Construcciones Metálicas",
     emblema: "grua",
@@ -343,6 +424,27 @@ export const especialidades: Especialidad[] = [
   {
     ...base,
     slug: "instalaciones-sanitarias",
+    // Perfil de egreso y competencias: perfil profesional de SNA Educa (entregado por el liceo, noviembre de 2026).
+    perfilEgreso: {
+      estado: "validado",
+      valor: [
+        "Instala y mantiene redes de agua, gas, alcantarillado y energía, de máxima eficiencia, y sus componentes, operando los procesos a su cargo desde un enfoque de mejora continua y de acuerdo a estándares éticos, técnicos, normativos y de seguridad vigentes en el país y en el mundo.",
+        "Puede trabajar en empresas constructoras, agroindustria, pisciculturas, industria lechera, plantas de tratamiento de aguas, empresas de gas y de calefacción y servicios públicos, como trabajador dependiente o independiente, microempresario, contratista o subcontratista de proyectos de agua potable, gas, alcantarillado y calefacción.",
+      ],
+    },
+    competencias: {
+      estado: "validado",
+      valor: [
+        "Construye instalaciones de la especialidad según planos y normativa vigente.",
+        "Instala y mantiene redes de agua y sus componentes.",
+        "Instala y mantiene redes de alcantarillado y sus componentes.",
+        "Instala y mantiene redes y artefactos de gas y sus componentes.",
+        "Instala y mantiene instalaciones térmicas (combustión, eólica, solar y mixtas).",
+        "Capta, trata y evacua aguas en procesos productivos de la pequeña y mediana industria.",
+        "Aplica procesos de administración y técnicas de calidad en servicios y ventas.",
+      ],
+    },
+    perfilFuente: FUENTE_PERFIL,
     nombre: "Instalaciones Sanitarias",
     nombreCorto: "Instalaciones Sanitarias",
     emblema: "llave",

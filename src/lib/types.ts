@@ -70,6 +70,8 @@ export type Especialidad = {
   areaFormativa: Contenido<string[]>;
   competencias: Contenido<string[]>;
   perfilEgreso: Contenido<string[]>;
+  /** Documento del que salen el perfil de egreso y las competencias. */
+  perfilFuente?: string;
   actividadesPracticas: Contenido<string[]>;
   campoLaboral: Contenido<string[]>;
   galeria: Imagen[];
