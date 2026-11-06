@@ -55,7 +55,7 @@ src/
     especialidades/       Índice y [slug] con el detalle de cada especialidad
     noticias/             Listado y [slug] con el detalle
     admision/  documentos/  proyectos/  contacto/  privacidad/  creditos/
-    sitemap.ts robots.ts manifest.ts opengraph-image.tsx icon.tsx
+    sitemap.ts robots.ts manifest.ts opengraph-image.tsx icon.png apple-icon.png
   components/
     layout/               Encabezado (menú y menú móvil) y pie de página
     ui/                   Piezas reutilizables (Container, Foto, Emblema, Pendiente…)
