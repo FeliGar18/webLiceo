@@ -8,12 +8,12 @@ import { crearMetadata } from "@/lib/seo";
 export const metadata = crearMetadata({
   titulo: "Política de privacidad",
   descripcion:
-    "Cómo el sitio del Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi trata los datos personales, conforme a la Ley N° 19.628.",
+    "Cómo el sitio del Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi trata los datos personales, conforme a la Ley N° 19.628 y a la Ley N° 21.719.",
   ruta: "/privacidad",
 });
 
 /** Fecha de la última revisión de este texto. Actualícela al modificarlo. */
-const ULTIMA_ACTUALIZACION = "octubre de 2026";
+const ULTIMA_ACTUALIZACION = "noviembre de 2026";
 
 const CORREO_DIRECCION =
   institucion.correos.find((c) => c.etiqueta === "Dirección")?.valor ?? "i.launion.direccion@snaeduca.cl";
@@ -22,8 +22,10 @@ const indice = [
   { id: "responsable", titulo: "Quién es responsable" },
   { id: "datos", titulo: "Qué datos recoge el sitio" },
   { id: "uso", titulo: "Para qué se usan" },
+  { id: "fundamento", titulo: "Con qué fundamento" },
   { id: "terceros", titulo: "Con quién se comparten" },
   { id: "conservacion", titulo: "Cuánto tiempo se conservan" },
+  { id: "seguridad", titulo: "Cómo se protegen" },
   { id: "enlaces", titulo: "Enlaces a otros sitios" },
   { id: "menores", titulo: "Menores de edad e imágenes" },
   { id: "derechos", titulo: "Sus derechos" },
@@ -64,9 +66,9 @@ export default function PrivacidadPage() {
 
           <div className="prose-liceo mt-10 [&>h2:first-child]:mt-0">
             <p>
-              Este sitio pertenece al {institucion.nombreOficial}. Trata los datos personales de acuerdo con la Ley N°
-              19.628 sobre protección de la vida privada. La Ley N° 21.719, que reforma esa normativa, entra en vigencia de
-              forma diferida; esta política se ajustará a ella cuando corresponda.
+              Este sitio pertenece al {institucion.nombreOficial}. Trata los datos personales de acuerdo con la normativa
+              chilena de protección de datos: la Ley N° 19.628 sobre protección de la vida privada y, desde su entrada en
+              vigencia, la Ley N° 21.719, que la reforma y crea la Agencia de Protección de Datos Personales.
             </p>
             <p>
               El liceo atiende a estudiantes menores de edad. Por eso este sitio recoge la menor cantidad de datos posible.
@@ -114,10 +116,18 @@ export default function PrivacidadPage() {
               agregan a listas de difusión.
             </p>
 
+            <h2 id="fundamento">Con qué fundamento</h2>
+            <p>
+              El liceo trata los datos del formulario porque usted lo autoriza al enviarlo: el formulario pide marcar
+              expresamente esa autorización. Puede retirarla en cualquier momento escribiendo a la dirección del liceo; eso
+              no afecta el uso que ya se hizo para responderle.
+            </p>
+
             <h2 id="terceros">Con quién se comparten</h2>
             <p>
               Al enviar el formulario, su mensaje se remite por correo electrónico al liceo a través de Resend, un
-              proveedor de envío de correos que actúa por encargo del liceo y puede procesar los datos fuera de Chile. El
+              proveedor de envío de correos que actúa por encargo del liceo. El sitio está alojado en Vercel, que puede
+              registrar los datos técnicos de las visitas. Ambos proveedores pueden procesar los datos fuera de Chile. El
               liceo no vende ni cede sus datos a terceros.
             </p>
 
@@ -125,6 +135,13 @@ export default function PrivacidadPage() {
             <p>
               El sitio no guarda una base de datos de mensajes. Su consulta queda en el correo electrónico del liceo
               durante el tiempo necesario para atenderla.
+            </p>
+
+            <h2 id="seguridad">Cómo se protegen</h2>
+            <p>
+              El sitio funciona solo con conexión cifrada (HTTPS). Los datos del formulario se validan y se envían desde el
+              servidor, sin guardarse en el sitio, y las claves de los servicios que usa nunca llegan al navegador. El
+              sitio no tiene cuentas de usuario ni contraseñas de visitantes.
             </p>
 
             <h2 id="enlaces">Enlaces a otros sitios</h2>
@@ -139,8 +156,9 @@ export default function PrivacidadPage() {
               privacidad.
             </p>
             <p>
-              Cuando la página de inicio muestra publicaciones del liceo en Facebook, el sitio las obtiene desde su propio
-              servidor: su navegador no se conecta con Facebook para verlas.
+              Cuando el sitio muestra publicaciones del liceo en Facebook, en la portada y en Noticias, las obtiene desde
+              su propio servidor: su navegador no se conecta con Facebook para verlas. Al abrir una publicación, usted pasa
+              a Facebook.
             </p>
 
             <h2 id="menores">Menores de edad e imágenes</h2>
@@ -174,13 +192,26 @@ export default function PrivacidadPage() {
               <li>
                 <span aria-hidden className="bullet text-accent" />
                 <span>
-                  <strong>Cancelación:</strong> pedir que se eliminen.
+                  <strong>Supresión:</strong> pedir que se eliminen.
                 </span>
               </li>
               <li>
                 <span aria-hidden className="bullet text-accent" />
                 <span>
                   <strong>Oposición:</strong> oponerse a un uso determinado.
+                </span>
+              </li>
+              <li>
+                <span aria-hidden className="bullet text-accent" />
+                <span>
+                  <strong>Portabilidad:</strong> recibir sus datos en un formato electrónico de uso común.
+                </span>
+              </li>
+              <li>
+                <span aria-hidden className="bullet text-accent" />
+                <span>
+                  <strong>Bloqueo:</strong> pedir que se suspenda temporalmente el uso de sus datos mientras se resuelve una
+                  solicitud de rectificación, supresión u oposición.
                 </span>
               </li>
             </ul>
@@ -190,6 +221,12 @@ export default function PrivacidadPage() {
                 {CORREO_DIRECCION}
               </a>{" "}
               indicando su nombre y su solicitud. Si escribe en nombre de un estudiante, indique que es su apoderado.
+            </p>
+            <p>
+              El liceo acusará recibo y responderá dentro de 30 días corridos, plazo que puede extenderse una vez por otros
+              30 días. Si no recibe respuesta a tiempo o no está de acuerdo con ella, puede reclamar ante la Agencia de
+              Protección de Datos Personales, una vez vigente la Ley N° 21.719; antes de eso, ante los tribunales, según
+              la Ley N° 19.628.
             </p>
 
             <h2 id="cambios">Cambios a esta política</h2>
