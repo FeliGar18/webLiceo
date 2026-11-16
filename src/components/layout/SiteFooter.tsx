@@ -7,6 +7,12 @@ import { navegacionPie } from "@/content/navegacion";
 import { Container } from "@/components/ui/Container";
 
 /**
+ * Año del aviso de derechos. Fijo y no `new Date()`: el pie se prerenderiza y
+ * leer la hora actual lo volvería dinámico. Actualícelo cada año.
+ */
+const ANIO_COPYRIGHT = 2026;
+
+/**
  * Cierre del sitio: la insignia oficial con el nombre completo, las dos
  * acciones principales y una franja con los colores de las cinco
  * especialidades (los emblemas de la insignia).
@@ -151,12 +157,12 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 text-small text-[#c9c3c6] sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {institucion.nombreOficial}.{" "}
-            <Link href="/creditos" className="text-[#e4dfe2]">
-              Créditos de imágenes
-            </Link>
-          </p>
+          <div className="space-y-1">
+            <p>
+              © {ANIO_COPYRIGHT} {institucion.nombreOficial}. Todos los derechos reservados.
+            </p>
+            <p>Logotipos, insignia y fotografías del liceo no pueden reutilizarse sin autorización.</p>
+          </div>
           <div className="flex flex-wrap gap-3 self-start sm:self-auto">
             {institucion.accesoFis ? (
               <a href={institucion.accesoFis} target="_blank" rel="noopener noreferrer" className="btn btn-oro">
