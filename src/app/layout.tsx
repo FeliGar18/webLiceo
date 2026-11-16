@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Schibsted_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { ViewTransition } from "react";
 import { Movimiento } from "@/components/layout/Movimiento";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -9,10 +9,16 @@ import { jsonLdInstitucion, serializarJsonLd } from "@/lib/seo";
 import "./globals.css";
 import "./motion.css";
 
-const schibsted = Schibsted_Grotesk({
+/*
+ * Schibsted Grotesk (SIL Open Font License, ver fuentes/OFL.txt), alojada en
+ * el propio proyecto: el build no descarga nada de Google Fonts, cuya descarga
+ * fallaba a veces en Vercel. Es una fuente variable: un archivo cubre los pesos
+ * 400 a 800, con el subconjunto latino (incluye tildes, ñ, ¿, ¡ y «»).
+ */
+const schibsted = localFont({
+  src: "./fuentes/SchibstedGrotesk-latin.woff2",
   variable: "--font-schibsted",
-  subsets: ["latin"],
-  weight: ["400", "600", "800"],
+  weight: "400 800",
   display: "swap",
 });
 
